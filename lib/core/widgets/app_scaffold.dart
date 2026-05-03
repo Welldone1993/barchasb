@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class AppScaffold extends StatelessWidget {
-  final String title;
+  final String? title;
   final Widget body;
   final bool showBack;
 
   const AppScaffold({
     super.key,
-    required this.title,
+    this.title,
     required this.body,
     this.showBack = true,
   });
@@ -16,18 +16,16 @@ class AppScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(title ?? ''),
         leading: showBack
-            ? IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
-        )
+            ? IconButton.outlined(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () => Navigator.of(context).pop(),
+                color: Theme.of(context).colorScheme.onSecondary,
+              )
             : null,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: body,
-      ),
+      body: Padding(padding: const EdgeInsets.all(16.0), child: body),
     );
   }
 }

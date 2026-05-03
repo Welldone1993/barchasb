@@ -1,9 +1,13 @@
+import 'user_entity.dart';
+
 class LoginEntity {
+  final String message;
+  final UserEntity user;
   final String token;
-  final String name;
 
   const LoginEntity({
     required this.token,
-    required this.name,
+    required this.user,
+    required this.message,
   });
 }

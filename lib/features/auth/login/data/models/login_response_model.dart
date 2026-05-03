@@ -1,15 +1,21 @@
-import '../../domain/entities/login_entity.dart';
+import 'user_model.dart';
 
-class LoginResponseModel extends LoginEntity {
-  const LoginResponseModel({
-    required super.token,
-    required super.name,
+class LoginResponseModel {
+  final String message;
+  final UserModel user;
+  final String token;
+
+  LoginResponseModel({
+    required this.message,
+    required this.user,
+    required this.token,
   });
 
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) {
     return LoginResponseModel(
-      token: json['token'] ?? '',
-      name: json['name'] ?? '',
+      message: json['message'],
+      user: UserModel.fromJson(json['user']),
+      token: json['token'],
     );
   }
 }

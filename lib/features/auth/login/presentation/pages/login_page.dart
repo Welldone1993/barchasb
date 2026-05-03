@@ -21,8 +21,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     final auth = ref.watch(authProvider);
 
     return AppScaffold(
-      title: 'ورود',
-      body: Column(
+       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           AppTextField(
