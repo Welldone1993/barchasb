@@ -20,7 +20,6 @@ class BarchasbApp extends ConsumerWidget {
       routerConfig: AppRouter.router,
       title: 'Barchasb App',
       theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
       themeMode: themeMode,
     );
   }

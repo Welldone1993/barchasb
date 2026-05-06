@@ -1,46 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../core/widgets/app_back_button.dart';
+import '../../../../core/widgets/app_text_field.dart';
+import '../../../../core/widgets/app_elevated_button.dart';
+import '../../../../core/widgets/app_text_button.dart';
 
 class LoginPage extends ConsumerWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // رنگ‌های استفاده شده در طراحی
-    const Color primaryDarkBlue = Color(0xFF1A3B5C);
-    const Color lightBlueBackground = Color(0xFFE8EFFF);
-    const Color pageBackgroundColor = Color(0xFFF3F4F6);
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     return Scaffold(
-      backgroundColor: pageBackgroundColor,
       body: SafeArea(
         child: Directionality(
-          textDirection: TextDirection.rtl, // راست‌چین کردن کل صفحه
+          textDirection: TextDirection.rtl,
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // دکمه بازگشت (بالا سمت چپ)
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_circle_left_outlined,
-                      color: primaryDarkBlue,
-                      size: 36,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                  child: AppBackButton(
+                    onPressed: () => context.pop(),
                   ),
                 ),
                 const SizedBox(height: 20),
 
-                // کانتینر اصلی (کارت سفید و آبی)
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: colorScheme.surface,
                     borderRadius: BorderRadius.circular(24),
                     boxShadow: [
                       BoxShadow(
@@ -52,89 +45,48 @@ class LoginPage extends ConsumerWidget {
                   ),
                   child: Column(
                     children: [
-                      // بخش بالایی (سفید - فرم ورود)
                       Padding(
                         padding: const EdgeInsets.all(24.0),
                         child: Column(
                           children: [
-                            const Text(
+                            Text(
                               'ورود',
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold,
-                                color: primaryDarkBlue,
-                              ),
+                              style: theme.textTheme.displayMedium,
                             ),
                             const SizedBox(height: 30),
 
-                            // فیلد شماره موبایل
-                            _buildTextField(
-                              hintText: '09966698861',
+                            AppTextField(
+                              hintText: 'شماره موبایل',
                               icon: Icons.phone,
-                              backgroundColor: lightBlueBackground,
-                              iconColor: primaryDarkBlue,
+                              isNumber: true,
                             ),
                             const SizedBox(height: 16),
 
-                            // فیلد رمز عبور
-                            _buildTextField(
-                              hintText: '........',
+                            AppTextField(
+                              hintText: 'رمز عبور',
                               icon: Icons.lock,
                               isPassword: true,
-                              backgroundColor: lightBlueBackground,
-                              iconColor: primaryDarkBlue,
                             ),
                             const SizedBox(height: 24),
 
-                            // دکمه ورود
-                            SizedBox(
-                              width: double.infinity,
-                              height: 55,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  // TODO: فراخوانی متد لاگین از طریق ref.read
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: primaryDarkBlue,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                ),
-                                child: const Text(
-                                  'ورود',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
+                            AppElevatedButton(
+                              onPressed: () {
+                                // TODO: Login logic
+                              },
+                              text: 'ورود',
                             ),
                             const SizedBox(height: 16),
 
-                            // لینک‌های ثبت نام و فراموشی رمز
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                TextButton(
-                                  onPressed: () {},
-                                  child: const Text(
-                                    'ثبت نام',
-                                    style: TextStyle(
-                                      color: primaryDarkBlue,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
+                                AppTextButton(
+                                  onPressed: () => context.push('/register'),
+                                  text: 'ثبت نام',
                                 ),
-                                TextButton(
+                                AppTextButton(
                                   onPressed: () {},
-                                  child: const Text(
-                                    'فراموشی رمز عبور',
-                                    style: TextStyle(
-                                      color: primaryDarkBlue,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
+                                  text: 'فراموشی رمز عبور',
                                 ),
                               ],
                             ),
@@ -142,23 +94,20 @@ class LoginPage extends ConsumerWidget {
                         ),
                       ),
 
-                      // بخش پایینی (آبی تیره - لوگو)
                       Container(
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(vertical: 40),
-                        decoration: const BoxDecoration(
-                          color: primaryDarkBlue,
-                          borderRadius: BorderRadius.only(
+                        decoration: BoxDecoration(
+                          color: colorScheme.primary,
+                          borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(24),
                             bottomRight: Radius.circular(24),
                           ),
                         ),
                         child: Center(
-                          // به جای این آیکون، تصویر لوگوی خود را قرار دهید:
-                          // Image.asset('assets/images/logo.png', height: 100)
                           child: Icon(
-                            Icons.sticky_note_2, // آیکون جایگزین موقت
-                            color: Colors.lightBlue.shade400,
+                            Icons.sticky_note_2,
+                            color: colorScheme.secondary,
                             size: 80,
                           ),
                         ),
@@ -169,33 +118,6 @@ class LoginPage extends ConsumerWidget {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  // ویجت کمکی برای ساخت تکست‌فیلدها (می‌توانید بعدا آن را به پوشه widgets منتقل کنید)
-  Widget _buildTextField({
-    required String hintText,
-    required IconData icon,
-    required Color backgroundColor,
-    required Color iconColor,
-    bool isPassword = false,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.withOpacity(0.2)),
-      ),
-      child: TextField(
-        obscureText: isPassword,
-        textAlign: TextAlign.center,
-        decoration: InputDecoration(
-          hintText: hintText,
-          border: InputBorder.none,
-          prefixIcon: Icon(icon, color: iconColor),
-          contentPadding: const EdgeInsets.symmetric(vertical: 16),
         ),
       ),
     );

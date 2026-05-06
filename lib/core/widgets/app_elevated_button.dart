@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 
 class AppElevatedButton extends StatelessWidget {
+  final VoidCallback? onPressed;
   final String text;
-  final VoidCallback onPressed;
+  final bool isLoading;
 
   const AppElevatedButton({
     super.key,
-    required this.text,
     required this.onPressed,
+    required this.text,
+    this.isLoading = false,
   });
 
   @override
-  Widget build(BuildContext context) => ElevatedButton(
-    onPressed: onPressed,
-    style: ElevatedButton.styleFrom(
-      minimumSize: const Size(double.infinity, 48),
-    ),
-    child: Text(text),
-  );
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: isLoading ? null : onPressed,
+      child: isLoading
+          ? const CircularProgressIndicator(color: Colors.white)
+          : Text(text),
+    );
+  }
 }

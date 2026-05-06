@@ -207,7 +207,7 @@ packages:
     source: hosted
     version: "0.3.3"
   flutter_localizations:
-    dependency: transitive
+    dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -573,6 +573,14 @@ packages:
       url: "https://pub.tarazerp.ir"
     source: hosted
     version: "2.3.0"
+  persian_datetime_picker:
+    dependency: "direct main"
+    description:
+      name: persian_datetime_picker
+      sha256: "803bb086bce952cb4f35b9df89bd5e8209e89bb5bd7be69e1d6bbbed495d1102"
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "3.2.0"
   platform:
     dependency: transitive
     description:
@@ -613,6 +621,14 @@ packages:
       url: "https://pub.tarazerp.ir"
     source: hosted
     version: "3.1.0"
+  shamsi_date:
+    dependency: transitive
+    description:
+      name: shamsi_date
+      sha256: "96ee24409426b3e39badefb0d2e9a833d640391ccf714368bfce18ec48b01294"
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "1.1.1"
   shared_preferences:
     dependency: "direct main"
     description:

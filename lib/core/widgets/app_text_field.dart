@@ -1,33 +1,42 @@
 import 'package:flutter/material.dart';
 
 class AppTextField extends StatelessWidget {
-  final TextEditingController controller;
-  final String label;
-  final bool obscureText;
-  final IconData? icon;
-  final TextInputType keyboardType;
+  final TextEditingController? controller;
+  final String hintText;
+  final IconData icon;
+  final bool isPassword;
+  final bool isNumber;
+  final bool readOnly;
+  final VoidCallback? onTap;
+  final String? Function(String?)? validator;
 
   const AppTextField({
     super.key,
-    required this.controller,
-    required this.label,
-    this.obscureText = false,
-    this.icon,
-    this.keyboardType = TextInputType.text,
+    this.controller,
+    required this.hintText,
+    required this.icon,
+    this.isPassword = false,
+    this.isNumber = false,
+    this.readOnly = false,
+    this.onTap,
+    this.validator,
   });
 
   @override
-  Widget build(BuildContext context) => Directionality(
-    textDirection: TextDirection.rtl,
-    child: TextField(
+  Widget build(BuildContext context) {
+    return TextFormField(
       controller: controller,
-      obscureText: obscureText,
-      keyboardType: keyboardType,
+      obscureText: isPassword,
+      readOnly: readOnly,
+      onTap: onTap,
+      keyboardType: isNumber ? TextInputType.number : TextInputType.text,
+      textAlign: TextAlign.right,
+      textDirection: TextDirection.rtl,
+      validator: validator ?? (value) => (value == null || value.isEmpty) ? 'لطفا $hintText را وارد کنید' : null,
       decoration: InputDecoration(
-        labelText: label,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-        icon: Icon(icon),
+        hintText: hintText,
+        prefixIcon: Icon(icon), // آیکون در تم گلوبال استایل‌دهی شده
       ),
-    ),
-  );
+    );
+  }
 }

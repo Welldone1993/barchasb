@@ -10,5 +10,5 @@ final themeModeProvider = StateProvider<ThemeMode>((ref) {
 final themeProvider = Provider<ThemeData>((ref) {
   final mode = ref.watch(themeModeProvider);
 
-  return mode == ThemeMode.light ? AppTheme.lightTheme : AppTheme.darkTheme;
+  return AppTheme.lightTheme;
 });

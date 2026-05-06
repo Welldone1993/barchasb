@@ -1,149 +1,122 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  // تم دارک شما (برای ارجاع)
-  static ThemeData get darkTheme => ThemeData(
+  // Define constant colors for better reusability and consistency
+  static const Color _primaryColor = Color(0xFF1A3B5C);
+  static const Color _scaffoldBackgroundColor = Color(0xFFF3F4F6);
+  static const Color _surfaceColor = Colors.white;
+  static const Color _inputFillColor = Color(0xFFE8EFFF);
+  static const Color _textColorOnPrimary = Colors.white;
+  static const Color _textColorOnSurface = _primaryColor;
+  static const Color _iconColor = _primaryColor;
+  static const Color _hintColor = Colors.grey;
+
+  /// Light Theme Configuration based on the provided UI images.
+  static ThemeData get lightTheme => ThemeData(
+    useMaterial3: true,
     fontFamily: 'IranSans',
-    scaffoldBackgroundColor: const Color(0xFF121212),
-    colorScheme: const ColorScheme.dark(
-      primary: Colors.deepOrange,
-      secondary: Colors.amber,
-      surface: Color(0xFF1A1A1A),
-      onSurface: Colors.white70,
+    // فونتی که مشخص کردید
+    scaffoldBackgroundColor: _scaffoldBackgroundColor,
+    brightness: Brightness.light,
+
+    colorScheme: const ColorScheme.light(
+      primary: _primaryColor,
+      onPrimary: _textColorOnPrimary,
+      secondary: Colors.lightBlue,
+      // به عنوان رنگ ثانویه مکمل انتخاب شده
+      onSecondary: _textColorOnPrimary,
+      surface: _surfaceColor,
+      onSurface: _textColorOnSurface,
+      background: _scaffoldBackgroundColor,
+      onBackground: _textColorOnSurface,
+      error: Colors.redAccent,
+      onError: Colors.white,
     ),
+
+    // --- Component Themes ---
     appBarTheme: const AppBarTheme(
-      backgroundColor: Color(0xFF1A1A1A),
-      titleTextStyle: TextStyle(
-        color: Colors.white,
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-      ),
-      elevation: 0,
+      backgroundColor: _surfaceColor,
+      elevation: 1,
       centerTitle: true,
-      iconTheme: IconThemeData(color: Colors.white),
-    ),
-    textTheme: const TextTheme(
-      headlineLarge: TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.bold,
-        color: Colors.white,
-      ),
-      headlineMedium: TextStyle(
+      titleTextStyle: TextStyle(
+        fontFamily: 'IranSans',
+        color: _textColorOnSurface,
         fontSize: 20,
-        fontWeight: FontWeight.w600,
-        color: Colors.white70,
+        fontWeight: FontWeight.bold,
       ),
-      bodyLarge: TextStyle(fontSize: 16, color: Colors.white),
-      bodyMedium: TextStyle(fontSize: 14, color: Colors.white70),
+      iconTheme: IconThemeData(color: _iconColor),
     ),
+
+    textTheme: const TextTheme(
+      // برای تیترهای بزرگ مثل "ورود"
+      displayMedium: TextStyle(
+        fontSize: 28,
+        fontWeight: FontWeight.bold,
+        color: _textColorOnSurface,
+      ),
+      // برای تیترهای کوچکتر
+      headlineMedium: TextStyle(
+        fontSize: 22,
+        fontWeight: FontWeight.w600,
+        color: _textColorOnSurface,
+      ),
+      // برای متن‌های اصلی بدنه
+      bodyLarge: TextStyle(fontSize: 16, color: Color(0xFF333333)),
+      bodyMedium: TextStyle(fontSize: 14, color: Color(0xFF555555)),
+      // استایل متن دکمه‌ها
+      labelLarge: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+        color: _textColorOnPrimary,
+      ),
+    ),
+
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: const Color(0xFF2D2D2D),
+      fillColor: _inputFillColor,
+      hintStyle: TextStyle(color: _hintColor, fontSize: 14),
+      prefixIconColor: _iconColor,
+      contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
       border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide.none, // بدون حاشیه در حالت عادی
+      ),
+      enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: BorderSide.none,
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Colors.deepOrange, width: 2),
+        // حاشیه با رنگ اصلی در حالت فوکوس برای بازخورد بهتر
+        borderSide: const BorderSide(color: _primaryColor, width: 1.5),
+      ),
+    ),
+
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: _primaryColor,
+        foregroundColor: _textColorOnPrimary,
+        minimumSize: const Size(double.infinity, 55),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        textStyle: const TextStyle(
+          fontFamily: 'IranSans',
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    ),
+
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        foregroundColor: _primaryColor,
+        textStyle: const TextStyle(
+          fontFamily: 'IranSans',
+          fontWeight: FontWeight.bold,
+        ),
       ),
     ),
   );
 
-  // تم لایت پیشنهادی
-  static ThemeData get lightTheme => ThemeData(
-    fontFamily: 'IranSans',
-    // فونت مورد نظر شما
-    scaffoldBackgroundColor: Color(0xFFEFEFEF),
-    // پس‌زمینه سفید تمیز
-    colorScheme: ColorScheme.light(
-      primary: Color(0xFF143A62),
-      // رنگ اصلی کمی روشن‌تر از دارک
-      onPrimary: Colors.white,
-      // متن روی رنگ اصلی
-      secondary: Colors.amber.shade400,
-      // رنگ ثانویه روشن
-      onSecondary: Colors.black87,
-      // متن روی رنگ ثانویه
-      surface: Colors.grey.shade200,
-      // رنگ سطح (مثل کارت‌ها)
-      onSurface: Colors.black87,
-      // متن روی رنگ سطح
-      background: Colors.white,
-      // رنگ پس‌زمینه کلی (برای Scaffold)
-      onBackground: Colors.black87,
-      // متن روی پس‌زمینه
-      error: Colors.red.shade700,
-      // رنگ خطا
-      onError: Colors.white, // متن روی رنگ خطا
-    ),
-    appBarTheme: AppBarTheme(
-      backgroundColor: Colors.white,
-      // پس‌زمینه سفید برای AppBar
-      titleTextStyle: TextStyle(
-        fontFamily: 'IranSans',
-        color: Colors.black87, // رنگ متن عنوان AppBar
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-      ),
-      elevation: 1,
-      // اضافه کردن سایه کم برای تفکیک بهتر
-      centerTitle: true,
-      iconTheme: IconThemeData(color: Colors.black87), // رنگ آیکون‌های AppBar
-    ),
-    textTheme: const TextTheme(
-      // تیترهای بزرگ با رنگ تیره خواناتر
-      headlineLarge: TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.bold,
-        color: Colors.black87,
-      ),
-      headlineMedium: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
-        color: Colors.black87,
-      ),
-      // متن‌های بدنه با رنگ تیره
-      bodyLarge: TextStyle(fontSize: 16, color: Colors.black87),
-      bodyMedium: TextStyle(fontSize: 14, color: Colors.black87),
-      // می‌توانید بقیه استایل‌های متن را هم اینجا اضافه یا ویرایش کنید
-    ),
-    inputDecorationTheme: InputDecorationTheme(
-      filled: true,
-      fillColor: Colors.white,
-      // رنگ پرکننده فیلدها کمی تیره‌تر از پس‌زمینه
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide.none,
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        // حاشیه نارنجی برای فیلد فوکوس شده، مشابه تم دارک
-        // borderSide: BorderSide(color: Colors.deepOrange.shade400, width: 2),
-      ),
-      hintStyle: TextStyle(color: Colors.grey.shade100),
-      // رنگ متن راهنما
-      labelStyle: TextStyle(color: Colors.black87), // رنگ لیبل فیلد
-    ),
-    // تنظیمات برای دکمه‌ها
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        // استفاده از رنگ اصلی تم برای پس‌زمینه دکمه
-        backgroundColor: Color(0xFF143A62),
-        foregroundColor: Colors.white, // متن سفید روی دکمه
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      ),
-    ),
-    outlinedButtonTheme: OutlinedButtonThemeData(
-      style: OutlinedButton.styleFrom(
-        foregroundColor: Colors.deepOrange.shade400,
-        // رنگ متن دکمه outline
-        side: BorderSide(color: Colors.deepOrange.shade400, width: 2),
-        // حاشیه دکمه
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      ),
-    ),
-  );
+  // می‌توانید تم دارک را هم اینجا اضافه کنید
+  // static ThemeData get darkTheme => ThemeData(...);
 }

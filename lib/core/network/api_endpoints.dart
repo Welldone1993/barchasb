@@ -4,4 +4,6 @@ class ApiEndpoints {
   // Auth
   /// user : 09966698861 - Password "Aa123456"
   static const String login = '/api/auth/login';
+  static const String register = '/api/auth/register';
+
 }
