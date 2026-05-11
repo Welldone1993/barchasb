@@ -41,6 +41,30 @@ packages:
       url: "https://pub.tarazerp.ir"
     source: hosted
     version: "2.1.2"
+  cached_network_image:
+    dependency: "direct main"
+    description:
+      name: cached_network_image
+      sha256: ec6d0cefc417945bf6586bfc89216d13f17e0e0c6f9c3068ba8720102b40bdd8
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "3.4.1"
+  cached_network_image_platform_interface:
+    dependency: transitive
+    description:
+      name: cached_network_image_platform_interface
+      sha256: "44f1d7afdd26406eaaf55762be844faa648b369529a3469b94864a3334167964"
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "4.1.1"
+  cached_network_image_web:
+    dependency: transitive
+    description:
+      name: cached_network_image_web
+      sha256: "1efdecdd91c9e49924506f019bb81ba70acaf4b5d13b31f7985e58bd3cf34a64"
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "1.3.1"
   characters:
     dependency: transitive
     description:
@@ -129,6 +153,14 @@ packages:
       url: "https://pub.tarazerp.ir"
     source: hosted
     version: "2.1.2"
+  equatable:
+    dependency: "direct main"
+    description:
+      name: equatable
+      sha256: "0916a0cd949f278edc49870d8898230ac33ca5677d90f8e2e4e91af2dad0de7e"
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "2.0.8"
   fake_async:
     dependency: transitive
     description:
@@ -185,11 +217,27 @@ packages:
       url: "https://pub.tarazerp.ir"
     source: hosted
     version: "0.9.3+5"
+  fixnum:
+    dependency: transitive
+    description:
+      name: fixnum
+      sha256: "6c15e1adca2bb3288a41b09e3dc4fb240a9ebcbff492f94e4d3450a438d84827"
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "1.1.1"
   flutter:
     dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_cache_manager:
+    dependency: transitive
+    description:
+      name: flutter_cache_manager
+      sha256: c11c78ea1b542c50808e7b150e5f6bf4df74f714ca8b1a9cbc86855259340e59
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "3.4.1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -509,6 +557,14 @@ packages:
       url: "https://pub.tarazerp.ir"
     source: hosted
     version: "2.0.2"
+  octo_image:
+    dependency: transitive
+    description:
+      name: octo_image
+      sha256: ca17a717b88a18212559d324e9ac97cad0ac4a1d33df703f7387c83161e0ff14
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "2.1.0"
   package_config:
     dependency: transitive
     description:
@@ -621,6 +677,14 @@ packages:
       url: "https://pub.tarazerp.ir"
     source: hosted
     version: "3.1.0"
+  rxdart:
+    dependency: transitive
+    description:
+      name: rxdart
+      sha256: "826d1a876ef3c6f4e72150a7082deab84104ef26a74921d0d735259b381ded3a"
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "0.28.0"
   shamsi_date:
     dependency: transitive
     description:
@@ -746,6 +810,46 @@ packages:
       url: "https://pub.tarazerp.ir"
     source: hosted
     version: "1.10.2"
+  sqflite:
+    dependency: transitive
+    description:
+      name: sqflite
+      sha256: "5401f4dccc3a570e3ef91ab1ff4aab8b823b03188995b305abbc7190e5a8569a"
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "2.4.2"
+  sqflite_android:
+    dependency: transitive
+    description:
+      name: sqflite_android
+      sha256: "86c0b395777df4f1bb1eaf4e94fd6869e1419c005d163a9030b6db80865fd6f9"
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "2.4.2+2"
+  sqflite_common:
+    dependency: transitive
+    description:
+      name: sqflite_common
+      sha256: "6ba36b4bd65f739747c9e1c8ab56ee7fa134e173b6c276c96b5f15de85aad194"
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "2.5.6"
+  sqflite_darwin:
+    dependency: transitive
+    description:
+      name: sqflite_darwin
+      sha256: "4012e14adb62857e2b22740ef1fdbc7b73752c68faf410dd0489046a58da4f6c"
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "2.4.2"
+  sqflite_platform_interface:
+    dependency: transitive
+    description:
+      name: sqflite_platform_interface
+      sha256: d03fbb6f47930a6397eba1304ef61190a2919b6f8f43f94a6f1ffe13a8697dfa
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "2.4.0"
   stack_trace:
     dependency: transitive
     description:
@@ -778,6 +882,14 @@ packages:
       url: "https://pub.tarazerp.ir"
     source: hosted
     version: "1.4.1"
+  synchronized:
+    dependency: transitive
+    description:
+      name: synchronized
+      sha256: "6ae936b1b38013ed81b7cff046e95b79baccd6f20f6ea76a9c431c98b018ce62"
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "3.4.0"
   term_glyph:
     dependency: transitive
     description:
@@ -826,6 +938,14 @@ packages:
       url: "https://pub.tarazerp.ir"
     source: hosted
     version: "2.3.1"
+  uuid:
+    dependency: transitive
+    description:
+      name: uuid
+      sha256: "1fef9e8e11e2991bb773070d4656b7bd5d850967a2456cfc83cf47925ba79489"
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "4.5.3"
   vector_math:
     dependency: transitive
     description:
