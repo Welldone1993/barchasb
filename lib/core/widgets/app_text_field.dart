@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String hintText;
-  final IconData icon;
+  final IconData? icon;
   final bool isPassword;
   final bool isNumber;
   final bool readOnly;
@@ -14,7 +14,7 @@ class AppTextField extends StatelessWidget {
     super.key,
     this.controller,
     required this.hintText,
-    required this.icon,
+    this.icon,
     this.isPassword = false,
     this.isNumber = false,
     this.readOnly = false,
@@ -32,7 +32,11 @@ class AppTextField extends StatelessWidget {
       keyboardType: isNumber ? TextInputType.number : TextInputType.text,
       textAlign: TextAlign.right,
       textDirection: TextDirection.rtl,
-      validator: validator ?? (value) => (value == null || value.isEmpty) ? 'لطفا $hintText را وارد کنید' : null,
+      validator:
+          validator ??
+          (value) => (value == null || value.isEmpty)
+              ? 'لطفا $hintText را وارد کنید'
+              : null,
       decoration: InputDecoration(
         hintText: hintText,
         prefixIcon: Icon(icon), // آیکون در تم گلوبال استایل‌دهی شده

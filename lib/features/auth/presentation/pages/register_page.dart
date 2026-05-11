@@ -9,6 +9,7 @@ import '../../../../core/widgets/app_elevated_button.dart';
 import '../../../../core/widgets/app_text_button.dart';
 import '../../domain/entities/register_entity.dart';
 import '../providers/auth_provider.dart';
+import '../widgets/security_verification_dialog.dart';
 
 enum Gender { male, female }
 
@@ -154,7 +155,18 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                           alignment: Alignment.centerLeft,
                           child: AppBackButton(onPressed: () => context.pop()),
                         ),
-                        Text('ثبت نام', style: theme.textTheme.displayMedium),
+                        AppTextButton(
+                          text: 'ثبت نام',
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context) => SecurityVerificationDialog(
+                                phoneNumber: _phoneCtrl.text,
+                              ),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),
