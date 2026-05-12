@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/network/dio_provider.dart';
 import '../../data/datasources/auth_remote_datasource.dart';
@@ -35,15 +37,22 @@ class AuthState {
 }
 
 class AuthNotifier extends StateNotifier<AuthState> {
-  final AuthRepositoryImpl repository;
+  final AuthRepositoryImpl _repository;
 
-  AuthNotifier(this.repository) : super(AuthState());
+  AuthNotifier(this._repository) : super(AuthState());
 
-  Future<void> login(String phone, String password) async {
+  Future<void> login(
+    BuildContext context,
+    String phone,
+    String password,
+  ) async {
     state = state.copyWith(isLoading: true, clearError: true);
     try {
-      final user = await repository.login(phone, password);
+      final user = await _repository.login(phone, password);
       state = state.copyWith(isLoading: false, user: user);
+      if (context.mounted) {
+        context.pushReplacement('/dashboard');
+      }
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());
     }
@@ -53,7 +62,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<void> register(RegisterEntity data) async {
     state = state.copyWith(isLoading: true, clearError: true);
     try {
-      final user = await repository.register(data);
+      final user = await _repository.register(data);
       state = state.copyWith(isLoading: false, registeredUser: user);
     } catch (e) {
       state = state.copyWith(isLoading: false, error: e.toString());

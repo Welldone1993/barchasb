@@ -6,21 +6,21 @@ import '../../domain/repositories/home_repository.dart';
 import '../datasources/home_remote_datasource.dart';
 
 class HomeRepositoryImpl implements HomeRepository {
-  final HomeRemoteDataSource remoteDataSource;
+  final HomeRemoteDataSource _remoteDataSource;
 
-  HomeRepositoryImpl(this.remoteDataSource);
+  HomeRepositoryImpl(this._remoteDataSource);
 
   @override
   Future<Either<Failure, List<AdEntity>>> getSellers() async =>
-      _repoCall(remoteDataSource.getSellers);
+      _repoCall(_remoteDataSource.getSellers);
 
   @override
   Future<Either<Failure, List<AdEntity>>> getEmployers() async =>
-      _repoCall(remoteDataSource.getEmployers);
+      _repoCall(_remoteDataSource.getEmployers);
 
   @override
   Future<Either<Failure, List<AdEntity>>> getJobSeekers() async =>
-      _repoCall(remoteDataSource.getJobSeekers);
+      _repoCall(_remoteDataSource.getJobSeekers);
 
   // یک تابع کمکی برای کاهش تکرار کد
   Future<Either<Failure, List<AdEntity>>> _repoCall(

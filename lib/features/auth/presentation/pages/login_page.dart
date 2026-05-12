@@ -74,6 +74,7 @@ class LoginPage extends ConsumerWidget {
                                 ref
                                     .read(authProvider.notifier)
                                     .login(
+                                      context,
                                       phonecontroller.text.trim(),
                                       passwordcontroller.text.trim(),
                                     );
