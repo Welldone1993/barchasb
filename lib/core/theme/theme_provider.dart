@@ -8,7 +8,5 @@ final themeModeProvider = StateProvider<ThemeMode>((ref) {
 });
 
 final themeProvider = Provider<ThemeData>((ref) {
-  final mode = ref.watch(themeModeProvider);
-
   return AppTheme.lightTheme;
 });

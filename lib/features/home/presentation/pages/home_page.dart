@@ -1,5 +1,4 @@
 // lib/features/home/presentation/pages/home_page.dart
-import 'package:barchasb/core/network/api_endpoints.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,16 +10,16 @@ import '../widgets/search_section.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
+
   Widget buildAdImage(String? url) {
     if (url == null || url.isEmpty) {
       return Image.asset('assets/images/placeholder.png'); // عکس پیش‌فرض
     }
 
     // اگر آدرس کامل نیست، Base URL را اضافه کن
-    final fullUrl = url.startsWith('http') ? url : '${ApiEndpoints.baseUrl}$url';
 
     return CachedNetworkImage(
-      imageUrl: fullUrl,
+      imageUrl: url,
       placeholder: (context, url) => Center(child: CircularProgressIndicator()),
       errorWidget: (context, url, error) => Icon(Icons.error),
       fit: BoxFit.cover,

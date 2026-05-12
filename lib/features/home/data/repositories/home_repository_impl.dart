@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:dio/dio.dart';
-import '../../../../core/error/failure.dart';
+import '../../../../core/utils/failure.dart';
 import '../../domain/entities/ad_entity.dart';
 import '../../domain/repositories/home_repository.dart';
 import '../datasources/home_remote_datasource.dart';

@@ -5,6 +5,7 @@ import '../../../../core/widgets/app_back_button.dart';
 import '../../../../core/widgets/app_text_field.dart';
 import '../../../../core/widgets/app_elevated_button.dart';
 import '../../../../core/widgets/app_text_button.dart';
+import '../providers/auth_provider.dart';
 
 class LoginPage extends ConsumerWidget {
   const LoginPage({super.key});
@@ -13,6 +14,8 @@ class LoginPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final TextEditingController phonecontroller = TextEditingController();
+    final TextEditingController passwordcontroller = TextEditingController();
 
     return Scaffold(
       body: SafeArea(
@@ -25,9 +28,7 @@ class LoginPage extends ConsumerWidget {
               children: [
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: AppBackButton(
-                    onPressed: () => context.pop(),
-                  ),
+                  child: AppBackButton(onPressed: () => context.pop()),
                 ),
                 const SizedBox(height: 20),
 
@@ -49,13 +50,11 @@ class LoginPage extends ConsumerWidget {
                         padding: const EdgeInsets.all(24.0),
                         child: Column(
                           children: [
-                            Text(
-                              'ورود',
-                              style: theme.textTheme.displayMedium,
-                            ),
+                            Text('ورود', style: theme.textTheme.displayMedium),
                             const SizedBox(height: 30),
 
                             AppTextField(
+                              controller: phonecontroller,
                               hintText: 'شماره موبایل',
                               icon: Icons.phone,
                               isNumber: true,
@@ -63,6 +62,7 @@ class LoginPage extends ConsumerWidget {
                             const SizedBox(height: 16),
 
                             AppTextField(
+                              controller: passwordcontroller,
                               hintText: 'رمز عبور',
                               icon: Icons.lock,
                               isPassword: true,
@@ -71,7 +71,12 @@ class LoginPage extends ConsumerWidget {
 
                             AppElevatedButton(
                               onPressed: () {
-                                // TODO: Login logic
+                                ref
+                                    .read(authProvider.notifier)
+                                    .login(
+                                      phonecontroller.text.trim(),
+                                      passwordcontroller.text.trim(),
+                                    );
                               },
                               text: 'ورود',
                             ),
@@ -93,7 +98,6 @@ class LoginPage extends ConsumerWidget {
                           ],
                         ),
                       ),
-
                       Container(
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(vertical: 40),

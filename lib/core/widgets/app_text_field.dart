@@ -23,24 +23,22 @@ class AppTextField extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      obscureText: isPassword,
-      readOnly: readOnly,
-      onTap: onTap,
-      keyboardType: isNumber ? TextInputType.number : TextInputType.text,
-      textAlign: TextAlign.right,
-      textDirection: TextDirection.rtl,
-      validator:
-          validator ??
-          (value) => (value == null || value.isEmpty)
-              ? 'لطفا $hintText را وارد کنید'
-              : null,
-      decoration: InputDecoration(
-        hintText: hintText,
-        prefixIcon: Icon(icon), // آیکون در تم گلوبال استایل‌دهی شده
-      ),
-    );
-  }
+  Widget build(BuildContext context) => TextFormField(
+    controller: controller,
+    obscureText: isPassword,
+    readOnly: readOnly,
+    onTap: onTap,
+    keyboardType: isNumber ? TextInputType.number : TextInputType.text,
+    textAlign: TextAlign.right,
+    textDirection: TextDirection.rtl,
+    validator:
+        validator ??
+        (value) => (value == null || value.isEmpty)
+            ? 'لطفا $hintText را وارد کنید'
+            : null,
+    decoration: InputDecoration(
+      hintText: hintText,
+      prefixIcon: Icon(icon), // آیکون در تم گلوبال استایل‌دهی شده
+    ),
+  );
 }

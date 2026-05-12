@@ -1,47 +1,39 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'api_endpoints.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'logging_interceptor.dart';
+
+final secureStorageProvider = Provider<FlutterSecureStorage>((ref) {
+  return const FlutterSecureStorage();
+});
 
 final dioProvider = Provider<Dio>((ref) {
-  final options = BaseOptions(
-    baseUrl: ApiEndpoints.baseUrl,
-    connectTimeout: const Duration(seconds: 15),
-    receiveTimeout: const Duration(seconds: 15),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  );
+  final storage = ref.watch(secureStorageProvider);
 
-  final dio = Dio(options);
-
-  dio.interceptors.add(LogInterceptor(
-    request: true,
-    requestHeader: true,
-    requestBody: true,
-    responseHeader: true,
-    responseBody: true,
-    error: true,
-  ));
-
-  dio.interceptors.add(
-    InterceptorsWrapper(
-      onRequest: (RequestOptions options,RequestInterceptorHandler handler) async {
-        // TODO: after login → store token and read it here
-        // options.headers['Authorization'] = token;
-        return handler.next(options);
-      },
-      onResponse: (Response response, ResponseInterceptorHandler handler) {
-        // Mitoni inja response-ha ro ghabl az residan be UI dastkari koni
-        return handler.next(response);
-      },
-      onError: (e, handler) {
-        if (e.response?.statusCode == 401) {
-          // TODO: Refresh token or logout
-        }
-        return handler.next(e);
+  final dio = Dio(
+    BaseOptions(
+      baseUrl: 'https://barchasb-main-server.ir/api',
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
       },
     ),
   );
 
+  dio.interceptors.add(
+    InterceptorsWrapper(
+      onRequest: (options, handler) async {
+        final token = await storage.read(key: 'auth_token');
+        if (token != null) {
+          options.headers['Authorization'] = token;
+        }
+        return handler.next(options);
+      },
+    ),
+  );
+
+  dio.interceptors.add(LoggingInterceptor());
   return dio;
 });

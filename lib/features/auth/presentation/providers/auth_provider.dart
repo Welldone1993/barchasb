@@ -1,4 +1,3 @@
-
 import 'package:flutter_riverpod/legacy.dart';
 
 import '../../../../../core/network/dio_provider.dart';
@@ -26,15 +25,13 @@ class AuthState {
     LoginEntity? user,
     UserEntity? registeredUser,
     String? error,
-    bool clearError = false, // اضافه شدن پرچم برای پاک کردن خطا
-  }) {
-    return AuthState(
-      isLoading: isLoading ?? this.isLoading,
-      user: user ?? this.user,
-      registeredUser: registeredUser ?? this.registeredUser,
-      error: clearError ? null : (error ?? this.error),
-    );
-  }
+    bool clearError = false,
+  }) => AuthState(
+    isLoading: isLoading ?? this.isLoading,
+    user: user ?? this.user,
+    registeredUser: registeredUser ?? this.registeredUser,
+    error: clearError ? null : (error ?? this.error),
+  );
 }
 
 class AuthNotifier extends StateNotifier<AuthState> {

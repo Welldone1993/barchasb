@@ -1,6 +1,8 @@
 // lib/features/home/presentation/widgets/user_card.dart
-import 'package:barchasb/features/home/domain/entities/ad_entity.dart';
+
 import 'package:flutter/material.dart';
+
+import '../../domain/entities/ad_entity.dart';
 
 class UserCard extends StatelessWidget {
   final AdEntity ad;

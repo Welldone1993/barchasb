@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import '../../../../core/error/failure.dart'; // این فایل را باید بسازید
+import '../../../../core/utils/failure.dart'; // این فایل را باید بسازید
 import '../entities/ad_entity.dart';
 
 abstract class HomeRepository {

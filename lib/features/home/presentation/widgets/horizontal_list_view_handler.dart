@@ -1,8 +1,8 @@
 // lib/features/home/presentation/widgets/horizontal_list_view_handler.dart
-import 'package:barchasb/features/home/domain/entities/ad_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../domain/entities/ad_entity.dart';
 import 'user_card.dart';
 
 class HorizontalListViewHandler extends StatelessWidget {

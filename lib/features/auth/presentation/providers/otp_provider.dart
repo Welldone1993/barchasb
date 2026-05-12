@@ -1,14 +1,13 @@
 // lib/features/auth/presentation/providers/otp_provider.dart
-import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
+import '../../../../core/network/dio_provider.dart';
 import '../../data/datasources/otp_remote_datasource.dart';
 import '../../data/repositories/otp_repository_impl.dart';
 import '../../domain/repositories/otp_repository.dart';
 
-// تزریق Dio (اگر از قبل Dio Provider دارید، از همان استفاده کنید)
-final dioProvider = Provider<Dio>((ref) => Dio());
+
 
 // تزریق Remote Data Source
 final otpRemoteDataSourceProvider = Provider<OtpRemoteDataSource>((ref) {

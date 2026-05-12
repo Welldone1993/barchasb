@@ -9,8 +9,7 @@ import '../providers/otp_provider.dart';
 class SecurityVerificationDialog extends ConsumerStatefulWidget {
   final String phoneNumber;
 
-  const SecurityVerificationDialog({Key? key, required this.phoneNumber})
-    : super(key: key);
+  const SecurityVerificationDialog({super.key, required this.phoneNumber});
 
   @override
   ConsumerState<SecurityVerificationDialog> createState() =>
@@ -33,7 +32,6 @@ class _SecurityVerificationDialogState
   Widget build(BuildContext context) {
     final state = ref.watch(otpProvider);
 
-    // نمایش اسنک‌بار در صورت وجود خطا یا پیام موفقیت
     ref.listen<OtpState>(otpProvider, (previous, next) {
       if (next.errorMessage != null &&
           next.errorMessage != previous?.errorMessage) {
@@ -80,8 +78,6 @@ class _SecurityVerificationDialogState
                 style: TextStyle(fontSize: 12),
               ),
               const SizedBox(height: 16),
-
-              // نمایش شماره موبایل
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 12),
@@ -96,8 +92,6 @@ class _SecurityVerificationDialogState
                 ),
               ),
               const SizedBox(height: 16),
-
-              // باکس نمایشی کپچا (در اینجا باید تصویر کپچای واقعی را قرار دهید)
               Container(
                 height: 80,
                 width: double.infinity,
@@ -124,11 +118,8 @@ class _SecurityVerificationDialogState
                 ),
               ),
               const SizedBox(height: 16),
-
               AppTextField(controller: _captchaCtrl, hintText: 'کد کپچا'),
               const SizedBox(height: 16),
-
-              // دکمه تایید کپچا
               AppElevatedButton(
                 text: 'تایید کپچا',
                 isLoading: state.isLoading && !state.isCaptchaVerified,
@@ -140,8 +131,6 @@ class _SecurityVerificationDialogState
                   }
                 },
               ),
-
-              // نمایش فیلدهای OTP در صورتی که کپچا تایید شده باشد
               if (state.isCaptchaVerified) ...[
                 const SizedBox(height: 16),
                 AppTextField(controller: _otpCtrl, hintText: 'کد پیامک'),

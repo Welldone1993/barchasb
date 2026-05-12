@@ -1,12 +1,13 @@
-import 'package:barchasb/core/extension/string_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:persian_datetime_picker/persian_datetime_picker.dart';
+
+import '../../../../core/utils/extension/string_extensions.dart';
 import '../../../../core/widgets/app_back_button.dart';
-import '../../../../core/widgets/app_text_field.dart';
 import '../../../../core/widgets/app_elevated_button.dart';
 import '../../../../core/widgets/app_text_button.dart';
+import '../../../../core/widgets/app_text_field.dart';
 import '../../domain/entities/register_entity.dart';
 import '../providers/auth_provider.dart';
 import '../widgets/security_verification_dialog.dart';
@@ -171,7 +172,6 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                     ),
                   ),
                   const SizedBox(height: 24),
-
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24.0),
                     child: Form(
