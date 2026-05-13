@@ -8,7 +8,7 @@ final secureStorageProvider = Provider<FlutterSecureStorage>((ref) {
 });
 
 final dioProvider = Provider<Dio>((ref) {
-  final storage = ref.watch(secureStorageProvider);
+  final FlutterSecureStorage storage = ref.watch(secureStorageProvider);
 
   final dio = Dio(
     BaseOptions(

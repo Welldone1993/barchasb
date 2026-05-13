@@ -28,7 +28,9 @@ import '../../domain/entities/user_entity.dart';
 class DashboardNotifier extends StateNotifier<AsyncValue<UserEntity>> {
   final DashboardRepositoryImpl _repository;
 
-  DashboardNotifier(this._repository) : super(AsyncValue.loading());
+  DashboardNotifier(this._repository) : super(AsyncValue.loading()){
+    fetchUser();
+  }
 
   Future<void> fetchUser() async {
     // state = state.copyWith(isLoading: true, clearError: true);

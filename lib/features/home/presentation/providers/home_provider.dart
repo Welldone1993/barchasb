@@ -2,16 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
 import '../../../../core/network/dio_provider.dart';
-import '../../data/datasources/home_remote_datasource.dart'; // مسیر را در صورت نیاز اصلاح کنید
-// ایمپورت Provider مربوط به Repository
-import '../../data/repositories/home_repository_impl.dart'; // مسیر را در صورت نیاز اصلاح کنید
-// ایمپورت‌های مربوط به لایه Domain
-import '../../domain/entities/ad_entity.dart';
+import '../../data/datasources/home_remote_datasource.dart';
+ import '../../data/repositories/home_repository_impl.dart';
+ import '../../domain/entities/ad_entity.dart';
 import '../../domain/repositories/home_repository.dart';
-
-//==============> Providers <==============
-// این Providerها باید در یک فایل جداگانه مثلاً providers.dart یا service_locator.dart باشند
-// اما برای سادگی اینجا قرار داده شده‌اند.
 
 final homeRemoteDataSourceProvider = Provider<HomeRemoteDataSource>(
   (ref) => HomeRemoteDataSourceImpl(ref.watch(dioProvider)),
@@ -20,11 +14,7 @@ final homeRemoteDataSourceProvider = Provider<HomeRemoteDataSource>(
 final homeRepositoryProvider = Provider<HomeRepository>(
   (ref) => HomeRepositoryImpl(ref.watch(homeRemoteDataSourceProvider)),
 );
-//<============== End of Providers ==============>
-
-// نکته: در معماری Clean، لایه Presentation (یعنی اینجا) باید با Entity کار کند نه Model.
-// بنابراین State را برای کار با AdEntity تغییر می‌دهیم.
-class HomeState {
+ class HomeState {
   final AsyncValue<List<AdEntity>> sellers;
   final AsyncValue<List<AdEntity>> employers;
   final AsyncValue<List<AdEntity>> jobSeekers;
@@ -52,13 +42,11 @@ class HomeNotifier extends StateNotifier<HomeState> {
   final HomeRepository _homeRepository;
 
   HomeNotifier(this._homeRepository) : super(HomeState()) {
-    // در زمان ساخت Notifier، همه داده‌ها را فراخوانی می‌کنیم
-    fetchAll();
+     fetchAll();
   }
 
   Future<void> fetchAll() async {
-    // هر سه لیست را به صورت همزمان فراخوانی می‌کنیم تا سرعت لود اولیه بالا برود
-    await Future.wait([fetchSellers(), fetchEmployers(), fetchJobSeekers()]);
+     await Future.wait([fetchSellers(), fetchEmployers(), fetchJobSeekers()]);
   }
 
   Future<void> fetchSellers() async {

@@ -12,10 +12,11 @@ class LoginPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(authProvider);
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final TextEditingController phonecontroller = TextEditingController();
-    final TextEditingController passwordcontroller = TextEditingController();
+    final TextEditingController phoneController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
 
     return Scaffold(
       body: SafeArea(
@@ -54,7 +55,7 @@ class LoginPage extends ConsumerWidget {
                             const SizedBox(height: 30),
 
                             AppTextField(
-                              controller: phonecontroller,
+                              controller: phoneController,
                               hintText: 'شماره موبایل',
                               icon: Icons.phone,
                               isNumber: true,
@@ -62,7 +63,7 @@ class LoginPage extends ConsumerWidget {
                             const SizedBox(height: 16),
 
                             AppTextField(
-                              controller: passwordcontroller,
+                              controller: passwordController,
                               hintText: 'رمز عبور',
                               icon: Icons.lock,
                               isPassword: true,
@@ -75,11 +76,12 @@ class LoginPage extends ConsumerWidget {
                                     .read(authProvider.notifier)
                                     .login(
                                       context,
-                                      phonecontroller.text.trim(),
-                                      passwordcontroller.text.trim(),
+                                      phoneController.text.trim(),
+                                      passwordController.text.trim(),
                                     );
                               },
                               text: 'ورود',
+                              isLoading: state.isLoading,
                             ),
                             const SizedBox(height: 16),
 

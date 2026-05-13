@@ -12,12 +12,9 @@ class DashboardPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('داشبورد کاربر')),
       body: Center(
-        // با استفاده از when، برای هر وضعیت یک UI متفاوت نمایش می‌دهیم
         child: dashboardState.when(
-          // وضعیت لودینگ
           loading: () => const CircularProgressIndicator(),
 
-          // وضعیت خطا
           error: (error, stackTrace) => Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -25,7 +22,6 @@ class DashboardPage extends ConsumerWidget {
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () {
-                  // تلاش مجدد برای دریافت اطلاعات
                   ref.read(dashboardProvider.notifier).fetchUser();
                 },
                 child: const Text('تلاش مجدد'),

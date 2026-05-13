@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/network/dio_provider.dart';
@@ -12,7 +13,7 @@ import '../../domain/entities/user_entity.dart';
 class AuthState {
   final bool isLoading;
   final LoginEntity? user;
-  final UserEntity? registeredUser; // برای نگهداری اطلاعات کاربر ثبت‌نام شده
+  final UserEntity? registeredUser;
   final String? error;
 
   AuthState({
@@ -38,6 +39,7 @@ class AuthState {
 
 class AuthNotifier extends StateNotifier<AuthState> {
   final AuthRepositoryImpl _repository;
+  final FlutterSecureStorage storage = FlutterSecureStorage();
 
   AuthNotifier(this._repository) : super(AuthState());
 
@@ -49,6 +51,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     state = state.copyWith(isLoading: true, clearError: true);
     try {
       final user = await _repository.login(phone, password);
+      storage.write(key: 'auth_token', value: user.token);
       state = state.copyWith(isLoading: false, user: user);
       if (context.mounted) {
         context.pushReplacement('/dashboard');
@@ -58,7 +61,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
     }
   }
 
-  // متد جدید برای ثبت‌نام یکپارچه
   Future<void> register(RegisterEntity data) async {
     state = state.copyWith(isLoading: true, clearError: true);
     try {
