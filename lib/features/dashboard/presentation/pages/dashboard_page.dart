@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
+import '../../../../core/widgets/app_scaffold.dart';
 import '../providers/dashboard_provider.dart';
+import '../widgets/dashboard_grid_button.dart';
+import '../widgets/user_profile_card.dart';
+
+final selectedDashboardSectionProvider = StateProvider<int>((ref) => 0);
 
 class DashboardPage extends ConsumerWidget {
   const DashboardPage({super.key});
@@ -9,83 +15,111 @@ class DashboardPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final dashboardState = ref.watch(dashboardProvider);
-    return Scaffold(
-      appBar: AppBar(title: const Text('داشبورد کاربر')),
-      body: Center(
-        child: dashboardState.when(
-          loading: () => const CircularProgressIndicator(),
+    final selectedIndex = ref.watch(selectedDashboardSectionProvider);
+    final List<String> buttonTitles = [
+      'میزکار',
+      'آگهی ها',
+      'آگهی دیجیتال',
+      'آگهی های من',
+      'اشتراک و مالی',
+      'افزونه ها',
+    ];
 
-          error: (error, stackTrace) => Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+    return AppScaffold(
+      title: 'داشبورد کاربر',
+      body: Column(
+        children: [
+          UserProfileCard(),
+          Column(
             children: [
-              Text('خطا: $error'),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  ref.read(dashboardProvider.notifier).fetchUser();
-                },
-                child: const Text('تلاش مجدد'),
+              // گرید دکمه‌ها
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 20,
+                ),
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: buttonTitles.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3, // 3 ستون (مانند عکس)
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
+                    childAspectRatio: 2.2, // تنظیم نسبت عرض به ارتفاع دکمه‌ها
+                  ),
+                  itemBuilder: (context, index) => DashboardGridButton(
+                    title: buttonTitles[index],
+                    isSelected: selectedIndex == index,
+                    onTap: () {
+                      // تغییر استیت به ایندکس جدید با کلیک
+                      ref
+                              .read(selectedDashboardSectionProvider.notifier)
+                              .state =
+                          index;
+                    },
+                  ),
+                ),
               ),
+
+              const SizedBox(height: 20),
+
+              // بخش نمایش محتوا بر اساس دکمه انتخاب شده
+              _buildSectionContent(selectedIndex, context),
             ],
           ),
-
-          // وضعیت موفقیت و دریافت داده
-          data: (user) {
-            return Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'خوش آمدید، ${user.name} ${user.lastName}!',
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  const SizedBox(height: 20),
-                  UserInfoTile(
-                    icon: Icons.person,
-                    title: 'نقش',
-                    value: user.role,
-                  ),
-                  UserInfoTile(
-                    icon: Icons.phone,
-                    title: 'شماره تماس',
-                    value: user.phone,
-                  ),
-                  UserInfoTile(
-                    icon: Icons.perm_identity,
-                    title: 'ID کاربر',
-                    value: user.id,
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
+        ],
       ),
     );
   }
-}
 
-class UserInfoTile extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String value;
-
-  const UserInfoTile({
-    super.key,
-    required this.icon,
-    required this.title,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        leading: Icon(icon, color: Theme.of(context).primaryColor),
-        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-        subtitle: Text(value),
-      ),
-    );
+  Widget _buildSectionContent(int index, BuildContext context) {
+    final theme = Theme.of(context);
+    switch (index) {
+      case 0:
+        return Center(
+          child: Text(
+            'محتوای میزکار',
+            style: TextStyle(color: theme.primaryColor),
+          ),
+        );
+      case 1:
+        return Center(
+          child: Text(
+            'محتوای آگهی ها',
+            style: TextStyle(color: theme.primaryColor),
+          ),
+        );
+      case 2:
+        return Center(
+          child: Text(
+            'محتوای آگهی دیجیتال',
+            style: TextStyle(color: theme.primaryColor),
+          ),
+        );
+      case 3:
+        return Center(
+          child: Text(
+            'محتوای آگهی های من',
+            style: TextStyle(color: theme.primaryColor),
+          ),
+        );
+      case 4:
+        return Center(
+          child: Text(
+            'محتوای اشتراک و مالی',
+            style: TextStyle(color: theme.primaryColor),
+          ),
+        );
+      case 5:
+        return Center(
+          child: Text(
+            'محتوای افزونه ها',
+            style: TextStyle(color: theme.primaryColor),
+          ),
+        );
+      default:
+        return const SizedBox.shrink();
+    }
   }
 }

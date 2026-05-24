@@ -9,12 +9,11 @@ class AppScaffold extends StatelessWidget {
     super.key,
     this.title,
     required this.body,
-    this.showBack = true,
+    this.showBack = false,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
         title: Text(title ?? ''),
         leading: showBack
@@ -24,8 +23,8 @@ class AppScaffold extends StatelessWidget {
                 color: Theme.of(context).colorScheme.onSecondary,
               )
             : null,
+
       ),
       body: Padding(padding: const EdgeInsets.all(16.0), child: body),
     );
-  }
 }

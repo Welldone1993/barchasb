@@ -789,6 +789,14 @@ packages:
       url: "https://pub.tarazerp.ir"
     source: hosted
     version: "3.0.0"
+  shimmer:
+    dependency: "direct main"
+    description:
+      name: shimmer
+      sha256: "94ede7dac9feb2680136474af82a3a87441ff74820aba633beecd21c03868f18"
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "3.0.0"
   sky_engine:
     dependency: transitive
     description: flutter

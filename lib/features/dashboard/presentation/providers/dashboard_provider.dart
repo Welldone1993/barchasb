@@ -6,32 +6,13 @@ import '../../data/datasources/dashboard_remote_datasource.dart';
 import '../../data/repositories/dashboard_repository_impl.dart';
 import '../../domain/entities/user_entity.dart';
 
-// class DashboardState {
-//   final bool isLoading;
-//   final String? error;
-//   final UserEntity? user;
-//
-//   DashboardState({this.isLoading = false, this.error, this.user});
-//
-//   DashboardState copyWith({
-//     bool? isLoading = false,
-//     String? error,
-//     bool clearError = false,
-//     UserEntity? user,
-//   }) => DashboardState(
-//     isLoading: isLoading ?? this.isLoading,
-//     error: clearError ? null : (error ?? this.error),
-//     user: user ?? this.user,
-//   );
-// }
-
 class DashboardNotifier extends StateNotifier<AsyncValue<UserEntity>> {
   final DashboardRepositoryImpl _repository;
 
   DashboardNotifier(this._repository) : super(AsyncValue.loading()){
     fetchUser();
   }
-
+  final selectedDashboardSectionProvider = StateProvider<int>((ref) => 0);
   Future<void> fetchUser() async {
     // state = state.copyWith(isLoading: true, clearError: true);
     state = const AsyncValue.loading();

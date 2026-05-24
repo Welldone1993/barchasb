@@ -29,6 +29,7 @@ dependencies:
   equatable:
   cached_network_image:
   logger:
+  shimmer:
 
 dev_dependencies:
   flutter_test:

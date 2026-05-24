@@ -23,7 +23,6 @@ class AppTheme {
       primary: _primaryColor,
       onPrimary: _textColorOnPrimary,
       secondary: Colors.lightBlue,
-      // به عنوان رنگ ثانویه مکمل انتخاب شده
       onSecondary: _textColorOnPrimary,
       surface: _surfaceColor,
       onSurface: _textColorOnSurface,
@@ -69,6 +68,8 @@ class AppTheme {
         fontWeight: FontWeight.bold,
         color: _textColorOnPrimary,
       ),
+      labelMedium: TextStyle(fontSize: 14, color: _textColorOnPrimary),
+      labelSmall: TextStyle(fontSize: 12, fontWeight: FontWeight.w100, color: _textColorOnPrimary),
     ),
 
     inputDecorationTheme: InputDecorationTheme(
