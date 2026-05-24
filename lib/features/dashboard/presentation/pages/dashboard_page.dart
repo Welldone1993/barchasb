@@ -3,6 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
 import '../../../../core/widgets/app_scaffold.dart';
+import '../../../ads/presentation/pages/ads_page.dart';
+import '../../../digital_ad/presentation/pages/digital_ad_page.dart';
+import '../../../my_ads/presentation/pages/my_ads_page.dart';
+import '../../../plugins/presentation/pages/plugins_page.dart';
+import '../../../subscription/presentation/pages/subscription_page.dart';
+import '../../../work_desk/presentation/pages/work_desk_page.dart';
 import '../providers/dashboard_provider.dart';
 import '../widgets/dashboard_grid_button.dart';
 import '../widgets/user_profile_card.dart';
@@ -77,47 +83,17 @@ class DashboardPage extends ConsumerWidget {
     final theme = Theme.of(context);
     switch (index) {
       case 0:
-        return Center(
-          child: Text(
-            'محتوای میزکار',
-            style: TextStyle(color: theme.primaryColor),
-          ),
-        );
+        return WorkDeskPage();
       case 1:
-        return Center(
-          child: Text(
-            'محتوای آگهی ها',
-            style: TextStyle(color: theme.primaryColor),
-          ),
-        );
+        return AdsPage();
       case 2:
-        return Center(
-          child: Text(
-            'محتوای آگهی دیجیتال',
-            style: TextStyle(color: theme.primaryColor),
-          ),
-        );
+        return DigitalAdPage();
       case 3:
-        return Center(
-          child: Text(
-            'محتوای آگهی های من',
-            style: TextStyle(color: theme.primaryColor),
-          ),
-        );
+        return MyAdsPage();
       case 4:
-        return Center(
-          child: Text(
-            'محتوای اشتراک و مالی',
-            style: TextStyle(color: theme.primaryColor),
-          ),
-        );
+        return SubscriptionPage();
       case 5:
-        return Center(
-          child: Text(
-            'محتوای افزونه ها',
-            style: TextStyle(color: theme.primaryColor),
-          ),
-        );
+        return PluginsPage();
       default:
         return const SizedBox.shrink();
     }
