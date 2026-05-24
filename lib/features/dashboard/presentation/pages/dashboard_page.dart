@@ -8,7 +8,7 @@ import '../../../digital_ad/presentation/pages/digital_ad_page.dart';
 import '../../../my_ads/presentation/pages/my_ads_page.dart';
 import '../../../plugins/presentation/pages/plugins_page.dart';
 import '../../../subscription/presentation/pages/subscription_page.dart';
-import '../../../work_desk/presentation/pages/work_desk_page.dart';
+import '../../../work_space/presentation/pages/work_space_page.dart';
 import '../providers/dashboard_provider.dart';
 import '../widgets/dashboard_grid_button.dart';
 import '../widgets/user_profile_card.dart';
@@ -80,10 +80,9 @@ class DashboardPage extends ConsumerWidget {
   }
 
   Widget _buildSectionContent(int index, BuildContext context) {
-    final theme = Theme.of(context);
     switch (index) {
       case 0:
-        return WorkDeskPage();
+        return WorkSpacePage();
       case 1:
         return AdsPage();
       case 2:

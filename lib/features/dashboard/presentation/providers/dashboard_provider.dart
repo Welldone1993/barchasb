@@ -9,10 +9,12 @@ import '../../domain/entities/user_entity.dart';
 class DashboardNotifier extends StateNotifier<AsyncValue<UserEntity>> {
   final DashboardRepositoryImpl _repository;
 
-  DashboardNotifier(this._repository) : super(AsyncValue.loading()){
+  DashboardNotifier(this._repository) : super(AsyncValue.loading()) {
     fetchUser();
   }
+
   final selectedDashboardSectionProvider = StateProvider<int>((ref) => 0);
+
   Future<void> fetchUser() async {
     // state = state.copyWith(isLoading: true, clearError: true);
     state = const AsyncValue.loading();
@@ -21,7 +23,7 @@ class DashboardNotifier extends StateNotifier<AsyncValue<UserEntity>> {
     result.fold(
       (failure) =>
           // state = state.copyWith(isLoading: false, error: failure.toString()),
-     state = AsyncValue.error(failure.message, StackTrace.current),
+          state = AsyncValue.error(failure.message, StackTrace.current),
       (user) {
         // state = state.copyWith(isLoading: false, user: user);
         state = AsyncValue.data(user);
@@ -31,7 +33,7 @@ class DashboardNotifier extends StateNotifier<AsyncValue<UserEntity>> {
 }
 
 final dashboardProvider =
-    StateNotifierProvider<DashboardNotifier,  AsyncValue<UserEntity>>((ref) {
+    StateNotifierProvider<DashboardNotifier, AsyncValue<UserEntity>>((ref) {
       final dio = ref.watch(dioProvider);
       final remote = DashboardRemoteDataSourceImpl(dio);
       final repo = DashboardRepositoryImpl(remote);
