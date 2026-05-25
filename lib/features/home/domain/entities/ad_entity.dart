@@ -2,7 +2,7 @@
 import 'package:equatable/equatable.dart';
 
 class AdEntity extends Equatable {
-  final String id; // تغییر از int به String
+  final String id;
   final String title;
   final String? description;
   final String? category;

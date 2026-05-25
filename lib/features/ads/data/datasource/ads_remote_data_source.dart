@@ -3,7 +3,7 @@ import 'package:barchasb/features/ads/data/models/job_seeker_ads_model.dart';
 import 'package:dio/dio.dart';
 
 abstract class AdsRemoteDataSource {
-  Future<List<JobSeekerAdsModel>> fetchJobSeekerAds();
+  Future<List<JobSeekerAdModel>> fetchJobSeekerAds();
 }
 
 class AdsRemoteDataSourceImpl implements AdsRemoteDataSource {
@@ -11,14 +11,10 @@ class AdsRemoteDataSourceImpl implements AdsRemoteDataSource {
 
   AdsRemoteDataSourceImpl(this._dio);
 
-
-
   @override
-  Future<List<JobSeekerAdsModel>> fetchJobSeekerAds() async {
+  Future<List<JobSeekerAdModel>> fetchJobSeekerAds() async {
     final response = await _dio.get(ApiEndpoints.jobseekerAds);
-
-    return response.data
-        .map((json) => JobSeekerAdsModel.fromJson(json))
-        .toList();
+    final List<dynamic> data = response.data;
+    return data.map((json) => JobSeekerAdModel.fromJson(json)).toList();
   }
 }

@@ -10,9 +10,9 @@ class AdsRepositoryImpl extends AdsRepository {
   AdsRepositoryImpl(this._remoteDatasource);
 
   @override
-  Future<Either<Failure, List<JobSeekerAdsEntity>>> fetchJobSeekerAds() async {
+  Future<Either<Failure, List<JobSeekerAdEntity>>> fetchJobSeekerAds() async {
     try {
-      final List<JobSeekerAdsEntity> ads = await _remoteDatasource
+      final List<JobSeekerAdEntity> ads = await _remoteDatasource
           .fetchJobSeekerAds();
       return Right(ads);
     } on ServerException catch (e) {

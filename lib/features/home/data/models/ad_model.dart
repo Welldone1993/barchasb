@@ -1,4 +1,3 @@
-// lib/features/home/data/models/ad_model.dart
 import '../../domain/entities/ad_entity.dart';
 
 class AdModel extends AdEntity {

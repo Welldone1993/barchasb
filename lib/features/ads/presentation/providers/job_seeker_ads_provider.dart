@@ -7,7 +7,7 @@ import '../../data/datasource/ads_remote_data_source.dart';
 import '../../data/repositories/ads_repository_impl.dart';
 
 class JobSeekerAdsNotifier
-    extends StateNotifier<AsyncValue<List<JobSeekerAdsEntity>>> {
+    extends StateNotifier<AsyncValue<List<JobSeekerAdEntity>>> {
   final AdsRepositoryImpl _repository;
 
   JobSeekerAdsNotifier(this._repository) : super(const AsyncValue.loading()) {
@@ -30,7 +30,7 @@ class JobSeekerAdsNotifier
 final jobSeekerAdsProvider =
     StateNotifierProvider<
       JobSeekerAdsNotifier,
-      AsyncValue<List<JobSeekerAdsEntity>>
+      AsyncValue<List<JobSeekerAdEntity>>
     >((ref) {
       final dio = ref.watch(dioProvider);
       final remote = AdsRemoteDataSourceImpl(dio);
