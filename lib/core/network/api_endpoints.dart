@@ -12,5 +12,8 @@ class ApiEndpoints {
   static const String employer = '$adsController/employer';
   static const String seller = '$adsController/seller';
 
-
+  // user-view
+  static const userViewController = '/user-views';
+  static const weeklyStats =
+      '$userViewController?period=weekly&adType=JobSeekerAd';
 }

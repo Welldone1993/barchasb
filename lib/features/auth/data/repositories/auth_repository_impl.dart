@@ -1,4 +1,3 @@
-import '../../../../core/network/dio_provider.dart';
 import '../../domain/entities/login_entity.dart'; // Import LoginEntity
 import '../../domain/entities/register_entity.dart';
 import '../../domain/entities/user_entity.dart'; // Import UserEntity

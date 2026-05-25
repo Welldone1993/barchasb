@@ -6,7 +6,7 @@ import '../../data/datasources/home_remote_datasource.dart';
  import '../../data/repositories/home_repository_impl.dart';
  import '../../domain/entities/ad_entity.dart';
 import '../../domain/repositories/home_repository.dart';
-
+// TODO: mix all providers
 final homeRemoteDataSourceProvider = Provider<HomeRemoteDataSource>(
   (ref) => HomeRemoteDataSourceImpl(ref.watch(dioProvider)),
 );

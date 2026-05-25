@@ -30,6 +30,7 @@ dependencies:
   cached_network_image:
   logger:
   shimmer:
+  smooth_page_indicator:
 
 dev_dependencies:
   flutter_test:
