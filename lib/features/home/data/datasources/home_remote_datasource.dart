@@ -16,14 +16,15 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   HomeRemoteDataSourceImpl(this._dio);
 
   @override
-  Future<List<AdModel>> getSellers() async => _getAds(ApiEndpoints.seller);
+  Future<List<AdModel>> getSellers() async => _getAds(ApiEndpoints.sellerAds);
 
   @override
-  Future<List<AdModel>> getEmployers() async => _getAds(ApiEndpoints.employer);
+  Future<List<AdModel>> getEmployers() async =>
+      _getAds(ApiEndpoints.employerAds);
 
   @override
   Future<List<AdModel>> getJobSeekers() async =>
-      _getAds(ApiEndpoints.jobseeker);
+      _getAds(ApiEndpoints.jobseekerAds);
 
   Future<List<AdModel>> _getAds(String url) async {
     final response = await _dio.get(url);

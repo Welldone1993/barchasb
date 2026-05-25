@@ -16,8 +16,6 @@ class HomePage extends ConsumerWidget {
       return Image.asset('assets/images/placeholder.png'); // عکس پیش‌فرض
     }
 
-    // اگر آدرس کامل نیست، Base URL را اضافه کن
-
     return CachedNetworkImage(
       imageUrl: url,
       placeholder: (context, url) => Center(child: CircularProgressIndicator()),

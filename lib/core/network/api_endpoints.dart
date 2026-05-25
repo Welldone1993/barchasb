@@ -8,9 +8,9 @@ class ApiEndpoints {
 
   // ads
   static const adsController = '/ads';
-  static const String jobseeker = '$adsController/jobseeker';
-  static const String employer = '$adsController/employer';
-  static const String seller = '$adsController/seller';
+  static const String jobseekerAds = '$adsController/jobseeker';
+  static const String employerAds = '$adsController/employer';
+  static const String sellerAds = '$adsController/seller';
 
   // user-view
   static const userViewController = '/user-views';
