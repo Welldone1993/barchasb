@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SubscriptionPage extends ConsumerWidget {
+import '../widgets/subscription_segments.dart';
+
+class SubscriptionPage extends StatelessWidget {
   const SubscriptionPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context);
-
-    return Center(
-      child: Text('SubscriptionPage', style: TextStyle(color: theme.primaryColor)),
-    );
-  }
+  Widget build(BuildContext context) => CustomSubscriptionSegmentView();
 }
