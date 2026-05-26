@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
+import 'subscription_plans_screen.dart';
+import 'transaction_history_card.dart';
+import 'wallet_balance_card.dart';
+
 final subscriptionSegmentProvider = StateProvider<int>((ref) => 0);
 
 class CustomSubscriptionSegmentView extends ConsumerWidget {
@@ -58,9 +62,12 @@ class CustomSubscriptionSegmentView extends ConsumerWidget {
   Widget _buildTabWidget(int selectedIndex) => IndexedStack(
     index: selectedIndex,
     children: const [
-      Center(child: Text('data1')),
-      Center(child: Text('data2')),
-      Center(child: Text('data3')),
+      // Center(child: Text('data1')),
+      SubscriptionPlansCard(),
+      // Center(child: Text('data2')),
+      WalletBalanceCard(),
+      // Center(child: Text('data3')),
+      TransactionHistoryCard(),
     ],
   );
 
