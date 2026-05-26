@@ -1,5 +1,6 @@
-import 'package:barchasb/core/utils/failure.dart';
 import 'package:fpdart/fpdart.dart';
+
+import 'failure.dart';
 
 typedef ResultFuture<T> = Future<Either<Failure, T>>;
 

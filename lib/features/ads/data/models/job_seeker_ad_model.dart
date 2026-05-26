@@ -1,4 +1,5 @@
-import 'package:barchasb/features/ads/domain/entities/job_seeker_ads_entity.dart';
+
+import '../../domain/entities/job_seeker_ad_entity.dart';
 
 class JobSeekerAdModel extends JobSeekerAdEntity {
   const JobSeekerAdModel({

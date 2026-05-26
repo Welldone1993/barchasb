@@ -1,10 +1,10 @@
-import 'package:barchasb/features/work_space/domain/entities/weekly_stats_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
 import '../../../../core/network/dio_provider.dart';
 import '../../data/datasource/work_space_remote_data_source.dart';
 import '../../data/repositories/work_space_repository_impl.dart';
+import '../../domain/entities/weekly_stats_entity.dart';
 
 class WorkspaceStatsState {
   final AsyncValue<List<WeeklyStatsEntity>> weeklyStats;

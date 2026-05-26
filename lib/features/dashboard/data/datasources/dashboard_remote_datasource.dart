@@ -1,6 +1,6 @@
-import 'package:barchasb/core/network/api_endpoints.dart';
 import 'package:dio/dio.dart';
 
+import '../../../../core/network/api_endpoints.dart';
 import '../models/user_model.dart';
 
 abstract class DashboardRemoteDataSource {

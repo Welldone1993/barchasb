@@ -1,7 +1,7 @@
-import 'package:barchasb/core/utils/failure.dart';
-import 'package:barchasb/features/dashboard/domain/entities/user_entity.dart';
 import 'package:fpdart/fpdart.dart';
 
+import '../../../../core/utils/failure.dart';
+import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/dashboard_repository.dart';
 import '../datasources/dashboard_remote_datasource.dart';
 

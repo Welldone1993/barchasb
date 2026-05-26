@@ -1,8 +1,9 @@
-import 'package:barchasb/core/utils/failure.dart';
-import 'package:barchasb/features/work_space/domain/entities/ads_entity.dart';
-import 'package:barchasb/features/work_space/domain/entities/weekly_stats_entity.dart';
+
 import 'package:fpdart/fpdart.dart';
 
+import '../../../../core/utils/failure.dart';
+import '../../domain/entities/ads_entity.dart';
+import '../../domain/entities/weekly_stats_entity.dart';
 import '../../domain/repositories/work_space_repository.dart';
 import '../datasource/work_space_remote_data_source.dart';
 

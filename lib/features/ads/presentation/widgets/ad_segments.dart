@@ -1,9 +1,10 @@
-import 'package:flutter_riverpod/legacy.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
+import 'employer_ads.dart';
 import 'job_seeker_ads.dart';
+import 'seller_ads.dart';
 
 final adSegmentProvider = StateProvider<int>((ref) => 0);
 
@@ -79,14 +80,7 @@ class CustomAdSegmentView extends ConsumerWidget {
 
   Widget _buildTabWidget(int selectedIndex) => IndexedStack(
     index: selectedIndex,
-    children: const [
-      // Index 0
-      JobSeekerAdsView(),
-      // Index 1
-      Center(child: Text('ویجت کارفرما')),
-      // Index 2
-      Center(child: Text('ویجت آگهی ها')),
-    ],
+    children: const [JobSeekerAdsView(), EmployerAdsView(), SellerAdsView()],
   );
 
   Widget _buildTabItem(

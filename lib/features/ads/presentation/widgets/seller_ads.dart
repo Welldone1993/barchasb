@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../providers/job_seeker_ads_provider.dart';
+import '../providers/seller_ads_provider.dart';
 
-class JobSeekerAdsView extends ConsumerWidget {
-  const JobSeekerAdsView({super.key});
+class SellerAdsView extends ConsumerWidget {
+  const SellerAdsView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final jobSeekerAdsState = ref.watch(jobSeekerAdsProvider);
-    return jobSeekerAdsState.when(
+    final sellerAdsState = ref.watch(sellerAdsProvider);
+    return sellerAdsState.when(
       data: (data) => SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(children: [...data.map((e) => Text(e.id))]),
@@ -18,7 +18,7 @@ class JobSeekerAdsView extends ConsumerWidget {
         child: IconButton(
           icon: const Icon(Icons.refresh),
           onPressed: () {
-            ref.read(jobSeekerAdsProvider.notifier).fetchJobSeekerAds();
+            ref.read(sellerAdsProvider.notifier).fetchSellerAds();
           },
         ),
       ),

@@ -1,8 +1,8 @@
-import 'package:barchasb/features/work_space/data/models/weekly_stats_model.dart';
-import 'package:dio/dio.dart';
+ import 'package:dio/dio.dart';
 
 import '../../../../core/network/api_endpoints.dart';
 import '../models/ads_model.dart';
+import '../models/weekly_stats_model.dart';
 
 abstract class WorkSpaceRemoteDataSource {
   Future<List<AdsModel>> fetchAds();

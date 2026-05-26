@@ -4,19 +4,19 @@ import 'package:flutter_riverpod/legacy.dart';
 import '../../../../core/network/dio_provider.dart';
 import '../../data/datasource/ads_remote_data_source.dart';
 import '../../data/repositories/ads_repository_impl.dart';
-import '../../domain/entities/job_seeker_ad_entity.dart';
+import '../../domain/entities/employer_ad_entity.dart';
 
-class JobSeekerAdsNotifier
-    extends StateNotifier<AsyncValue<List<JobSeekerAdEntity>>> {
+class EmployerAdsNotifier
+    extends StateNotifier<AsyncValue<List<EmployerAdEntity>>> {
   final AdsRepositoryImpl _repository;
 
-  JobSeekerAdsNotifier(this._repository) : super(const AsyncValue.loading()) {
-    fetchJobSeekerAds();
+  EmployerAdsNotifier(this._repository) : super(const AsyncValue.loading()) {
+    fetchEmployerAds();
   }
 
-  Future<void> fetchJobSeekerAds() async {
+  Future<void> fetchEmployerAds() async {
     state = const AsyncValue.loading();
-    final result = await _repository.fetchJobSeekerAds();
+    final result = await _repository.fetchEmployerAds();
     result.fold(
       (failure) =>
           state = AsyncValue.error(failure.message, StackTrace.current),
@@ -27,13 +27,13 @@ class JobSeekerAdsNotifier
   }
 }
 
-final jobSeekerAdsProvider =
+final employerAdsProvider =
     StateNotifierProvider<
-      JobSeekerAdsNotifier,
-      AsyncValue<List<JobSeekerAdEntity>>
+      EmployerAdsNotifier,
+      AsyncValue<List<EmployerAdEntity>>
     >((ref) {
       final dio = ref.watch(dioProvider);
       final remote = AdsRemoteDataSourceImpl(dio);
       final repo = AdsRepositoryImpl(remote);
-      return JobSeekerAdsNotifier(repo);
+      return EmployerAdsNotifier(repo);
     });
