@@ -28,24 +28,27 @@ class CustomSubscriptionSegmentView extends ConsumerWidget {
         _buildActionItem(
           title: 'اشتراک',
           icon: Icons.inventory_2_outlined,
+          isSelected: selectedIndex == 0,
           onTap: () {
-            // TODO: Handle Subscriptions tap
+            ref.read(subscriptionSegmentProvider.notifier).state = 0;
           },
         ),
         const SizedBox(width: 12),
         _buildActionItem(
           title: 'کیف پول',
           icon: Icons.account_balance_wallet_outlined,
+          isSelected: selectedIndex == 1,
           onTap: () {
-            // TODO: Handle Wallet tap
+            ref.read(subscriptionSegmentProvider.notifier).state = 1;
           },
         ),
         const SizedBox(width: 12),
         _buildActionItem(
           title: 'تراکنش‌ها',
           icon: Icons.bar_chart_rounded,
+          isSelected: selectedIndex == 2,
           onTap: () {
-            // TODO: Handle Transactions tap
+            ref.read(subscriptionSegmentProvider.notifier).state = 2;
           },
         ),
       ],
@@ -64,36 +67,35 @@ class CustomSubscriptionSegmentView extends ConsumerWidget {
   Widget _buildActionItem({
     required String title,
     required IconData icon,
+    required bool isSelected,
     required VoidCallback onTap,
   }) {
+    // رنگ‌ها بر اساس انتخاب شدن یا نشدن تغییر می‌کنند
+    final bgColor = isSelected ? const Color(0xFF1E4064) : Colors.white;
+    final contentColor = isSelected ? Colors.white : const Color(0xFF1E4064);
+
     return Expanded(
       child: Material(
-        color: Colors.white,
+        color: bgColor,
         borderRadius: BorderRadius.circular(16),
-        elevation: 2,
+        elevation: isSelected ? 4 : 2,
         shadowColor: Colors.black.withOpacity(0.1),
         child: InkWell(
-          onTap: () {
-            onTap;
-          },
+          onTap: onTap,
           borderRadius: BorderRadius.circular(16),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
-                  icon,
-                  size: 32,
-                  color: const Color(0xFF1E4064), // رنگ آبی تیره
-                ),
+                Icon(icon, size: 32, color: contentColor),
                 const SizedBox(height: 8),
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF1E4064),
+                    color: contentColor,
                   ),
                 ),
               ],
