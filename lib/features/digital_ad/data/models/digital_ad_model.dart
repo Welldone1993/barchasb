@@ -4,11 +4,10 @@ class DigitalAdModel extends DigitalAdEntity {
   const DigitalAdModel({
     required super.id,
     required super.title,
+    required super.createdAt,
     super.description,
-    super.category,
     super.imageUrl,
-    super.price,
-    super.isVerified,
+    super.isBookmarked,
   });
 
   factory DigitalAdModel.fromJson(Map<String, dynamic> json) {
@@ -29,10 +28,10 @@ class DigitalAdModel extends DigitalAdEntity {
           (json['jobDetails'] != null && (json['jobDetails'] as List).isNotEmpty
               ? json['jobDetails'][0]['description']
               : null),
-      category: json['category'] is String ? json['category'] : null,
-      imageUrl: extractedImageUrl,
-      price: json['price']?.toString(),
-      isVerified: json['isVerified'] ?? false,
-    );
+       imageUrl: extractedImageUrl,
+        createdAt: json['createdAt'] != null
+            ? DateTime.parse(json['createdAt'])
+            : DateTime.now()
+     );
   }
 }

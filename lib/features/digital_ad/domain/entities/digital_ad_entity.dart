@@ -4,19 +4,17 @@ class DigitalAdEntity extends Equatable {
   final String id;
   final String title;
   final String? description;
-  final String? category;
   final String? imageUrl;
-  final String? price;
-  final bool isVerified;
+  final DateTime createdAt;
+  final bool isBookmarked;
 
   const DigitalAdEntity({
     required this.id,
     required this.title,
     this.description,
-    this.category,
     this.imageUrl,
-    this.price,
-    this.isVerified = false,
+    required this.createdAt,
+    this.isBookmarked = false,
   });
 
   @override
@@ -24,9 +22,8 @@ class DigitalAdEntity extends Equatable {
     id,
     title,
     description,
-    category,
     imageUrl,
-    price,
-    isVerified,
+    createdAt,
+    isBookmarked,
   ];
 }

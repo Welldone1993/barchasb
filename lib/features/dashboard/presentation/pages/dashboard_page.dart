@@ -37,47 +37,49 @@ class DashboardPage extends ConsumerWidget {
       body: Column(
         children: [
           UserProfileCard(),
-          Column(
-            children: [
-              // گرید دکمه‌ها
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 20,
-                ),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: buttonTitles.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3, // 3 ستون (مانند عکس)
-                    crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
-                    childAspectRatio: 2.2, // تنظیم نسبت عرض به ارتفاع دکمه‌ها
-                  ),
-                  itemBuilder: (context, index) => DashboardGridButton(
-                    title: buttonTitles[index],
-                    isSelected: selectedIndex == index,
-                    onTap: () {
-                      ref
-                              .read(selectedDashboardSectionProvider.notifier)
-                              .state =
-                          index;
-                    },
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              // بخش نمایش محتوا بر اساس دکمه انتخاب شده
-              _buildSectionContent(selectedIndex, context),
-            ],
+          Expanded(
+            child: Column(
+              children: [
+                // گرید دکمه‌ها
+                _tabsGridView(buttonTitles, selectedIndex, ref),
+            
+                const SizedBox(height: 20),
+            
+                // بخش نمایش محتوا بر اساس دکمه انتخاب شده
+                Expanded(child: _buildSectionContent(selectedIndex, context)),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
+
+  Widget _tabsGridView(
+    List<String> buttonTitles,
+    int selectedIndex,
+    WidgetRef ref,
+  ) => Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20),
+    child: GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: buttonTitles.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3, // 3 ستون (مانند عکس)
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 12,
+        childAspectRatio: 2.2, // تنظیم نسبت عرض به ارتفاع دکمه‌ها
+      ),
+      itemBuilder: (context, index) => DashboardGridButton(
+        title: buttonTitles[index],
+        isSelected: selectedIndex == index,
+        onTap: () {
+          ref.read(selectedDashboardSectionProvider.notifier).state = index;
+        },
+      ),
+    ),
+  );
 
   Widget _buildSectionContent(int index, BuildContext context) {
     switch (index) {

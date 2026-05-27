@@ -25,6 +25,15 @@ class DigitalAdsNotifier
       },
     );
   }
+
+  void toggleBookmark(String projectId) {
+    // فعلاً خالی - بعداً پیاده‌سازی می‌شه
+    print(projectId);
+  }
+
+  Future<void> refresh() async {
+    await fetchDigitalAds();
+  }
 }
 
 final digitalAdsProvider =
