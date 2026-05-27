@@ -11,10 +11,13 @@ class DigitalAdsRepositoryImpl extends DigitalAdsRepository {
   DigitalAdsRepositoryImpl(this._remoteDatasource);
 
   @override
-  Future<Either<Failure, List<DigitalAdEntity>>> fetchDigitalAds() async {
+  Future<Either<Failure, List<DigitalAdEntity>>> fetchDigitalAds({
+    required String search,
+  }) async {
     try {
-      final List<DigitalAdEntity> ads = await _remoteDatasource
-          .fetchDigitalAds();
+      final List<DigitalAdEntity> ads = await _remoteDatasource.fetchDigitalAds(
+        search: search,
+      );
       return Right(ads);
     } on ServerException catch (e) {
       return Left(Failure(e.message ?? 'خطا در دریافت اطلاعات از سرور'));

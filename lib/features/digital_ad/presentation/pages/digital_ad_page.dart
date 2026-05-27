@@ -11,16 +11,24 @@ class DigitalAdPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(digitalAdsProvider);
-
-    return state.when(
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (e, _) => _errorButton(e, ref),
-      data: (ads) => SingleChildScrollView(
-        child: RefreshIndicator(
-          onRefresh: () => ref.read(digitalAdsProvider.notifier).refresh(),
-          child: _list(ads),
+    final theme = Theme.of(context);
+    return Column(
+      children: [
+        _buildSearchBar(context, ref),
+        Expanded(
+          child: state.when(
+            loading: () => const Center(child: CircularProgressIndicator()),
+            error: (e, _) => _errorButton(e, ref),
+            data: (ads) => SingleChildScrollView(
+              child: RefreshIndicator(
+                onRefresh: () =>
+                    ref.read(digitalAdsProvider.notifier).refresh(),
+                child: _list(ads),
+              ),
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 
@@ -48,4 +56,98 @@ class DigitalAdPage extends ConsumerWidget {
       ],
     ),
   );
+
+  Widget _buildSearchBar(BuildContext context, WidgetRef ref) {
+
+    return Row(
+      children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              onSubmitted: (value) {
+                // 🔴 با صدا زدن این متد، state خودکار به loading می‌رود و دیتا از API گرفته می‌شود
+                ref
+                    .read(digitalAdsProvider.notifier)
+                    .fetchDigitalAds(search: value);
+              },
+              decoration: InputDecoration(
+                hintText: 'جستجو در آگهی‌ها...',
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 12),
+        // دکمه فیلتر
+        InkWell(
+          onTap: () => _showFilterDialog(context, ref),
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
+            child: Icon(Icons.tune, color: Theme.of(context).primaryColor),
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _showFilterDialog(BuildContext context, WidgetRef ref) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'فیلتر آگهی‌ها',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20),
+              // در اینجا می‌توانید تنظیمات فیلتر را قرار دهید
+              // مثلا Dropdown یا Checkbox که به پروایدرهای دیگری متصل هستند
+              const Text('دسته‌بندی (مثال)'),
+              const SizedBox(height: 10),
+              Wrap(
+                spacing: 8,
+                children: [
+                  ChoiceChip(
+                    label: const Text('طراحی وب'),
+                    selected: true,
+                    onSelected: (v) {},
+                  ),
+                  ChoiceChip(
+                    label: const Text('برنامه‌نویسی'),
+                    selected: false,
+                    onSelected: (v) {},
+                  ),
+                ],
+              ),
+              const SizedBox(height: 30),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // اعمال فیلتر و بستن دیالوگ
+                    Navigator.pop(context);
+                  },
+                  child: const Text('اعمال فیلتر'),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }

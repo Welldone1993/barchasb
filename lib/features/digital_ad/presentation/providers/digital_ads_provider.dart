@@ -5,18 +5,20 @@ import '../../../../core/network/dio_provider.dart';
 import '../../data/datasource/digital_ads_remote_data_source.dart';
 import '../../data/repositories/digital_ads_repository.dart';
 import '../../domain/entities/digital_ad_entity.dart';
-
-class DigitalAdsNotifier
+ class DigitalAdsNotifier
     extends StateNotifier<AsyncValue<List<DigitalAdEntity>>> {
   final DigitalAdsRepositoryImpl _repository;
-
+  String _currentQuery = '';
   DigitalAdsNotifier(this._repository) : super(const AsyncValue.loading()) {
     fetchDigitalAds();
   }
 
-  Future<void> fetchDigitalAds() async {
+  Future<void> fetchDigitalAds({String? search}) async {
+    if (search != null) {
+      _currentQuery = search;
+    }
     state = const AsyncValue.loading();
-    final result = await _repository.fetchDigitalAds();
+    final result = await _repository.fetchDigitalAds(search: _currentQuery);
     result.fold(
       (failure) =>
           state = AsyncValue.error(failure.message, StackTrace.current),
@@ -25,6 +27,8 @@ class DigitalAdsNotifier
       },
     );
   }
+
+
 
   void toggleBookmark(String projectId) {
     // فعلاً خالی - بعداً پیاده‌سازی می‌شه

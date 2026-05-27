@@ -19,7 +19,7 @@ class CustomAdSegmentView extends ConsumerWidget {
       children: [
         _header(ref, selectedIndex),
         const SizedBox(height: 16),
-        _buildTabWidget(selectedIndex),
+        Expanded(child: _buildTabWidget(selectedIndex)),
       ],
     );
   }
