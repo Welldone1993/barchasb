@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
 import 'employer_ads.dart';
+import 'filter_bottom_sheet.dart';
 import 'job_seeker_ads.dart';
 import 'seller_ads.dart';
 
@@ -17,18 +18,18 @@ class CustomAdSegmentView extends ConsumerWidget {
 
     return Column(
       children: [
-        _header(ref, selectedIndex),
+        _header(context, ref, selectedIndex),
         const SizedBox(height: 16),
         Expanded(child: _buildTabWidget(selectedIndex)),
       ],
     );
   }
 
-  Widget _header(WidgetRef ref, int selectedIndex) => Row(
+  Widget _header(BuildContext context, WidgetRef ref, int selectedIndex) => Row(
     children: [
       Expanded(child: _tabs(ref, selectedIndex)),
       const SizedBox(width: 8),
-      _filterButton(),
+      _filterButton(context),
     ],
   );
 
@@ -63,7 +64,7 @@ class CustomAdSegmentView extends ConsumerWidget {
     ),
   );
 
-  Widget _filterButton() => Container(
+  Widget _filterButton(BuildContext context) => Container(
     height: 48,
     width: 48,
     decoration: BoxDecoration(
@@ -73,7 +74,16 @@ class CustomAdSegmentView extends ConsumerWidget {
     child: IconButton(
       icon: const Icon(Icons.tune, color: Color(0xFF1C3A5A)),
       onPressed: () {
-        // TODO: باز کردن باتم‌شیت یا صفحه فیلترها
+        showModalBottomSheet(
+          context: context,
+          isScrollControlled: true,
+          // مهم: برای اینکه باتم‌شیت بتواند تمام صفحه شود
+          backgroundColor: Colors.transparent,
+          // برای دیده شدن گوشه‌های گرد
+          builder: (context) {
+            return const DigitalAdsFilterBottomSheet();
+          },
+        );
       },
     ),
   );
