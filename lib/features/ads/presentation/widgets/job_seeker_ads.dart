@@ -1,41 +1,8 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
-//
-// import '../providers/job_seeker_ads_provider.dart';
-//
-// class JobSeekerAdsView extends ConsumerWidget {
-//   const JobSeekerAdsView({super.key});
-//
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     final jobSeekerAdsState = ref.watch(jobSeekerAdsProvider);
-//     return jobSeekerAdsState.when(
-//       data: (data) => SingleChildScrollView(
-//         padding: const EdgeInsets.all(16.0),
-//         child: Column(children: [...data.map((e) => Text(e.id))]),
-//       ),
-//       error: (err, stack) => Center(
-//         child: IconButton(
-//           icon: const Icon(Icons.refresh),
-//           onPressed: () {
-//             ref.read(jobSeekerAdsProvider.notifier).fetchJobSeekerAds();
-//           },
-//         ),
-//       ),
-//
-//       loading: () => const Center(child: CircularProgressIndicator()),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/entities/job_seeker_ad_entity.dart';
 import '../providers/job_seeker_ads_provider.dart';
-
-// import 'مسیر_پروایدر_شما/job_seeker_ads_provider.dart';
-// import 'مسیر_انتیتی_شما/job_seeker_ad_entity.dart';
 
 class JobSeekerAdsView extends ConsumerWidget {
   const JobSeekerAdsView({super.key});
@@ -131,8 +98,8 @@ class JobSeekerCard extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(16),
               child: Container(
-                width: 70,
-                height: 70,
+                width: 50,
+                height: 50,
                 color: Colors.grey.shade200,
                 child: ad.imageUrl != null && ad.imageUrl!.isNotEmpty
                     ? Image.network(
