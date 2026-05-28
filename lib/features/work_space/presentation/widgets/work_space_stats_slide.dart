@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../providers/work_space_ads_provider.dart';
 import '../providers/work_space_stats_provider.dart';
 
 class WorkSpaceStatsSlide extends ConsumerWidget {

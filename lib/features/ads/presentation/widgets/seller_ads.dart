@@ -1,38 +1,7 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
-//
-// import '../providers/seller_ads_provider.dart';
-//
-// class SellerAdsView extends ConsumerWidget {
-//   const SellerAdsView({super.key});
-//
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     final sellerAdsState = ref.watch(sellerAdsProvider);
-//     return sellerAdsState.when(
-//       data: (data) => SingleChildScrollView(
-//         padding: const EdgeInsets.all(16.0),
-//         child: Column(children: [...data.map((e) => Text(e.id))]),
-//       ),
-//       error: (err, stack) => Center(
-//         child: IconButton(
-//           icon: const Icon(Icons.refresh),
-//           onPressed: () {
-//             ref.read(sellerAdsProvider.notifier).fetchSellerAds();
-//           },
-//         ),
-//       ),
-//
-//       loading: () => const Center(child: CircularProgressIndicator()),
-//     );
-//   }
-// }
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../domain/entities/job_seeker_ad_entity.dart';
 import '../../domain/entities/seller_ad_entity.dart';
-import '../providers/job_seeker_ads_provider.dart';
 import '../providers/seller_ads_provider.dart';
 
 class SellerAdsView extends ConsumerWidget {
@@ -77,7 +46,7 @@ class SellerAdsView extends ConsumerWidget {
               crossAxisSpacing: 12,
               mainAxisSpacing: 12,
               childAspectRatio:
-              0.62, // در صورت نیاز برای ارتفاع کارت این عدد را تغییر دهید
+                  0.62, // در صورت نیاز برای ارتفاع کارت این عدد را تغییر دهید
             ),
             itemCount: ads.length,
             itemBuilder: (context, index) {
@@ -107,7 +76,7 @@ class SellerCard extends StatelessWidget {
 
     // ترکیب استان و شهر
     final String location =
-    '${ad.state ?? ''} ${ad.city != null ? '، ${ad.city}' : ''}'.trim();
+        '${ad.state ?? ''} ${ad.city != null ? '، ${ad.city}' : ''}'.trim();
 
     return Container(
       decoration: BoxDecoration(
@@ -134,15 +103,15 @@ class SellerCard extends StatelessWidget {
                 color: Colors.grey.shade200,
                 child: ad.imageUrl != null && ad.imageUrl!.isNotEmpty
                     ? Image.network(
-                  ad.imageUrl!,
-                  fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) =>
-                  const Icon(
-                    Icons.person,
-                    size: 40,
-                    color: Colors.grey,
-                  ),
-                )
+                        ad.imageUrl!,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(
+                              Icons.person,
+                              size: 40,
+                              color: Colors.grey,
+                            ),
+                      )
                     : const Icon(Icons.person, size: 40, color: Colors.grey),
               ),
             ),

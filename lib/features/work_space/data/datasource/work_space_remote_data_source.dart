@@ -1,11 +1,11 @@
- import 'package:dio/dio.dart';
+import 'package:dio/dio.dart';
 
 import '../../../../core/network/api_endpoints.dart';
-import '../models/ads_model.dart';
+import '../models/ad_model.dart';
 import '../models/weekly_stats_model.dart';
 
 abstract class WorkSpaceRemoteDataSource {
-  Future<List<AdsModel>> fetchAds();
+  Future<List<AdModel>> fetchAds();
 
   Future<List<WeeklyStatsModel>> fetchWeeklyStats();
 }
@@ -16,10 +16,10 @@ class WorkSpaceRemoteDataSourceImpl implements WorkSpaceRemoteDataSource {
   WorkSpaceRemoteDataSourceImpl(this._dio);
 
   @override
-  Future<List<AdsModel>> fetchAds() async {
-    // final response = await _dio.get(ApiEndpoints.getAds);
-    // TODO: add api and fetch true data
-    return [AdsModel(adId: '1'), AdsModel(adId: '2'), AdsModel(adId: '3')];
+  Future<List<AdModel>> fetchAds() async {
+    final response = await _dio.get(ApiEndpoints.sellerAds);
+    final List<dynamic> data = response.data;
+    return data.map((json) => AdModel.fromJson(json)).toList();
   }
 
   @override

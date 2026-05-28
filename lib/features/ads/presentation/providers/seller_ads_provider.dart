@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/legacy.dart';
 import '../../../../core/network/dio_provider.dart';
 import '../../data/datasource/ads_remote_data_source.dart';
 import '../../data/repositories/ads_repository_impl.dart';
-import '../../domain/entities/employer_ad_entity.dart';
 import '../../domain/entities/seller_ad_entity.dart';
 
 class SellerAdsNotifier
