@@ -1,10 +1,9 @@
-// lib/features/home/presentation/pages/home_page.dart
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/home_provider.dart';
-import '../widgets/custom_home_app_bar.dart';
+import '../widgets/barchasb_subtitle_widget.dart';
 import '../widgets/home_scaffold_screen.dart';
 import '../widgets/horizontal_list_view_handler.dart';
 import '../widgets/search_section.dart';
@@ -14,7 +13,7 @@ class HomePage extends ConsumerWidget {
 
   Widget buildAdImage(String? url) {
     if (url == null || url.isEmpty) {
-      return Image.asset('assets/images/placeholder.png'); // عکس پیش‌فرض
+      return Image.asset('assets/images/placeholder.png');
     }
 
     return CachedNetworkImage(
@@ -31,19 +30,18 @@ class HomePage extends ConsumerWidget {
     final homeNotifier = ref.read(homeProvider.notifier);
 
     return HomeScaffoldScreen(
-      // با کشیدن صفحه به پایین، اطلاعات رفرش می‌شود
       body: RefreshIndicator(
         onRefresh: homeNotifier.fetchAll,
         child: CustomScrollView(
           slivers: [
-
-            // بخش 2: جستجو و عنوان
-            const SearchSection(),
-
-            // یک فاصله کوچک
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0), // در صورت نیاز به فاصله
+                child: CustomSearchBar(),
+              ),
+            ),
+            SliverToBoxAdapter(child: BarchasbSubtitle()),
             const SliverToBoxAdapter(child: SizedBox(height: 16)),
-
-            // بخش 3: لیست فروشندگان
             SliverToBoxAdapter(
               child: HorizontalListViewHandler(
                 title: 'فروشندگان',
@@ -54,7 +52,6 @@ class HomePage extends ConsumerWidget {
 
             const SliverToBoxAdapter(child: SizedBox(height: 24)),
 
-            // بخش 4: لیست کارفرمایان
             SliverToBoxAdapter(
               child: HorizontalListViewHandler(
                 title: 'کارفرمایان',
@@ -65,7 +62,6 @@ class HomePage extends ConsumerWidget {
 
             const SliverToBoxAdapter(child: SizedBox(height: 24)),
 
-            // بخش 5: لیست کارجویان
             SliverToBoxAdapter(
               child: HorizontalListViewHandler(
                 title: 'کارجویان',

@@ -20,145 +20,142 @@ class HomeScaffoldScreen extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 1,
-          shadowColor: Colors.black12,
-          toolbarHeight: 70,
-          automaticallyImplyLeading: false,
-          title: Row(
-            children: [
-              Image.asset(
-                'assets/logo_light.png',
-                height: 40,
-                errorBuilder: (context, error, stackTrace) => const Icon(
-                  Icons.image_not_supported,
-                  color: Colors.blue,
-                ), // اگر عکس لود نشد
-              ),
-              Spacer(),
-              InkWell(
-                onTap: () => _showComingSoonSnackbar(context),
-                child: const Text(
-                  'برچسب کلاب',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF4A5568),
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 16),
-              InkWell(
-                onTap: () => context.push('/login'),
-                child: const Text(
-                  'ورود',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF4A5568),
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 16),
-              InkWell(
-                onTap: () => context.push('/register'),
-                child: const Text(
-                  'ثبت نام',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF4A5568),
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          actions: [
-            Builder(
-              builder: (context) => IconButton(
-                icon: const Icon(
-                  Icons.menu,
-                  color: Color(0xFF4A5568),
-                  size: 32,
-                ),
-                onPressed: () {
-                  // باز کردن منوی کناری (چون RTL هستیم، endDrawer از چپ باز می‌شود)
-                  Scaffold.of(context).openEndDrawer();
-                },
-              ),
-            ),
-            const SizedBox(width: 8),
-          ],
-        ),
-
-        endDrawer: Drawer(
-          backgroundColor: const Color(0xFF1E3A5F),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-            ),
-          ),
-          child: SafeArea(
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: InkWell(
-                      onTap: () => Navigator.pop(context),
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white54, width: 1.5),
-                        ),
-                        child: const Icon(
-                          Icons.close,
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                _buildDrawerItem(
-                  context: context,
-                  title: 'خانه',
-                  icon: Icons.home_rounded,
-                  onTap: () => _showComingSoonSnackbar(context),
-                ),
-                _buildDrawerItem(
-                  context: context,
-                  title: 'درباره ما',
-                  icon: Icons.info_outline_rounded,
-                  onTap: () => _showComingSoonSnackbar(context),
-                ),
-                _buildDrawerItem(
-                  context: context,
-                  title: 'استخدام کارجو',
-                  icon: Icons.assignment_ind_outlined,
-                  hasArrow: true,
-                  onTap: () => _showComingSoonSnackbar(context),
-                ),
-                _buildDrawerItem(
-                  context: context,
-                  title: 'پیدا کردن کار',
-                  icon: Icons.search_rounded,
-                  hasArrow: true,
-                  onTap: () => _showComingSoonSnackbar(context),
-                ),
-              ],
-            ),
-          ),
-        ),
+        backgroundColor: Colors.white,
+        appBar: _appBar(context),
+        endDrawer: _drawer(context),
         body: body,
       ),
     );
   }
+
+  Widget _drawer(BuildContext context) => Drawer(
+      backgroundColor: const Color(0xFF1E3A5F),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(20),
+          bottomRight: Radius.circular(20),
+        ),
+      ),
+      child: SafeArea(
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white54, width: 1.5),
+                    ),
+                    child: const Icon(
+                      Icons.close,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            _buildDrawerItem(
+              context: context,
+              title: 'خانه',
+              icon: Icons.home_rounded,
+              onTap: () => _showComingSoonSnackbar(context),
+            ),
+            _buildDrawerItem(
+              context: context,
+              title: 'درباره ما',
+              icon: Icons.info_outline_rounded,
+              onTap: () => _showComingSoonSnackbar(context),
+            ),
+            _buildDrawerItem(
+              context: context,
+              title: 'استخدام کارجو',
+              icon: Icons.assignment_ind_outlined,
+              hasArrow: true,
+              onTap: () => _showComingSoonSnackbar(context),
+            ),
+            _buildDrawerItem(
+              context: context,
+              title: 'پیدا کردن کار',
+              icon: Icons.search_rounded,
+              hasArrow: true,
+              onTap: () => _showComingSoonSnackbar(context),
+            ),
+          ],
+        ),
+      ),
+    );
+
+  AppBar _appBar(BuildContext context) => AppBar(
+    elevation: 2,
+    shadowColor: Colors.black12,
+    toolbarHeight: 70,
+    automaticallyImplyLeading: false,
+    title: Row(
+      children: [
+        _logo(),
+        Spacer(),
+        _club(context),
+        const SizedBox(width: 16),
+        _login(context),
+        const SizedBox(width: 16),
+        _register(context),
+      ],
+    ),
+  );
+
+
+
+  Widget _register(BuildContext context) => InkWell(
+    onTap: () => context.push('/register'),
+    child: const Text(
+      'ثبت نام',
+      style: TextStyle(
+        fontSize: 14,
+        color: Color(0xFF4A5568),
+        fontWeight: FontWeight.w600,
+      ),
+    ),
+  );
+
+  Widget _login(BuildContext context) => InkWell(
+    onTap: () => context.push('/login'),
+    child: const Text(
+      'ورود',
+      style: TextStyle(
+        fontSize: 14,
+        color: Color(0xFF4A5568),
+        fontWeight: FontWeight.w600,
+      ),
+    ),
+  );
+
+  Widget _club(BuildContext context) => InkWell(
+    onTap: () => _showComingSoonSnackbar(context),
+    child: const Text(
+      'برچسب کلاب',
+      style: TextStyle(
+        fontSize: 14,
+        color: Color(0xFF4A5568),
+        fontWeight: FontWeight.w600,
+      ),
+    ),
+  );
+
+  Widget _logo() => Image.asset(
+    'assets/logo_light.png',
+    height: 40,
+    errorBuilder: (context, error, stackTrace) => const Icon(
+      Icons.image_not_supported,
+      color: Colors.blue,
+    ), // اگر عکس لود نشد
+  );
 
   Widget _buildDrawerItem({
     required BuildContext context,

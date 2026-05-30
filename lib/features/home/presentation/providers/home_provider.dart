@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
@@ -33,6 +35,7 @@ class HomeState {
 
 class HomeNotifier extends StateNotifier<HomeState> {
   final HomeRepository _homeRepository;
+  Timer? _debounceTimer;
 
   HomeNotifier(this._homeRepository) : super(HomeState()) {
     fetchAll();
@@ -75,6 +78,18 @@ class HomeNotifier extends StateNotifier<HomeState> {
       ),
       (data) => state = state.copyWith(jobSeekers: AsyncValue.data(data)),
     );
+  }
+
+  void searchAds(String query) {
+    if (_debounceTimer?.isActive ?? false) _debounceTimer!.cancel();
+
+    if (query.isEmpty) {
+      return;
+    }
+
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () async {
+      fetchAll();
+    });
   }
 }
 
