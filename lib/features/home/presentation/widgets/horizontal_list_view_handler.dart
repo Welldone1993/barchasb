@@ -41,7 +41,7 @@ class HorizontalListViewHandler extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     itemCount: list.length,
-                    itemBuilder: (context, index) => UserCard(ad: list[index]),
+                    itemBuilder: (context, index) => HorizontalAdCard(ad: list[index]),
                   ),
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (err, stack) => Center(

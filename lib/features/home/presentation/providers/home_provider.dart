@@ -3,18 +3,11 @@ import 'package:flutter_riverpod/legacy.dart';
 
 import '../../../../core/network/dio_provider.dart';
 import '../../data/datasources/home_remote_datasource.dart';
- import '../../data/repositories/home_repository_impl.dart';
- import '../../domain/entities/ad_entity.dart';
+import '../../data/repositories/home_repository_impl.dart';
+import '../../domain/entities/ad_entity.dart';
 import '../../domain/repositories/home_repository.dart';
-// TODO: mix all providers
-final homeRemoteDataSourceProvider = Provider<HomeRemoteDataSource>(
-  (ref) => HomeRemoteDataSourceImpl(ref.watch(dioProvider)),
-);
 
-final homeRepositoryProvider = Provider<HomeRepository>(
-  (ref) => HomeRepositoryImpl(ref.watch(homeRemoteDataSourceProvider)),
-);
- class HomeState {
+class HomeState {
   final AsyncValue<List<AdEntity>> sellers;
   final AsyncValue<List<AdEntity>> employers;
   final AsyncValue<List<AdEntity>> jobSeekers;
@@ -42,18 +35,17 @@ class HomeNotifier extends StateNotifier<HomeState> {
   final HomeRepository _homeRepository;
 
   HomeNotifier(this._homeRepository) : super(HomeState()) {
-     fetchAll();
+    fetchAll();
   }
 
   Future<void> fetchAll() async {
-     await Future.wait([fetchSellers(), fetchEmployers(), fetchJobSeekers()]);
+    await Future.wait([fetchSellers(), fetchEmployers(), fetchJobSeekers()]);
   }
 
   Future<void> fetchSellers() async {
     state = state.copyWith(sellers: const AsyncValue.loading());
     final result = await _homeRepository.getSellers();
 
-    // متد .fold از پکیج fpdart/dartz به ما اجازه می‌دهد دو حالت موفقیت (Right) و خطا (Left) را مدیریت کنیم
     result.fold(
       (failure) => state = state.copyWith(
         sellers: AsyncValue.error(failure.message, StackTrace.current),
@@ -87,5 +79,8 @@ class HomeNotifier extends StateNotifier<HomeState> {
 }
 
 final homeProvider = StateNotifierProvider<HomeNotifier, HomeState>((ref) {
-  return HomeNotifier(ref.watch(homeRepositoryProvider));
+  final dio = ref.watch(dioProvider);
+  final remote = HomeRemoteDataSourceImpl(dio);
+  final repo = HomeRepositoryImpl(remote);
+  return HomeNotifier(repo);
 });

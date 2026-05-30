@@ -1,4 +1,3 @@
-// lib/features/home/domain/entities/ad_entity.dart
 import 'package:equatable/equatable.dart';
 
 class AdEntity extends Equatable {
