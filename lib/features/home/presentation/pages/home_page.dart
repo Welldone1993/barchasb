@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/home_provider.dart';
 import '../widgets/custom_home_app_bar.dart';
+import '../widgets/home_scaffold_screen.dart';
 import '../widgets/horizontal_list_view_handler.dart';
 import '../widgets/search_section.dart';
 
@@ -29,14 +30,12 @@ class HomePage extends ConsumerWidget {
     final homeState = ref.watch(homeProvider);
     final homeNotifier = ref.read(homeProvider.notifier);
 
-    return Scaffold(
+    return HomeScaffoldScreen(
       // با کشیدن صفحه به پایین، اطلاعات رفرش می‌شود
       body: RefreshIndicator(
         onRefresh: homeNotifier.fetchAll,
         child: CustomScrollView(
           slivers: [
-            // بخش 1: اپ بار سفارشی
-            const CustomHomeAppBar(),
 
             // بخش 2: جستجو و عنوان
             const SearchSection(),
