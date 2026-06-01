@@ -5,6 +5,7 @@ class AdEntity extends Equatable {
   final String title;
   final String? description;
   final String? category;
+  final String? subCategories;
   final String? imageUrl;
   final String? price;
   final bool isVerified;
@@ -14,11 +15,21 @@ class AdEntity extends Equatable {
     required this.title,
     this.description,
     this.category,
+    this.subCategories,
     this.imageUrl,
     this.price,
     this.isVerified = false,
   });
 
   @override
-  List<Object?> get props => [id, title, description, category, imageUrl, price, isVerified];
+  List<Object?> get props => [
+    id,
+    title,
+    description,
+    category,
+    subCategories,
+    imageUrl,
+    price,
+    isVerified,
+  ];
 }

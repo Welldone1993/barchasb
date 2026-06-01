@@ -29,68 +29,64 @@ class HomeScaffoldScreen extends StatelessWidget {
   }
 
   Widget _drawer(BuildContext context) => Drawer(
-      backgroundColor: const Color(0xFF1E3A5F),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(20),
-          bottomRight: Radius.circular(20),
-        ),
+    backgroundColor: const Color(0xFF1E3A5F),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topRight: Radius.circular(20),
+        bottomRight: Radius.circular(20),
       ),
-      child: SafeArea(
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: InkWell(
-                  onTap: () => Navigator.pop(context),
-                  child: Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white54, width: 1.5),
-                    ),
-                    child: const Icon(
-                      Icons.close,
-                      color: Colors.white,
-                      size: 20,
-                    ),
+    ),
+    child: SafeArea(
+      child: Column(
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: InkWell(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white54, width: 1.5),
                   ),
+                  child: const Icon(Icons.close, color: Colors.white, size: 20),
                 ),
               ),
             ),
-            const SizedBox(height: 10),
-            _buildDrawerItem(
-              context: context,
-              title: 'خانه',
-              icon: Icons.home_rounded,
-              onTap: () => _showComingSoonSnackbar(context),
-            ),
-            _buildDrawerItem(
-              context: context,
-              title: 'درباره ما',
-              icon: Icons.info_outline_rounded,
-              onTap: () => _showComingSoonSnackbar(context),
-            ),
-            _buildDrawerItem(
-              context: context,
-              title: 'استخدام کارجو',
-              icon: Icons.assignment_ind_outlined,
-              hasArrow: true,
-              onTap: () => _showComingSoonSnackbar(context),
-            ),
-            _buildDrawerItem(
-              context: context,
-              title: 'پیدا کردن کار',
-              icon: Icons.search_rounded,
-              hasArrow: true,
-              onTap: () => _showComingSoonSnackbar(context),
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 10),
+          _buildDrawerItem(
+            context: context,
+            title: 'خانه',
+            icon: Icons.home_rounded,
+            onTap: () => _showComingSoonSnackbar(context),
+          ),
+          _buildDrawerItem(
+            context: context,
+            title: 'درباره ما',
+            icon: Icons.info_outline_rounded,
+            onTap: () => _showComingSoonSnackbar(context),
+          ),
+          _buildDrawerItem(
+            context: context,
+            title: 'استخدام کارجو',
+            icon: Icons.assignment_ind_outlined,
+            hasArrow: true,
+            onTap: () => _showComingSoonSnackbar(context),
+          ),
+          _buildDrawerItem(
+            context: context,
+            title: 'پیدا کردن کار',
+            icon: Icons.search_rounded,
+            hasArrow: true,
+            onTap: () => _showComingSoonSnackbar(context),
+          ),
+        ],
       ),
-    );
+    ),
+  );
 
   AppBar _appBar(BuildContext context) => AppBar(
     elevation: 2,
@@ -109,8 +105,6 @@ class HomeScaffoldScreen extends StatelessWidget {
       ],
     ),
   );
-
-
 
   Widget _register(BuildContext context) => InkWell(
     onTap: () => context.push('/register'),
@@ -148,14 +142,7 @@ class HomeScaffoldScreen extends StatelessWidget {
     ),
   );
 
-  Widget _logo() => Image.asset(
-    'assets/logo_light.png',
-    height: 40,
-    errorBuilder: (context, error, stackTrace) => const Icon(
-      Icons.image_not_supported,
-      color: Colors.blue,
-    ), // اگر عکس لود نشد
-  );
+  Widget _logo() => Image.asset('assets/logo_light.png', height: 40);
 
   Widget _buildDrawerItem({
     required BuildContext context,

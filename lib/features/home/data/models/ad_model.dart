@@ -6,6 +6,7 @@ class AdModel extends AdEntity {
     required super.title,
     super.description,
     super.category,
+    super.subCategories,
     super.imageUrl,
     super.price,
     super.isVerified,
@@ -29,9 +30,10 @@ class AdModel extends AdEntity {
           ? json['jobDetails'][0]['description']
           : null),
       category: json['category'] is String ? json['category'] : null,
+      subCategories: json['subCategories'] is String ? json['subCategories'] : null,
       imageUrl: extractedImageUrl,
       // در فایل‌های نمونه فیلد مستقیم price نبود، اگر در جای دیگری است اصلاح کنید
-      price: json['price']?.toString(),
+      price: json['priceIRT']?.toString(),
       isVerified: json['isVerified'] ?? false,
     );
   }

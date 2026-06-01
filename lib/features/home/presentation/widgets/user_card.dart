@@ -107,16 +107,15 @@ class HorizontalAdCard extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Directionality(
+  Widget build(BuildContext context) => Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
-        height: 180,
+        width: 320,
+        height: 200,
         margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
         child: Stack(
           clipBehavior: Clip.none,
           children: [
-            // بدنه اصلی کارت
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -132,7 +131,6 @@ class HorizontalAdCard extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  // بخش سمت راست: تصویر شخص/آگهی
                   Expanded(
                     flex: 4,
                     child: Stack(
@@ -150,7 +148,6 @@ class HorizontalAdCard extends StatelessWidget {
                                 )
                               : Container(color: Colors.grey.shade200),
                         ),
-                        // آیکون لایک (قلب)
                         const Positioned(
                           top: 12,
                           right: 12,
@@ -167,11 +164,7 @@ class HorizontalAdCard extends StatelessWidget {
                       ],
                     ),
                   ),
-
-                  // خط جداکننده وسط
                   Container(width: 1, color: Colors.blue.shade100),
-
-                  // بخش سمت چپ: اطلاعات
                   Expanded(
                     flex: 6,
                     child: Stack(
@@ -181,7 +174,6 @@ class HorizontalAdCard extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              // عنوان اصلی
                               Text(
                                 ad.title,
                                 style: const TextStyle(
@@ -190,17 +182,7 @@ class HorizontalAdCard extends StatelessWidget {
                                   color: Color(0xFF1E3A5F),
                                 ),
                               ),
-                              const SizedBox(height: 4),
-                              // زیر عنوان (دسته‌بندی یا شرکت)
-                              Text(
-                                ad.category ?? 'بدون دسته‌بندی',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: Colors.grey.shade600,
-                                ),
-                              ),
                               const SizedBox(height: 8),
-                              // بج وسط (تعداد موقعیت یا قیمت)
                               Container(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 16,
@@ -220,14 +202,18 @@ class HorizontalAdCard extends StatelessWidget {
                                 ),
                               ),
                               const Spacer(),
-                              // تگ‌ها (به صورت ماک یا در صورت اضافه شدن به انتیتی)
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  _buildTag('برنامه نویس'),
-                                  const SizedBox(width: 8),
-                                  _buildTag('گرافیست'),
-                                ],
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    if (ad.category != null)
+                                      _buildTag(ad.category!),
+                                    const SizedBox(width: 8),
+                                    if (ad.subCategories != null)
+                                      _buildTag(ad.subCategories!),
+                                  ],
+                                ),
                               ),
                               const SizedBox(height: 16),
                             ],
@@ -238,10 +224,9 @@ class HorizontalAdCard extends StatelessWidget {
                         Positioned(
                           top: 8,
                           left: 8,
-                          child: Icon(
-                            Icons.note_rounded,
-                            color: Colors.blue.shade400,
-                            size: 28,
+                          child: Image.asset(
+                            'assets/logo_light.png',
+                            height: 20, // اگر عکس لود نشد
                           ),
                         ),
 
@@ -282,7 +267,7 @@ class HorizontalAdCard extends StatelessWidget {
 
             // فلش نارنجی سمت راست
             Positioned(
-              right: -15,
+              left: -15,
               top: 0,
               bottom: 0,
               child: Center(
@@ -295,7 +280,8 @@ class HorizontalAdCard extends StatelessWidget {
 
             // فلش نارنجی سمت چپ
             Positioned(
-              left: -15,
+              right: -15,
+
               top: 0,
               bottom: 0,
               child: Center(
@@ -309,7 +295,6 @@ class HorizontalAdCard extends StatelessWidget {
         ),
       ),
     );
-  }
 
   Widget _buildTag(String text) {
     return Container(
@@ -326,26 +311,25 @@ class HorizontalAdCard extends StatelessWidget {
     );
   }
 
-  Widget _buildOrangeArrow(IconData icon, VoidCallback? onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 35,
-        height: 60,
-        decoration: BoxDecoration(
-          color: const Color(0xFFF68D38),
-          borderRadius: icon == Icons.arrow_forward_ios
-              ? const BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  bottomLeft: Radius.circular(30),
-                )
-              : const BorderRadius.only(
-                  topRight: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
-                ),
+  Widget _buildOrangeArrow(IconData icon, VoidCallback? onTap) =>
+      GestureDetector(
+        onTap: onTap,
+        child: Container(
+          width: 35,
+          height: 60,
+          decoration: BoxDecoration(
+            color: const Color(0xFFF68D38),
+            borderRadius: icon == Icons.arrow_forward_ios
+                ? const BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    bottomLeft: Radius.circular(15),
+                  )
+                : const BorderRadius.only(
+                    topRight: Radius.circular(15),
+                    bottomRight: Radius.circular(15),
+                  ),
+          ),
+          child: Icon(icon, color: Colors.white, size: 24),
         ),
-        child: Icon(icon, color: Colors.white, size: 24),
-      ),
-    );
-  }
+      );
 }
