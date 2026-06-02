@@ -1,3 +1,4 @@
+import 'package:barchasb/core/widgets/comming_soon_snack_bar.dart';
 import 'package:flutter/material.dart';
 
 class SubscriptionPlansCard extends StatelessWidget {
@@ -55,32 +56,17 @@ class SubscriptionPlansCard extends StatelessWidget {
 
           const SizedBox(height: 48),
 
-          // دکمه خرید اشتراک
           Material(
             color: const Color(0xFF1E3A5F), // رنگ سرمه‌ای دکمه
             borderRadius: BorderRadius.circular(12),
             child: InkWell(
-              onTap: () {
-                // نمایش اسنک‌بار هنگام کلیک
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: const Text(
-                      'خرید اشتراک به زودی فعال خواهد شد...',
-                      style: TextStyle(fontFamily: 'Vazirmatn'),
-                      textAlign: TextAlign.center,
-                    ),
-                    backgroundColor: const Color(0xFF1E3A5F),
-                    behavior: SnackBarBehavior.floating,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    duration: const Duration(seconds: 2),
-                  ),
-                );
-              },
+              onTap: () => ComingSoonSnackBar().show(context),
               borderRadius: BorderRadius.circular(12),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 14),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 48,
+                  vertical: 14,
+                ),
                 child: const Text(
                   'خرید اشتراک',
                   style: TextStyle(

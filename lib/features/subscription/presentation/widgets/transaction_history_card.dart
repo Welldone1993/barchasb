@@ -1,28 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/widgets/comming_soon_snack_bar.dart';
+
 class TransactionHistoryCard extends ConsumerWidget {
   const TransactionHistoryCard({super.key});
 
-  // متد کمکی برای نمایش اسنک‌بار
-  void _showComingSoonSnackbar(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text(
-          'به زودی...',
-          style: TextStyle(fontFamily: 'Vazirmatn'),
-          // در صورت نیاز فونت خود را تنظیم کنید
-          textAlign: TextAlign.center,
-        ),
-        behavior: SnackBarBehavior.floating,
-        duration: Duration(seconds: 2),
-      ),
-    );
-  }
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Center(
+  Widget build(BuildContext context, WidgetRef ref) => Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -31,7 +16,7 @@ class TransactionHistoryCard extends ConsumerWidget {
             title: 'تاریخچه واریز',
             onTap: () {
               // در اینجا می‌توانید با ref مقادیر پرووایدرها را آپدیت کنید
-              _showComingSoonSnackbar(context);
+              ComingSoonSnackBar().show(context);
             },
           ),
           const SizedBox(height: 48), // فاصله بین دو دکمه
@@ -40,13 +25,12 @@ class TransactionHistoryCard extends ConsumerWidget {
             title: 'تاریخچه برداشت',
             onTap: () {
               // در اینجا می‌توانید با ref مقادیر پرووایدرها را آپدیت کنید
-              _showComingSoonSnackbar(context);
+              ComingSoonSnackBar().show(context);
             },
           ),
         ],
       ),
     );
-  }
 
   // متد کمکی برای ساخت دکمه‌ها
   Widget _buildHistoryButton({

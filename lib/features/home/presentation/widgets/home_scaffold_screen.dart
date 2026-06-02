@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/widgets/comming_soon_snack_bar.dart';
+
 class HomeScaffoldScreen extends StatelessWidget {
   final Widget body;
 
   const HomeScaffoldScreen({super.key, required this.body});
-
-  void _showComingSoonSnackbar(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('به زودی...', style: TextStyle(fontFamily: 'Vazirmatn')),
-        duration: Duration(seconds: 2),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,27 +54,27 @@ class HomeScaffoldScreen extends StatelessWidget {
             context: context,
             title: 'خانه',
             icon: Icons.home_rounded,
-            onTap: () => _showComingSoonSnackbar(context),
+            onTap: () => ComingSoonSnackBar().show(context),
           ),
           _buildDrawerItem(
             context: context,
             title: 'درباره ما',
             icon: Icons.info_outline_rounded,
-            onTap: () => _showComingSoonSnackbar(context),
+            onTap: () => ComingSoonSnackBar().show(context),
           ),
           _buildDrawerItem(
             context: context,
             title: 'استخدام کارجو',
             icon: Icons.assignment_ind_outlined,
             hasArrow: true,
-            onTap: () => _showComingSoonSnackbar(context),
+            onTap: () => ComingSoonSnackBar().show(context),
           ),
           _buildDrawerItem(
             context: context,
             title: 'پیدا کردن کار',
             icon: Icons.search_rounded,
             hasArrow: true,
-            onTap: () => _showComingSoonSnackbar(context),
+            onTap: () => ComingSoonSnackBar().show(context),
           ),
         ],
       ),
@@ -131,7 +124,7 @@ class HomeScaffoldScreen extends StatelessWidget {
   );
 
   Widget _club(BuildContext context) => InkWell(
-    onTap: () => _showComingSoonSnackbar(context),
+    onTap: () => ComingSoonSnackBar().show(context),
     child: const Text(
       'برچسب کلاب',
       style: TextStyle(

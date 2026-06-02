@@ -21,7 +21,6 @@ class DashboardPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dashboardState = ref.watch(dashboardProvider);
     final selectedIndex = ref.watch(selectedDashboardSectionProvider);
     final List<String> buttonTitles = [
       'میزکار',
@@ -33,6 +32,7 @@ class DashboardPage extends ConsumerWidget {
     ];
 
     return AppScaffold(
+      appBar: _appBar(),
       title: 'داشبورد کاربر',
       body: Column(
         children: [
@@ -42,15 +42,120 @@ class DashboardPage extends ConsumerWidget {
               children: [
                 // گرید دکمه‌ها
                 _tabsGridView(buttonTitles, selectedIndex, ref),
-            
+
                 const SizedBox(height: 20),
-            
+
                 // بخش نمایش محتوا بر اساس دکمه انتخاب شده
                 Expanded(child: _buildSectionContent(selectedIndex, context)),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  AppBar _appBar() => AppBar(
+    backgroundColor: const Color(0xFF153354),
+    // رنگ پس‌زمینه آبی تیره (مطابق تصویر)
+    elevation: 0,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        bottom: Radius.circular(16), // اگر گوشه‌های پایین گرد هستند
+      ),
+    ),
+    leading: Padding(
+      padding: const EdgeInsets.only(right: 16.0, top: 12.0, bottom: 12.0),
+      child: _buildIconButton(
+        icon: Icons.search,
+        onTap: () {
+          // اکشن جستجو
+        },
+      ),
+    ),
+    leadingWidth: 70,
+
+    // تنظیم عرض برای جا شدن دکمه
+    actions: [
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12.0),
+        child: Row(
+          children: [
+            _buildIconButton(
+              icon: Icons.notifications_none_rounded,
+              hasBadge: true,
+              badgeCount: '1',
+              onTap: () {
+                // TODO: notif action
+              },
+            ),
+            const SizedBox(width: 8),
+
+             _buildIconButton(
+              icon: Icons.chat_bubble_outline_rounded,
+              onTap: () {
+                // TODO: support
+              },
+            ),
+            const SizedBox(width: 8),
+
+            // دکمه منو (سه نقطه)
+            _buildIconButton(
+              icon: Icons.more_vert_rounded,
+              onTap: () {
+                // اکشن منو
+              },
+            ),
+            const SizedBox(width: 16), // فاصله از حاشیه چپ صفحه
+          ],
+        ),
+      ),
+    ],
+  );
+
+  Widget _buildIconButton({
+    required IconData icon,
+    required VoidCallback onTap,
+    bool hasBadge = false,
+    String badgeCount = '',
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 44,
+        height: 44,
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.08), // رنگ نیمه شفاف پس‌زمینه آیکون
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          clipBehavior: Clip.none,
+          children: [
+            Icon(icon, color: Colors.white, size: 24),
+            if (hasBadge)
+              Positioned(
+                right: -6,
+                bottom: -6,
+                child: Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFFF5252), // رنگ قرمز بج
+                    shape: BoxShape.circle,
+                  ),
+                  child: Text(
+                    badgeCount,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      height: 1.2,
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

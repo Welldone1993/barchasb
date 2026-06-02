@@ -1,27 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/comming_soon_snack_bar.dart';
+
 class WalletBalanceCard extends StatelessWidget {
   const WalletBalanceCard({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // متد کمکی برای نمایش اسنک‌بار
-    void _showComingSoonSnackbar(BuildContext context) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            'به زودی...',
-            style: TextStyle(fontFamily: 'Vazirmatn'),
-            // در صورت نیاز فونت خود را تنظیم کنید
-            textAlign: TextAlign.center,
-          ),
-          behavior: SnackBarBehavior.floating,
-          duration: Duration(seconds: 2),
-        ),
-      );
-    }
-
-    return Container(
+  Widget build(BuildContext context) => Container(
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -83,19 +68,19 @@ class WalletBalanceCard extends StatelessWidget {
                       _buildActionButton(
                         title: 'واریز',
                         onTap: () {
-                          _showComingSoonSnackbar(context);
+                          ComingSoonSnackBar().show(context);
                         },
                       ),
                       _buildActionButton(
                         title: 'تبدیل',
                         onTap: () {
-                          _showComingSoonSnackbar(context);
+                          ComingSoonSnackBar().show(context);
                         },
                       ),
                       _buildActionButton(
                         title: 'برداشت',
                         onTap: () {
-                          _showComingSoonSnackbar(context);
+                          ComingSoonSnackBar().show(context);
                         },
                       ),
                     ],
@@ -107,7 +92,6 @@ class WalletBalanceCard extends StatelessWidget {
         ),
       ),
     );
-  }
 
   Widget _buildBalanceBox({required String label, required String value}) {
     return Container(
