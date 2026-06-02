@@ -4,6 +4,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/network/dio_provider.dart';
+import '../../../../core/widgets/comming_soon_snack_bar.dart';
 import '../../data/datasources/auth_remote_datasource.dart';
 import '../../data/repositories/auth_repository_impl.dart';
 import '../../domain/entities/login_entity.dart';
@@ -49,17 +50,47 @@ class AuthNotifier extends StateNotifier<AuthState> {
     String password,
   ) async {
     state = state.copyWith(isLoading: true, clearError: true);
-    try {
-      final user = await _repository.login(phone, password);
-      storage.write(key: 'auth_token', value: user.token);
-      state = state.copyWith(isLoading: false, user: user);
-      if (context.mounted) {
-        context.pushReplacement('/dashboard');
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
+    final user = await _repository.login(phone, password);
+
+    user.fold(
+      (failure) {
+        state = state.copyWith(isLoading: false, error: failure.toString());
+        if (context.mounted) {
+          CustomSnackBar(title: 'شماره تلفن یا رمز عبور اشتباه است').show(context);
+        }
+      },
+      (user) {
+        state = state.copyWith(isLoading: false, user: user);
+        storage.write(key: 'auth_token', value: user.token);
+        state = state.copyWith(isLoading: false, user: user);
+        if (context.mounted) {
+          context.pushReplacement('/dashboard');
+        }
+      },
+    );
   }
+
+  // Future<void> login(
+  //   BuildContext context,
+  //   String phone,
+  //   String password,
+  // ) async {
+  //   state = state.copyWith(isLoading: true, clearError: true);
+  //   try {
+  //     final user = await _repository.login(phone, password);
+  //     storage.write(key: 'auth_token', value: user.token);
+  //     state = state.copyWith(isLoading: false, user: user);
+  //     if (context.mounted) {
+  //       context.pushReplacement('/dashboard');
+  //     }
+  //   } catch (e) {
+  //     state = state.copyWith(isLoading: false, error: e.toString());
+  //     if (context.mounted) {
+  //
+  //     CustomSnackBar(title: e.runtimeType.toString()).show(context);
+  //     }
+  //   }
+  // }
 
   Future<void> register(RegisterEntity data) async {
     state = state.copyWith(isLoading: true, clearError: true);

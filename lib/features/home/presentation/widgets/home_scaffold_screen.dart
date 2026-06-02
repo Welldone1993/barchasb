@@ -54,27 +54,27 @@ class HomeScaffoldScreen extends StatelessWidget {
             context: context,
             title: 'خانه',
             icon: Icons.home_rounded,
-            onTap: () => ComingSoonSnackBar().show(context),
+            onTap: () => CustomSnackBar().show(context),
           ),
           _buildDrawerItem(
             context: context,
             title: 'درباره ما',
             icon: Icons.info_outline_rounded,
-            onTap: () => ComingSoonSnackBar().show(context),
+            onTap: () => CustomSnackBar().show(context),
           ),
           _buildDrawerItem(
             context: context,
             title: 'استخدام کارجو',
             icon: Icons.assignment_ind_outlined,
             hasArrow: true,
-            onTap: () => ComingSoonSnackBar().show(context),
+            onTap: () => CustomSnackBar().show(context),
           ),
           _buildDrawerItem(
             context: context,
             title: 'پیدا کردن کار',
             icon: Icons.search_rounded,
             hasArrow: true,
-            onTap: () => ComingSoonSnackBar().show(context),
+            onTap: () => CustomSnackBar().show(context),
           ),
         ],
       ),
@@ -124,7 +124,7 @@ class HomeScaffoldScreen extends StatelessWidget {
   );
 
   Widget _club(BuildContext context) => InkWell(
-    onTap: () => ComingSoonSnackBar().show(context),
+    onTap: () => CustomSnackBar().show(context),
     child: const Text(
       'برچسب کلاب',
       style: TextStyle(

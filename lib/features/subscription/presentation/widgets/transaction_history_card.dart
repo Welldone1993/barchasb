@@ -16,7 +16,7 @@ class TransactionHistoryCard extends ConsumerWidget {
             title: 'تاریخچه واریز',
             onTap: () {
               // در اینجا می‌توانید با ref مقادیر پرووایدرها را آپدیت کنید
-              ComingSoonSnackBar().show(context);
+              CustomSnackBar().show(context);
             },
           ),
           const SizedBox(height: 48), // فاصله بین دو دکمه
@@ -25,7 +25,7 @@ class TransactionHistoryCard extends ConsumerWidget {
             title: 'تاریخچه برداشت',
             onTap: () {
               // در اینجا می‌توانید با ref مقادیر پرووایدرها را آپدیت کنید
-              ComingSoonSnackBar().show(context);
+              CustomSnackBar().show(context);
             },
           ),
         ],

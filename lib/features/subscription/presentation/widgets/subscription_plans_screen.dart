@@ -60,7 +60,7 @@ class SubscriptionPlansCard extends StatelessWidget {
             color: const Color(0xFF1E3A5F), // رنگ سرمه‌ای دکمه
             borderRadius: BorderRadius.circular(12),
             child: InkWell(
-              onTap: () => ComingSoonSnackBar().show(context),
+              onTap: () => CustomSnackBar().show(context),
               borderRadius: BorderRadius.circular(12),
               child: Container(
                 padding: const EdgeInsets.symmetric(

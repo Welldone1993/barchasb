@@ -1,3 +1,6 @@
+import 'package:fpdart/fpdart.dart';
+
+import '../../../../core/utils/failure.dart';
 import '../../domain/entities/login_entity.dart'; // Import LoginEntity
 import '../../domain/entities/register_entity.dart';
 import '../../domain/entities/user_entity.dart'; // Import UserEntity
@@ -9,9 +12,9 @@ import '../models/register_request_model.dart';
 import '../models/user_model.dart'; // Import LoginResponseModel
 
 class AuthRepositoryImpl implements AuthRepository {
-  final AuthRemoteDataSource remote;
+  final AuthRemoteDataSource _remote;
 
-  AuthRepositoryImpl(this.remote);
+  AuthRepositoryImpl(this._remote);
 
   LoginEntity _toLoginEntity(LoginResponseModel model) {
     final userEntity = UserEntity(
@@ -22,7 +25,6 @@ class AuthRepositoryImpl implements AuthRepository {
       role: model.user.role,
     );
 
-
     return LoginEntity(
       message: model.message,
       user: userEntity,
@@ -31,10 +33,17 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<LoginEntity> login(String phone, String password) async {
+  Future<Either<Failure, LoginEntity>> login(
+    String phone,
+    String password,
+  ) async {
     final request = LoginRequestModel(phone: phone, password: password);
-    final responseModel = await remote.login(request);
-    return _toLoginEntity(responseModel);
+    try {
+      final LoginResponseModel responseModel = await _remote.login(request);
+      return Right(_toLoginEntity(responseModel));
+    }  catch (e) {
+       return Left(Failure(e.toString()));
+    }
   }
 
   UserEntity _toUserEntity(UserModel model) {
@@ -61,7 +70,7 @@ class AuthRepositoryImpl implements AuthRepository {
       password: registerData.password,
     );
 
-    final responseModel = await remote.register(requestModel);
+    final responseModel = await _remote.register(requestModel);
     return _toUserEntity(responseModel);
   }
 }

@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 
-class ComingSoonSnackBar extends StatelessWidget {
-  const ComingSoonSnackBar({super.key});
+class CustomSnackBar extends StatelessWidget {
+  const CustomSnackBar({super.key, this.title});
+
+  final String? title;
 
   @override
-  Widget build(BuildContext context) {
-    return _comingSoonWidget();
-  }
+  Widget build(BuildContext context) => _customSnackBar();
 
   void show(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      _comingSoonWidget(),
-    );
+    ScaffoldMessenger.of(context).showSnackBar(_customSnackBar());
   }
 
-  SnackBar _comingSoonWidget() => const SnackBar(
-      content: Text('به زودی...', style: TextStyle(fontFamily: 'Vazirmatn')),
-      duration: Duration(seconds: 2),
-    );
-
+  SnackBar _customSnackBar() => SnackBar(
+    content: Text(
+      title ?? 'به زودی...',
+      style: TextStyle(fontFamily: 'Vazirmatn'),
+    ),
+    duration: Duration(seconds: 2),
+  );
 }

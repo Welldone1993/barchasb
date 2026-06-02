@@ -68,19 +68,19 @@ class WalletBalanceCard extends StatelessWidget {
                       _buildActionButton(
                         title: 'واریز',
                         onTap: () {
-                          ComingSoonSnackBar().show(context);
+                          CustomSnackBar().show(context);
                         },
                       ),
                       _buildActionButton(
                         title: 'تبدیل',
                         onTap: () {
-                          ComingSoonSnackBar().show(context);
+                          CustomSnackBar().show(context);
                         },
                       ),
                       _buildActionButton(
                         title: 'برداشت',
                         onTap: () {
-                          ComingSoonSnackBar().show(context);
+                          CustomSnackBar().show(context);
                         },
                       ),
                     ],
