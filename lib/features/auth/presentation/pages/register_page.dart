@@ -1,3 +1,4 @@
+import 'package:barchasb/features/auth/presentation/providers/register_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -9,7 +10,6 @@ import '../../../../core/widgets/app_elevated_button.dart';
 import '../../../../core/widgets/app_text_button.dart';
 import '../../../../core/widgets/app_text_field.dart';
 import '../../domain/entities/register_entity.dart';
-import '../providers/auth_provider.dart';
 import '../widgets/security_verification_dialog.dart';
 
 enum Gender { male, female }
@@ -96,7 +96,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
         city: _selectedCity ?? '',
         password: _passwordCtrl.text,
       );
-      ref.read(authProvider.notifier).register(registerData);
+      ref.read(registerProvider.notifier).register(registerData);
     } else if (!_termsAccepted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -109,28 +109,8 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen<AuthState>(authProvider, (previous, next) {
-      if (next.error != null && next.error != previous?.error) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(next.error!),
-            backgroundColor: Theme.of(context).colorScheme.error,
-          ),
-        );
-      }
-      if (next.registeredUser != null &&
-          next.registeredUser != previous?.registeredUser) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('ثبت‌نام با موفقیت انجام شد'),
-            backgroundColor: Colors.green,
-          ),
-        );
-        context.pop();
-      }
-    });
 
-    final authState = ref.watch(authProvider);
+    final authState = ref.watch(registerProvider);
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 

@@ -1,15 +1,15 @@
 import 'package:fpdart/fpdart.dart';
 
 import '../../../../core/utils/failure.dart';
-import '../../domain/entities/login_entity.dart'; // Import LoginEntity
+import '../../domain/entities/login_entity.dart';
 import '../../domain/entities/register_entity.dart';
-import '../../domain/entities/user_entity.dart'; // Import UserEntity
+import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/auth_remote_datasource.dart';
 import '../models/login_request_model.dart';
 import '../models/login_response_model.dart';
 import '../models/register_request_model.dart';
-import '../models/user_model.dart'; // Import LoginResponseModel
+import '../models/user_model.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDataSource _remote;
@@ -41,8 +41,8 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final LoginResponseModel responseModel = await _remote.login(request);
       return Right(_toLoginEntity(responseModel));
-    }  catch (e) {
-       return Left(Failure(e.toString()));
+    } catch (e) {
+      return Left(Failure(e.toString()));
     }
   }
 
@@ -57,7 +57,9 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<UserEntity> register(RegisterEntity registerData) async {
+  Future<Either<Failure, UserEntity>> register(
+    RegisterEntity registerData,
+  ) async {
     final requestModel = RegisterRequestModel(
       firstName: registerData.firstName,
       lastName: registerData.lastName,
@@ -69,8 +71,11 @@ class AuthRepositoryImpl implements AuthRepository {
       city: registerData.city,
       password: registerData.password,
     );
-
-    final responseModel = await _remote.register(requestModel);
-    return _toUserEntity(responseModel);
+    try {
+      final responseModel = await _remote.register(requestModel);
+      return Right(_toUserEntity(responseModel));
+    } catch (e) {
+      return Left(Failure(e.toString()));
+    }
   }
 }

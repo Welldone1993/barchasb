@@ -16,16 +16,13 @@ class DashboardNotifier extends StateNotifier<AsyncValue<UserEntity>> {
   final selectedDashboardSectionProvider = StateProvider<int>((ref) => 0);
 
   Future<void> fetchUser() async {
-    // state = state.copyWith(isLoading: true, clearError: true);
     state = const AsyncValue.loading();
     final result = await _repository.fetchUser();
 
     result.fold(
       (failure) =>
-          // state = state.copyWith(isLoading: false, error: failure.toString()),
           state = AsyncValue.error(failure.message, StackTrace.current),
       (user) {
-        // state = state.copyWith(isLoading: false, user: user);
         state = AsyncValue.data(user);
       },
     );

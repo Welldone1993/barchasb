@@ -3,14 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/widgets/app_elevated_button.dart';
-import '../providers/auth_provider.dart';
+import '../providers/login_provider.dart';
+
 
 class LoginPage extends ConsumerWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(authProvider);
+    final state = ref.watch(loginProvider);
     const Color darkBlue = Color(0xFF153354);
     const Color lightGrey = Color(0xFFF3F4F6);
     final TextEditingController phoneController = TextEditingController();
@@ -83,7 +84,7 @@ class LoginPage extends ConsumerWidget {
                             return;
                           }
                           ref
-                              .read(authProvider.notifier)
+                              .read(loginProvider.notifier)
                               .login(
                                 context,
                                 phoneController.text.trim(),
@@ -127,7 +128,7 @@ class LoginPage extends ConsumerWidget {
                   color: darkBlue,
                   borderRadius: BorderRadius.vertical(
                     top: Radius.circular(32),
-                    bottom: Radius.circular(32), // در صورت نیاز
+                    bottom: Radius.circular(32),
                   ),
                 ),
                 child: Center(
@@ -156,7 +157,6 @@ class LoginPage extends ConsumerWidget {
         filled: true,
         fillColor: Colors.white,
         suffixIcon: Icon(icon, color: const Color(0xFF153354)),
-        // آیکون سمت راست قرار می‌گیرد
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 16,

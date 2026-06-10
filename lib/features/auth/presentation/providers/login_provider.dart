@@ -8,7 +8,6 @@ import '../../../../core/widgets/comming_soon_snack_bar.dart';
 import '../../data/datasources/auth_remote_datasource.dart';
 import '../../data/repositories/auth_repository_impl.dart';
 import '../../domain/entities/login_entity.dart';
-import '../../domain/entities/register_entity.dart';
 import '../../domain/entities/user_entity.dart';
 
 class AuthState {
@@ -30,36 +29,38 @@ class AuthState {
     UserEntity? registeredUser,
     String? error,
     bool clearError = false,
-  }) =>
-      AuthState(
-        isLoading: isLoading ?? this.isLoading,
-        user: user ?? this.user,
-        registeredUser: registeredUser ?? this.registeredUser,
-        error: clearError ? null : (error ?? this.error),
-      );
+  }) => AuthState(
+    isLoading: isLoading ?? this.isLoading,
+    user: user ?? this.user,
+    registeredUser: registeredUser ?? this.registeredUser,
+    error: clearError ? null : (error ?? this.error),
+  );
 }
 
-class AuthNotifier extends StateNotifier<AuthState> {
+class LoginNotifier extends StateNotifier<AuthState> {
   final AuthRepositoryImpl _repository;
   final FlutterSecureStorage storage = FlutterSecureStorage();
 
-  AuthNotifier(this._repository) : super(AuthState());
+  LoginNotifier(this._repository) : super(AuthState());
 
-  Future<void> login(BuildContext context,
-      String phone,
-      String password,) async {
+  Future<void> login(
+    BuildContext context,
+    String phone,
+    String password,
+  ) async {
     state = state.copyWith(isLoading: true, clearError: true);
     final user = await _repository.login(phone, password);
 
     user.fold(
-          (failure) {
+      (failure) {
         state = state.copyWith(isLoading: false, error: failure.toString());
         if (context.mounted) {
-          CustomSnackBar(title: 'شماره تلفن یا رمز عبور اشتباه است').show(
-              context);
+          CustomSnackBar(
+            title: 'شماره تلفن یا رمز عبور اشتباه است',
+          ).show(context);
         }
       },
-          (user) {
+      (user) {
         state = state.copyWith(isLoading: false, user: user);
         storage.write(key: 'auth_token', value: user.token);
         state = state.copyWith(isLoading: false, user: user);
@@ -69,21 +70,11 @@ class AuthNotifier extends StateNotifier<AuthState> {
       },
     );
   }
-
-  Future<void> register(RegisterEntity data) async {
-    state = state.copyWith(isLoading: true, clearError: true);
-    try {
-      final user = await _repository.register(data);
-      state = state.copyWith(isLoading: false, registeredUser: user);
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
 }
 
-final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
+final loginProvider = StateNotifierProvider<LoginNotifier, AuthState>((ref) {
   final dio = ref.watch(dioProvider);
   final remote = AuthRemoteDataSourceImpl(dio);
   final repo = AuthRepositoryImpl(remote);
-  return AuthNotifier(repo);
+  return LoginNotifier(repo);
 });
