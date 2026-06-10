@@ -1,3 +1,4 @@
+import 'package:barchasb/features/auth/domain/entities/province_entity.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -13,12 +14,14 @@ class RegisterState {
   final LoginEntity? user;
   final UserEntity? registeredUser;
   final String? error;
+  final List<ProvinceEntity> provinces;
 
   RegisterState({
     this.isLoading = false,
     this.user,
     this.registeredUser,
     this.error,
+    this.provinces = const [],
   });
 
   RegisterState copyWith({
@@ -27,19 +30,23 @@ class RegisterState {
     UserEntity? registeredUser,
     String? error,
     bool clearError = false,
+    List<ProvinceEntity>? provinces,
   }) => RegisterState(
     isLoading: isLoading ?? this.isLoading,
     user: user ?? this.user,
     registeredUser: registeredUser ?? this.registeredUser,
     error: clearError ? null : (error ?? this.error),
+    provinces: provinces ?? this.provinces,
   );
 }
 
-class AuthNotifier extends StateNotifier<RegisterState> {
+class RegisterNotifier extends StateNotifier<RegisterState> {
   final AuthRepositoryImpl _repository;
   final FlutterSecureStorage storage = FlutterSecureStorage();
 
-  AuthNotifier(this._repository) : super(RegisterState());
+  RegisterNotifier(this._repository) : super(RegisterState()) {
+    getProvinces();
+  }
 
   Future<void> register(RegisterEntity data) async {
     state = state.copyWith(isLoading: true, clearError: true);
@@ -53,13 +60,20 @@ class AuthNotifier extends StateNotifier<RegisterState> {
       },
     );
   }
+
+  Future<void> getProvinces() async {
+    final result = await _repository.getProvinces();
+    result.fold((l) {}, (result) {
+      state = state.copyWith(provinces: result);
+    });
+  }
 }
 
-final registerProvider = StateNotifierProvider<AuthNotifier, RegisterState>((
-  ref,
-) {
-  final dio = ref.watch(dioProvider);
-  final remote = AuthRemoteDataSourceImpl(dio);
-  final repo = AuthRepositoryImpl(remote);
-  return AuthNotifier(repo);
-});
+final registerProvider = StateNotifierProvider<RegisterNotifier, RegisterState>(
+  (ref) {
+    final dio = ref.watch(dioProvider);
+    final remote = AuthRemoteDataSourceImpl(dio);
+    final repo = AuthRepositoryImpl(remote);
+    return RegisterNotifier(repo);
+  },
+);

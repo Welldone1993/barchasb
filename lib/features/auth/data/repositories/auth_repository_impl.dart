@@ -1,3 +1,4 @@
+import 'package:barchasb/features/auth/domain/entities/province_entity.dart';
 import 'package:fpdart/fpdart.dart';
 
 import '../../../../core/utils/failure.dart';
@@ -76,6 +77,16 @@ class AuthRepositoryImpl implements AuthRepository {
       return Right(_toUserEntity(responseModel));
     } catch (e) {
       return Left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<ProvinceEntity>>> getProvinces() async {
+    try {
+      final response = await _remote.getProvinces();
+      return Right(response);
+    } on ServerException catch (e) {
+      return Left(Failure(e.message ?? 'خطا در دریافت اطلاعات از سرور'));
     }
   }
 }

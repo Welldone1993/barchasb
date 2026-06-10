@@ -17,4 +17,7 @@ class ApiEndpoints {
   static const userViewController = '/user-views';
   static const weeklyStats =
       '$userViewController?period=weekly&adType=JobSeekerAd';
+
+  // public
+  static const getProvinces = '/provinces';
 }

@@ -1,3 +1,4 @@
+import 'package:barchasb/features/auth/domain/entities/province_entity.dart';
 import 'package:barchasb/features/auth/presentation/providers/register_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -43,17 +44,10 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
   final _passwordCtrl = TextEditingController();
 
   Gender? _selectedGender;
-  String? _selectedProvince;
-  String? _selectedCity;
   bool _termsAccepted = false;
 
-  final List<String> _dummyProvinces = ['تهران', 'اصفهان', 'خراسان رضوی'];
-  final Map<String, List<String>> _dummyCities = {
-    'تهران': ['تهران', 'شهریار', 'رباط کریم'],
-    'اصفهان': ['اصفهان', 'کاشان', 'نجف‌آباد'],
-    'خراسان رضوی': ['مشهد', 'نیشابور', 'سبزوار'],
-  };
-
+  ProvinceEntity? _selectedProvince;
+  String? _selectedCity;
   List<String> _currentCities = [];
 
   @override
@@ -92,7 +86,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
         nationalId: _nationalIdCtrl.text,
         birthDate: _birthDateCtrl.text,
         gender: _selectedGender?.label ?? '',
-        province: _selectedProvince ?? '',
+        province: _selectedProvince.toString(),
         city: _selectedCity ?? '',
         password: _passwordCtrl.text,
       );
@@ -109,7 +103,6 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-
     final authState = ref.watch(registerProvider);
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
@@ -214,13 +207,36 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                           Row(
                             children: [
                               Expanded(
+                                child: _buildDropdown<ProvinceEntity>(
+                                  value: _selectedProvince,
+                                  hint: 'استان',
+                                  icon: Icons.location_on,
+                                  items: authState.provinces
+                                      .map(
+                                        (p) => DropdownMenuItem<ProvinceEntity>(
+                                          value: p,
+                                          child: Text(p.name),
+                                        ),
+                                      )
+                                      .toList(),
+                                  onChanged: (val) {
+                                    setState(() {
+                                      _selectedProvince = val;
+                                      _selectedCity = null;
+                                      _currentCities = val?.cities ?? [];
+                                    });
+                                  },
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
                                 child: _buildDropdown<String>(
                                   value: _selectedCity,
                                   hint: 'شهر',
                                   icon: Icons.location_city,
                                   items: _currentCities
                                       .map(
-                                        (c) => DropdownMenuItem(
+                                        (c) => DropdownMenuItem<String>(
                                           value: c,
                                           child: Text(c),
                                         ),
@@ -230,31 +246,6 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                                       ? null
                                       : (val) =>
                                             setState(() => _selectedCity = val),
-                                ),
-                              ),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: _buildDropdown<String>(
-                                  value: _selectedProvince,
-                                  hint: 'استان',
-                                  icon: Icons.location_on,
-                                  items: _dummyProvinces
-                                      .map(
-                                        (p) => DropdownMenuItem(
-                                          value: p,
-                                          child: Text(p),
-                                        ),
-                                      )
-                                      .toList(),
-                                  onChanged: (val) {
-                                    setState(() {
-                                      _selectedProvince = val;
-                                      _selectedCity = null;
-                                      _currentCities = val != null
-                                          ? _dummyCities[val] ?? []
-                                          : [];
-                                    });
-                                  },
                                 ),
                               ),
                             ],

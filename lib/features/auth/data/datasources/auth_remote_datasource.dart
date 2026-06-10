@@ -1,3 +1,4 @@
+import 'package:barchasb/features/auth/data/models/province_model.dart';
 import 'package:dio/dio.dart';
 
 import '../../../../../core/network/api_endpoints.dart';
@@ -10,6 +11,8 @@ abstract class AuthRemoteDataSource {
   Future<LoginResponseModel> login(LoginRequestModel model);
 
   Future<UserModel> register(RegisterRequestModel request);
+
+  Future<List<ProvinceModel>> getProvinces();
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -33,5 +36,12 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     );
 
     return UserModel.fromJson(response.data);
+  }
+
+  @override
+  Future<List<ProvinceModel>> getProvinces() async {
+    final response = await _dio.get(ApiEndpoints.getProvinces);
+    final List data = response.data;
+    return data.map((json) => ProvinceModel.fromJson(json)).toList();
   }
 }
