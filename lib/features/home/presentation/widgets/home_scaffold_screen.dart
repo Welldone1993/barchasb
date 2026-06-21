@@ -17,6 +17,14 @@ class HomeScaffoldScreen extends StatelessWidget {
         appBar: _appBar(context),
         endDrawer: _drawer(context),
         body: body,
+        floatingActionButton: ElevatedButton(
+          onPressed: () {
+            context.pushReplacement('/create_employer_ad');
+            // TODO: remove when done
+
+          },
+          child: Icon(Icons.add),
+        ),
       ),
     );
   }

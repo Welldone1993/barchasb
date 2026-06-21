@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/register_page.dart';
+import '../../features/create_employer_ad/presentation/pages/create_employer_ad_screen.dart';
 import '../../features/dashboard/presentation/pages/dashboard_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 
@@ -19,6 +20,9 @@ class AppRouter {
       GoRoute(
         path: '/dashboard',
         builder: (context, state) => const DashboardPage(),
+      ),GoRoute(
+        path: '/create_employer_ad',
+        builder: (context, state) => const EmployerAddJobScreen(),
       ),
     ],
   );

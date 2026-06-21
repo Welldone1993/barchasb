@@ -89,7 +89,7 @@ class DashboardPage extends ConsumerWidget {
             ),
             const SizedBox(width: 8),
 
-             _buildIconButton(
+            _buildIconButton(
               icon: Icons.chat_bubble_outline_rounded,
               onTap: () {
                 // TODO: support
@@ -198,6 +198,8 @@ class DashboardPage extends ConsumerWidget {
         return SubscriptionPage();
       case 5:
         return PluginsPage();
+      case 6:
+        return const SizedBox.shrink();
       default:
         return const SizedBox.shrink();
     }
