@@ -1,3 +1,4 @@
+import 'package:barchasb/features/dashboard/presentation/widgets/add_ad_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
@@ -32,6 +33,24 @@ class DashboardPage extends ConsumerWidget {
     return AppScaffold(
       appBar: _appBar(),
       title: 'داشبورد کاربر',
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          ref.read(selectedDashboardSectionProvider.notifier).state = 6;
+        },
+        backgroundColor: const Color(0xFF1E3A5F),
+        // رنگ آبی تیره (مطابق تصویر)
+        foregroundColor: Colors.white,
+        // رنگ آیکون
+        elevation: 4.0,
+        // سایه زیر دکمه
+        shape: const CircleBorder(),
+        // این خط دکمه را کاملاً گرد می‌کند
+        child: const Icon(
+          Icons.add,
+          size: 32, // اندازه آیکون +
+        ),
+      ),
+
       body: Column(
         children: [
           UserProfileCard(),
@@ -199,7 +218,7 @@ class DashboardPage extends ConsumerWidget {
       case 5:
         return PluginsPage();
       case 6:
-        return const SizedBox.shrink();
+        return const AddAdSection();
       default:
         return const SizedBox.shrink();
     }

@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class AppScaffold extends StatelessWidget {
   final String? title;
   final Widget body;
+  final Widget? floatingActionButton;
   final bool showBack;
   final AppBar? appBar;
 
   const AppScaffold({
     super.key,
     required this.body,
+    this.floatingActionButton,
     this.title,
     this.appBar,
     this.showBack = false,
@@ -29,5 +31,7 @@ class AppScaffold extends StatelessWidget {
               : null,
         ),
     body: Padding(padding: const EdgeInsets.all(16.0), child: body),
+    floatingActionButton: floatingActionButton,
+    floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
   );
 }
