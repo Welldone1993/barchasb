@@ -137,6 +137,14 @@ packages:
       url: "https://pub.tarazerp.ir"
     source: hosted
     version: "1.0.9"
+  dbus:
+    dependency: transitive
+    description:
+      name: dbus
+      sha256: "0ce9b0a839e6dee59a37a623d2fc26a35bbbe6404213e419b0d6411023d62645"
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "0.7.14"
   dio:
     dependency: "direct main"
     description:
@@ -185,6 +193,14 @@ packages:
       url: "https://pub.tarazerp.ir"
     source: hosted
     version: "7.0.1"
+  file_picker:
+    dependency: "direct main"
+    description:
+      name: file_picker
+      sha256: "67f7e688aac01c965ca95f4ed59c51bff304049c7611bb15cf90ca21212027a8"
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "10.3.11"
   file_selector_linux:
     dependency: transitive
     description:
@@ -645,6 +661,14 @@ packages:
       url: "https://pub.tarazerp.ir"
     source: hosted
     version: "3.2.0"
+  petitparser:
+    dependency: transitive
+    description:
+      name: petitparser
+      sha256: "91bd59303e9f769f108f8df05e371341b15d59e995e6806aefab827b58336675"
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "7.0.2"
   platform:
     dependency: transitive
     description:
@@ -1106,6 +1130,14 @@ packages:
       url: "https://pub.tarazerp.ir"
     source: hosted
     version: "1.1.0"
+  xml:
+    dependency: transitive
+    description:
+      name: xml
+      sha256: "04b1f2076d7abecbb3fcfca8582ce8c2ddf181ceae4b4b9df6e353de2288b1fd"
+      url: "https://pub.tarazerp.ir"
+    source: hosted
+    version: "6.6.1"
   yaml:
     dependency: transitive
     description:
