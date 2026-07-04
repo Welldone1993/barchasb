@@ -12,6 +12,7 @@ import '../../../plugins/presentation/pages/plugins_page.dart';
 import '../../../subscription/presentation/pages/subscription_page.dart';
 import '../../../work_space/presentation/pages/work_space_page.dart';
 import '../widgets/dashboard_grid_button.dart';
+import '../widgets/support.dart';
 import '../widgets/user_profile_card.dart';
 
 final selectedDashboardSectionProvider = StateProvider<int>((ref) => 0);
@@ -30,9 +31,85 @@ class DashboardPage extends ConsumerWidget {
       'اشتراک و مالی',
       'افزونه ها',
     ];
+    AppBar appBar() => AppBar(
+      backgroundColor: const Color(0xFF153354),
+      // رنگ پس‌زمینه آبی تیره (مطابق تصویر)
+      elevation: 0,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(16), // اگر گوشه‌های پایین گرد هستند
+        ),
+      ),
+      leading: Padding(
+        padding: const EdgeInsets.only(right: 16.0, top: 12.0, bottom: 12.0),
+        child: _buildIconButton(
+          icon: Icons.search,
+          onTap: () {
+            // اکشن جستجو
+          },
+        ),
+      ),
+      leadingWidth: 70,
 
+      // تنظیم عرض برای جا شدن دکمه
+      actions: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12.0),
+          child: Row(
+            children: [
+              _buildIconButton(
+                icon: Icons.notifications_none_rounded,
+                hasBadge: true,
+                badgeCount: '1',
+                onTap: () {
+                  // TODO: notif action
+                },
+              ),
+              const SizedBox(width: 8),
+
+              _buildIconButton(
+                icon: Icons.chat_bubble_outline_rounded,
+                onTap: () {
+                  ref.read(selectedDashboardSectionProvider.notifier).state = 7;
+                },
+              ),
+              const SizedBox(width: 8),
+
+              // دکمه منو (سه نقطه)
+              _buildIconButton(
+                icon: Icons.more_vert_rounded,
+                onTap: () {
+                  Navigator.of(context).push(
+                    PageRouteBuilder(
+                      opaque: false,
+                      // برای اینکه پس‌زمینه شفاف باشد (اگر نیاز بود)
+                      pageBuilder: (BuildContext context, _, __) {
+                        return const PreciseRadialMenu();
+                      },
+                      transitionsBuilder:
+                          (
+                            ___,
+                            Animation<double> animation,
+                            ____,
+                            Widget child,
+                          ) {
+                            return FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            );
+                          },
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(width: 16), // فاصله از حاشیه چپ صفحه
+            ],
+          ),
+        ),
+      ],
+    );
     return AppScaffold(
-      appBar: _appBar(context),
+      appBar: appBar(),
       title: 'داشبورد کاربر',
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -72,79 +149,6 @@ class DashboardPage extends ConsumerWidget {
       ),
     );
   }
-
-  AppBar _appBar(BuildContext context) => AppBar(
-    backgroundColor: const Color(0xFF153354),
-    // رنگ پس‌زمینه آبی تیره (مطابق تصویر)
-    elevation: 0,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        bottom: Radius.circular(16), // اگر گوشه‌های پایین گرد هستند
-      ),
-    ),
-    leading: Padding(
-      padding: const EdgeInsets.only(right: 16.0, top: 12.0, bottom: 12.0),
-      child: _buildIconButton(
-        icon: Icons.search,
-        onTap: () {
-          // اکشن جستجو
-        },
-      ),
-    ),
-    leadingWidth: 70,
-
-    // تنظیم عرض برای جا شدن دکمه
-    actions: [
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12.0),
-        child: Row(
-          children: [
-            _buildIconButton(
-              icon: Icons.notifications_none_rounded,
-              hasBadge: true,
-              badgeCount: '1',
-              onTap: () {
-                // TODO: notif action
-              },
-            ),
-            const SizedBox(width: 8),
-
-            _buildIconButton(
-              icon: Icons.chat_bubble_outline_rounded,
-              onTap: () {
-                // TODO: support
-              },
-            ),
-            const SizedBox(width: 8),
-
-            // دکمه منو (سه نقطه)
-            _buildIconButton(
-              icon: Icons.more_vert_rounded,
-              onTap: () {
-                Navigator.of(context).push(
-                  PageRouteBuilder(
-                    opaque: false,
-                    // برای اینکه پس‌زمینه شفاف باشد (اگر نیاز بود)
-                    pageBuilder: (BuildContext context, _, __) {
-                      return const PreciseRadialMenu();
-                    },
-                    transitionsBuilder:
-                        (___, Animation<double> animation, ____, Widget child) {
-                          return FadeTransition(
-                            opacity: animation,
-                            child: child,
-                          );
-                        },
-                  ),
-                );
-              },
-            ),
-            const SizedBox(width: 16), // فاصله از حاشیه چپ صفحه
-          ],
-        ),
-      ),
-    ],
-  );
 
   Widget _buildIconButton({
     required IconData icon,
@@ -235,6 +239,8 @@ class DashboardPage extends ConsumerWidget {
         return PluginsPage();
       case 6:
         return const AddAdSection();
+      case 7:
+        return const SupportScreen();
       default:
         return const SizedBox.shrink();
     }
