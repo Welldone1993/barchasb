@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../providers/job_seeker_ad_provider.dart';
+import '../providers/seller_ad_provider.dart';
 import '../providers/step_4_provider.dart';
 
 class Step4PaymentScreen extends ConsumerWidget {
@@ -10,7 +10,7 @@ class Step4PaymentScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedPaymentMethod = ref.watch(step4Provider);
-    final notifier = ref.read(jobSeekerAdProvider.notifier);
+    final notifier = ref.read(sellerAdProvider.notifier);
 
     // TODO: دریافت این مقادیر از API یا پروایدر اطلاعات کاربر
     const int subscriptionPoints = 3;

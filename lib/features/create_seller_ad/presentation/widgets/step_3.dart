@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../providers/job_seeker_ad_provider.dart';
+import '../providers/seller_ad_provider.dart';
 import '../providers/step_3_provider.dart';
+
 
 class Step3VerificationScreen extends ConsumerWidget {
   const Step3VerificationScreen({super.key});
@@ -10,7 +11,7 @@ class Step3VerificationScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final formData = ref.watch(step3Provider);
-    final notifier = ref.read(jobSeekerAdProvider.notifier);
+    final notifier = ref.read(sellerAdProvider.notifier);
     const String phoneNumber = "09035733634"; // TODO: دریافت از پروایدر یا API
 
     return Scaffold(

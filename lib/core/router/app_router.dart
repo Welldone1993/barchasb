@@ -4,6 +4,7 @@ import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/register_page.dart';
 import '../../features/create_employer_ad/presentation/pages/create_employer_ad_screen.dart';
 import '../../features/create_job_seeker_ad/presentation/pages/create_job_seeker_ad_screen.dart';
+import '../../features/create_seller_ad/presentation/pages/create_seller_ad_screen.dart';
 import '../../features/dashboard/presentation/pages/dashboard_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 
@@ -29,6 +30,9 @@ class AppRouter {
       GoRoute(
         path: '/create_job_seeker_ad',
         builder: (context, state) => const JobSeekerAddJobScreen(),
+      ),  GoRoute(
+        path: '/create_seller_ad',
+        builder: (context, state) => const SellerAddScreen(),
       ),
     ],
   );

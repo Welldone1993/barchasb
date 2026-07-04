@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../providers/job_seeker_ad_provider.dart';
+ import '../providers/seller_ad_provider.dart';
 import '../providers/step_1_provider.dart';
 import '../providers/step_2_provider.dart';
 import '../providers/step_3_provider.dart';
@@ -97,9 +97,9 @@ class Step5WaitingScreen extends ConsumerWidget {
                     elevation: 0,
                   ),
                   onPressed: () {
-                    ref.invalidate(jobSeekerAdProvider);
+                    ref.invalidate(sellerAdProvider);
                     ref.invalidate(step1Provider);
-                    ref.invalidate(step2Provider);
+                     ref.invalidate(step2Provider);
                     ref.invalidate(step3Provider);
                     ref.invalidate(step4Provider);
                     context.go('/dashboard');
