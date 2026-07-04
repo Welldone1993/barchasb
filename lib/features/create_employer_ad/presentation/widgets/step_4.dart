@@ -2,143 +2,181 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/employer_ad_provider.dart';
+import '../providers/step_4_provider.dart';
 
-class Step4Verification extends StatelessWidget {
-  final WidgetRef ref;
-  final EmployerAdState state;
-
-  const Step4Verification({super.key, required this.ref, required this.state});
+class Step4PaymentScreen extends ConsumerWidget {
+  const Step4PaymentScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedPaymentMethod = ref.watch(step4Provider);
     final notifier = ref.read(employerAdProvider.notifier);
-    final data = state.adData;
 
-    return Column(
-      children: [
-        const Text('تائید شماره ی 09123456789 با کد پیامک'),
-        const SizedBox(height: 20),
+    // TODO: دریافت این مقادیر از API یا پروایدر اطلاعات کاربر
+    const int subscriptionPoints = 3;
+    const String walletBalance = "100.000";
 
-        Row(
+    return Scaffold(
+      backgroundColor: const Color(0xFFF5F6F8),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(
-              flex: 2,
-              child: _buildTextField(
-                'کد ارسال شده را وارد کنید',
-                data.smsCode,
-                (val) => notifier.updateData(data.copyWith(smsCode: val)),
-              ),
+            const SizedBox(height: 20),
+
+            // کادر تعداد امتیاز اشتراک
+            _buildInfoChip('تعداد امتیاز اشتراک : $subscriptionPoints'),
+            const SizedBox(height: 16),
+
+            // کادر موجودی کیف پول
+            _buildInfoChip('موجودی کیف پول : $walletBalance تومان'),
+            const SizedBox(height: 40),
+
+            // گزینه‌های پرداخت
+            _buildPaymentOption(
+              context: context,
+              ref: ref,
+              title: 'پرداخت از طریق اشتراک',
+              value: PaymentMethod.subscription,
+              groupValue: selectedPaymentMethod,
             ),
-            const SizedBox(width: 10),
-            Expanded(
-              flex: 1,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF2C4B6B),
+            const SizedBox(height: 16),
+
+            _buildPaymentOption(
+              context: context,
+              ref: ref,
+              title: 'پرداخت از طریق کیف پول',
+              value: PaymentMethod.wallet,
+              groupValue: selectedPaymentMethod,
+            ),
+            const SizedBox(height: 16),
+
+            _buildPaymentOption(
+              context: context,
+              ref: ref,
+              title: 'پرداخت با کارت بانکی',
+              value: PaymentMethod.bankCard,
+              groupValue: selectedPaymentMethod,
+            ),
+
+            const SizedBox(height: 60),
+
+            // دکمه‌های مرحله قبل و بعد
+            Row(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    height: 50,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF32BDF6), // آبی روشن
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      onPressed: () {
+                        notifier.prevStep();
+                      },
+                      child: const Text(
+                        'مرحله قبل',
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                    ),
+                  ),
                 ),
-                onPressed: () {
-                  // TODO: Call API to send code
-                },
-                child: const Text(
-                  'ارسال کد',
-                  style: TextStyle(color: Colors.white),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: SizedBox(
+                    height: 50,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF3B5978), // آبی تیره
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      onPressed: () {
+                        notifier.submitAd();
+                      },
+                      child: const Text(
+                        'مرحله بعد',
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
           ],
-        ),
-        const Divider(height: 40),
-
-        CheckboxListTile(
-          title: const Text('پیام در چت برچسب'),
-          value: data.isChatEnabled,
-          onChanged: (val) =>
-              notifier.updateData(data.copyWith(isChatEnabled: val)),
-        ),
-        CheckboxListTile(
-          title: const Text('تماس تلفنی'),
-          value: data.isCallEnabled,
-          onChanged: (val) =>
-              notifier.updateData(data.copyWith(isCallEnabled: val)),
-        ),
-
-        const Spacer(),
-        Row(
-          children: [
-            Expanded(child: _buildPrevButton(() => notifier.prevStep())),
-            const SizedBox(width: 10),
-            // در این مرحله تابع نهایی سابمیت صدا زده می‌شود
-            Expanded(
-              child: _buildNextButton(
-                () => notifier.submitAd(),
-                title: 'ثبت نهایی',
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  // --- Helper Functions for UI Builders ---
-  Widget _buildTextField(
-    String hint,
-    String initialValue,
-    Function(String) onChanged, {
-    int maxLines = 1,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12.0),
-      child: TextFormField(
-        initialValue: initialValue,
-        onChanged: onChanged,
-        maxLines: maxLines,
-        decoration: InputDecoration(
-          hintText: hint,
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide.none,
-          ),
         ),
       ),
     );
   }
 
-  Widget _buildNextButton(
-    VoidCallback onPressed, {
-    String title = 'مرحله بعد',
-  }) {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF2C4B6B),
-          padding: const EdgeInsets.symmetric(vertical: 14),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+  // ویجت برای کادرهای اطلاعات (بالای صفحه)
+  Widget _buildInfoChip(String text) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+      decoration: BoxDecoration(
+        color: const Color(0xFFE9EDF4),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 16,
+          color: Color(0xFF3B5978),
+          fontWeight: FontWeight.bold,
         ),
-        onPressed: onPressed,
-        child: Text(title, style: const TextStyle(color: Colors.white)),
       ),
     );
   }
 
-  Widget _buildPrevButton(VoidCallback onPressed) {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF32BDF6), // رنگ آبی روشن
-          padding: const EdgeInsets.symmetric(vertical: 14),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+  // ویجت برای گزینه‌های پرداخت
+  Widget _buildPaymentOption({
+    required BuildContext context,
+    required WidgetRef ref,
+    required String title,
+    required PaymentMethod value,
+    required PaymentMethod groupValue,
+  }) {
+    final isSelected = value == groupValue;
+
+    return GestureDetector(
+      onTap: () {
+        ref.read(step4Provider.notifier).setPaymentMethod(value);
+      },
+      child: Container(
+        height: 56,
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+          color: isSelected ? const Color(0xFFE9EDF4) : Colors.transparent,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: isSelected ? const Color(0xFF3B5978) : Colors.grey.shade300,
+            width: isSelected ? 1.5 : 1.0,
           ),
         ),
-        onPressed: onPressed,
-        child: const Text('مرحله قبل', style: TextStyle(color: Colors.white)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 16,
+                color: const Color(0xFF3B5978),
+                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+              ),
+            ),
+            Icon(
+              isSelected
+                  ? Icons.check_circle_outline
+                  : Icons.radio_button_unchecked,
+              color: const Color(0xFF3B5978),
+            ),
+          ],
+        ),
       ),
     );
   }
