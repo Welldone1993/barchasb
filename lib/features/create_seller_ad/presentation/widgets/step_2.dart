@@ -185,6 +185,24 @@ class Step2SellerAdInfoScreen extends ConsumerWidget {
                     Expanded(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF2CB4EE), // آبی روشن
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          elevation: 0,
+                        ),
+                        onPressed: () => notifier.prevStep(),
+                        child: const Text(
+                          'مرحله قبل',
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF3B5978),
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(
@@ -196,24 +214,6 @@ class Step2SellerAdInfoScreen extends ConsumerWidget {
                         }, // مرحله بعد
                         child: const Text(
                           'مرحله بعد',
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF2CB4EE), // آبی روشن
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          elevation: 0,
-                        ),
-                        onPressed: () => notifier.prevStep(),
-                        child: const Text(
-                          'مرحله قبل',
                           style: TextStyle(color: Colors.white, fontSize: 16),
                         ),
                       ),

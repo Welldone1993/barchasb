@@ -68,7 +68,7 @@ class AddAdSection extends StatelessWidget {
             _buildMenuButton(
               context,
               title: 'آگهی دیجیتال',
-              onTap: () => context.pushReplacement('/create_employer_ad'),
+              onTap: () => context.pushReplacement('/create_digital_ad'),
             ),
           ],
         ),
