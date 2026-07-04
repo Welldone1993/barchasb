@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
+import '../../../../core/widgets/app_drawer_menu.dart';
 import '../../../../core/widgets/app_scaffold.dart';
 import '../../../ads/presentation/pages/ads_page.dart';
 import '../../../digital_ad/presentation/pages/digital_ad_page.dart';
@@ -31,7 +32,7 @@ class DashboardPage extends ConsumerWidget {
     ];
 
     return AppScaffold(
-      appBar: _appBar(),
+      appBar: _appBar(context),
       title: 'داشبورد کاربر',
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -72,7 +73,7 @@ class DashboardPage extends ConsumerWidget {
     );
   }
 
-  AppBar _appBar() => AppBar(
+  AppBar _appBar(BuildContext context) => AppBar(
     backgroundColor: const Color(0xFF153354),
     // رنگ پس‌زمینه آبی تیره (مطابق تصویر)
     elevation: 0,
@@ -120,7 +121,22 @@ class DashboardPage extends ConsumerWidget {
             _buildIconButton(
               icon: Icons.more_vert_rounded,
               onTap: () {
-                // اکشن منو
+                Navigator.of(context).push(
+                  PageRouteBuilder(
+                    opaque: false,
+                    // برای اینکه پس‌زمینه شفاف باشد (اگر نیاز بود)
+                    pageBuilder: (BuildContext context, _, __) {
+                      return const PreciseRadialMenu();
+                    },
+                    transitionsBuilder:
+                        (___, Animation<double> animation, ____, Widget child) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: child,
+                          );
+                        },
+                  ),
+                );
               },
             ),
             const SizedBox(width: 16), // فاصله از حاشیه چپ صفحه
