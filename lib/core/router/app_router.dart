@@ -8,6 +8,9 @@ import '../../features/create_job_seeker_ad/presentation/pages/create_job_seeker
 import '../../features/create_seller_ad/presentation/pages/create_seller_ad_screen.dart';
 import '../../features/dashboard/presentation/pages/dashboard_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
+import '../../features/support/presentation/pages/contact_options.dart';
+import '../../features/support/presentation/pages/frequent_questions.dart';
+import '../../features/support/presentation/pages/ticket.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -39,6 +42,19 @@ class AppRouter {
       GoRoute(
         path: '/create_digital_ad',
         builder: (context, state) => const DigitalAddScreen(),
+      ),
+
+      GoRoute(
+        path: '/contact_options',
+        builder: (context, state) => const ContactOptionsView(),
+      ),
+      GoRoute(
+        path: '/faq_screen',
+        builder: (context, state) => const FaqScreen(),
+      ),
+      GoRoute(
+        path: '/ticket',
+        builder: (context, state) => const TicketScreen(),
       ),
     ],
   );

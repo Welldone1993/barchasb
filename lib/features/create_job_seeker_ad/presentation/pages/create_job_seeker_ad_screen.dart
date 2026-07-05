@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/widgets/app_drawer_menu.dart';
 import '../providers/job_seeker_ad_provider.dart';
 import '../providers/step_1_provider.dart';
 import '../providers/step_2_provider.dart';
@@ -52,7 +53,7 @@ class _JobSeekerAddJobScreenState extends ConsumerState<JobSeekerAddJobScreen> {
     });
 
     return Scaffold(
-      appBar: _appBar(),
+      appBar: _appBar(ref, context),
       backgroundColor: Color(0xFF153354),
       body: SafeArea(
         child: Stack(
@@ -100,12 +101,7 @@ class _JobSeekerAddJobScreenState extends ConsumerState<JobSeekerAddJobScreen> {
     left: 20,
     child: GestureDetector(
       onTap: () {
-        ref.invalidate(jobSeekerAdProvider);
-        ref.invalidate(step1Provider);
-        ref.invalidate(step2Provider);
-        ref.invalidate(step3Provider);
-        ref.invalidate(step4Provider);
-        context.go('/dashboard');
+        _exitActions(ref, context);
       },
       child: Container(
         width: 24,
@@ -126,7 +122,7 @@ class _JobSeekerAddJobScreenState extends ConsumerState<JobSeekerAddJobScreen> {
     ),
   );
 
-  AppBar _appBar() => AppBar(
+  AppBar _appBar(WidgetRef ref, BuildContext context) => AppBar(
     backgroundColor: const Color(0xFF153354),
     // رنگ پس‌زمینه آبی تیره (مطابق تصویر)
     elevation: 0,
@@ -157,7 +153,7 @@ class _JobSeekerAddJobScreenState extends ConsumerState<JobSeekerAddJobScreen> {
               hasBadge: true,
               badgeCount: '1',
               onTap: () {
-                // TODO: notif action
+                _exitActions(ref, context);
               },
             ),
             const SizedBox(width: 8),
@@ -165,7 +161,7 @@ class _JobSeekerAddJobScreenState extends ConsumerState<JobSeekerAddJobScreen> {
             _buildIconButton(
               icon: Icons.chat_bubble_outline_rounded,
               onTap: () {
-                // TODO: support
+                _exitActions(ref, context);
               },
             ),
             const SizedBox(width: 8),
@@ -174,7 +170,22 @@ class _JobSeekerAddJobScreenState extends ConsumerState<JobSeekerAddJobScreen> {
             _buildIconButton(
               icon: Icons.more_vert_rounded,
               onTap: () {
-                // اکشن منو
+                Navigator.of(context).push(
+                  PageRouteBuilder(
+                    opaque: false,
+                    // برای اینکه پس‌زمینه شفاف باشد (اگر نیاز بود)
+                    pageBuilder: (BuildContext context, _, __) {
+                      return const PreciseRadialMenu();
+                    },
+                    transitionsBuilder:
+                        (___, Animation<double> animation, ____, Widget child) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: child,
+                          );
+                        },
+                  ),
+                );
               },
             ),
             const SizedBox(width: 16), // فاصله از حاشیه چپ صفحه
@@ -183,6 +194,15 @@ class _JobSeekerAddJobScreenState extends ConsumerState<JobSeekerAddJobScreen> {
       ),
     ],
   );
+
+  void _exitActions(WidgetRef ref, BuildContext context) {
+    ref.invalidate(jobSeekerAdProvider);
+    ref.invalidate(step1Provider);
+    ref.invalidate(step2Provider);
+    ref.invalidate(step3Provider);
+    ref.invalidate(step4Provider);
+    context.go('/dashboard');
+  }
 
   Widget _buildIconButton({
     required IconData icon,
