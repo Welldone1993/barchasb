@@ -63,10 +63,19 @@ class DashboardPage extends ConsumerWidget {
                 // گرید دکمه‌ها
                 _tabsGridView(buttonTitles, selectedIndex, ref),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 8),
 
                 // بخش نمایش محتوا بر اساس دکمه انتخاب شده
-                Expanded(child: _buildSectionContent(selectedIndex, context)),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsetsGeometry.all(8),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF3F5F7),
+                      borderRadius: BorderRadius.all(Radius.circular(16)),
+                    ),
+                    child: _buildSectionContent(selectedIndex, context),
+                  ),
+                ),
               ],
             ),
           ),
