@@ -38,7 +38,12 @@ class AppTextField extends StatelessWidget {
             : null,
     decoration: InputDecoration(
       hintText: hintText,
-      prefixIcon: Icon(icon), // آیکون در تم گلوبال استایل‌دهی شده
+      prefixIcon: Icon(icon),
+      fillColor: Colors.white,
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Colors.grey.shade300),
+      ),
     ),
   );
 }
