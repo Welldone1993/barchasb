@@ -1,96 +1,45 @@
-// --- Entity / Model ---
-class DigitalAdData {
-  // Step 1
-  final String? profileImagePath; // TODO: Handle image picking
-  final String name;
-  final String title;
-  final String? jobCategory; // TODO: Fetch categories from API
-  final String description;
+class DigitalAdDataEntity {
+  final String? owner;
+  final String? title;
+  final String? description;
+  final String? digitalTotalDesc;
+  final List<String>? projectNames;
+  final List<String>? projectDescriptions;
+  final String? minBudget;
+  final String? maxBudget;
+  final String? person; // self | other
+  final bool? remote;
+  final bool? thursdayHalf;
+  final String? paymentMethod; // Subscription | Wallet | Bank_card
+  final String? verifyCode;
+  final String? adStatus;
+  final String? requestType;
+  final String? durationUnit;
+  final int? durationAmount;
+  final DateTime? approvedAt;
+  final DateTime? expiresAt;
+  final List<dynamic>? images;
 
-  // Step 2
-  final String? cooperationType;
-  final String? gender;
-  final String? experience;
-  final String? paymentType;
-  final String? minSalary;
-  final String? maxSalary;
-  final String? startTime;
-  final String? endTime;
-  final String? militaryService;
-  final String? otherFeatures;
-
-  // Step 3
-  final String? selectedPaymentMethod; // subscription, wallet, bank
-
-  // Step 4
-  final String smsCode;
-  final bool isChatEnabled;
-  final bool isCallEnabled;
-
-  DigitalAdData({
-    this.profileImagePath,
-    this.name = '',
-    this.title = '',
-    this.jobCategory,
-    this.description = '',
-    this.cooperationType,
-    this.gender,
-    this.experience,
-    this.paymentType,
-    this.minSalary,
-    this.maxSalary,
-    this.startTime,
-    this.endTime,
-    this.militaryService,
-    this.otherFeatures,
-    this.selectedPaymentMethod,
-    this.smsCode = '',
-    this.isChatEnabled = false,
-    this.isCallEnabled = false,
+  const DigitalAdDataEntity({
+    this.owner,
+    this.title,
+    this.description,
+    this.digitalTotalDesc,
+    this.projectNames,
+    this.projectDescriptions,
+    this.minBudget,
+    this.maxBudget,
+    this.person,
+    this.remote,
+    this.thursdayHalf,
+    this.paymentMethod,
+    this.verifyCode,
+    this.adStatus,
+    this.requestType,
+    this.durationUnit,
+    this.durationAmount,
+    this.approvedAt,
+    this.expiresAt,
+    this.images,
   });
-
-  DigitalAdData copyWith({
-    String? profileImagePath,
-    String? name,
-    String? title,
-    String? jobCategory,
-    String? description,
-    String? cooperationType,
-    String? gender,
-    String? experience,
-    String? paymentType,
-    String? minSalary,
-    String? maxSalary,
-    String? startTime,
-    String? endTime,
-    String? militaryService,
-    String? otherFeatures,
-    String? selectedPaymentMethod,
-    String? smsCode,
-    bool? isChatEnabled,
-    bool? isCallEnabled,
-  }) {
-    return DigitalAdData(
-      profileImagePath: profileImagePath ?? this.profileImagePath,
-      name: name ?? this.name,
-      title: title ?? this.title,
-      jobCategory: jobCategory ?? this.jobCategory,
-      description: description ?? this.description,
-      cooperationType: cooperationType ?? this.cooperationType,
-      gender: gender ?? this.gender,
-      experience: experience ?? this.experience,
-      paymentType: paymentType ?? this.paymentType,
-      minSalary: minSalary ?? this.minSalary,
-      maxSalary: maxSalary ?? this.maxSalary,
-      startTime: startTime ?? this.startTime,
-      endTime: endTime ?? this.endTime,
-      militaryService: militaryService ?? this.militaryService,
-      otherFeatures: otherFeatures ?? this.otherFeatures,
-      selectedPaymentMethod:
-          selectedPaymentMethod ?? this.selectedPaymentMethod,
-      smsCode: smsCode ?? this.smsCode,
-      isChatEnabled: isChatEnabled ?? this.isChatEnabled,
-      isCallEnabled: isCallEnabled ?? this.isCallEnabled,
-    );
-  }
 }
