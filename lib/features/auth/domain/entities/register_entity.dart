@@ -8,6 +8,7 @@ class RegisterEntity {
   final String province;
   final String city;
   final String password;
+  final bool acceptTerms;
 
   RegisterEntity({
     required this.firstName,
@@ -19,5 +20,6 @@ class RegisterEntity {
     required this.province,
     required this.city,
     required this.password,
+    required this.acceptTerms,
   });
 }

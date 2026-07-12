@@ -11,19 +11,19 @@ class RegisterRequestModel extends RegisterEntity {
     required super.province,
     required super.city,
     required super.password,
+    required super.acceptTerms,
   });
 
-  Map<String, dynamic> toJson() {
-    return {
-      'first_name': firstName,
-      'last_name': lastName,
-      'phone_number': phoneNumber,
-      'national_id': nationalId,
-      'birth_date': birthDate,
-      'gender': gender,
-      'province': province,
-      'city': city,
-      'password': password,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+    'name': firstName,
+    'lastName': lastName,
+    'phone': phoneNumber,
+    'nationalCode': nationalId,
+    'birthDate': birthDate,
+    'gender': gender,
+    'province': province,
+    'city': city,
+    'password': password,
+    'acceptTerms': acceptTerms,
+  };
 }

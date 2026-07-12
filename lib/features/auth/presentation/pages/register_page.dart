@@ -90,6 +90,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
         province: _selectedProvince.toString(),
         city: _selectedCity ?? '',
         password: _passwordCtrl.text,
+        acceptTerms: true,
       );
       ref.read(registerProvider.notifier).register(registerData);
     } else if (!_termsAccepted) {
@@ -117,7 +118,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                AppBackButton(onPressed: () => context.go('/'),),
+                AppBackButton(onPressed: () => context.go('/')),
                 Container(
                   decoration: BoxDecoration(
                     color: Color(0xFFEFEFEF),
@@ -136,9 +137,10 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                                 showDialog(
                                   context: context,
                                   barrierDismissible: false,
-                                  builder: (context) => SecurityVerificationDialog(
-                                    phoneNumber: _phoneCtrl.text,
-                                  ),
+                                  builder: (context) =>
+                                      SecurityVerificationDialog(
+                                        phoneNumber: _phoneCtrl.text,
+                                      ),
                                 );
                               },
                             ),
@@ -214,10 +216,13 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                                       icon: Icons.location_on,
                                       items: authState.provinces
                                           .map(
-                                            (p) => DropdownMenuItem<ProvinceEntity>(
-                                              value: p,
-                                              child: Text(p.name),
-                                            ),
+                                            (p) =>
+                                                DropdownMenuItem<
+                                                  ProvinceEntity
+                                                >(
+                                                  value: p,
+                                                  child: Text(p.name),
+                                                ),
                                           )
                                           .toList(),
                                       onChanged: (val) {
@@ -245,8 +250,9 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                                           .toList(),
                                       onChanged: _selectedProvince == null
                                           ? null
-                                          : (val) =>
-                                                setState(() => _selectedCity = val),
+                                          : (val) => setState(
+                                              () => _selectedCity = val,
+                                            ),
                                     ),
                                   ),
                                 ],
@@ -305,7 +311,8 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                               const SizedBox(height: 20),
 
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   AppTextButton(
                                     onPressed: () {
@@ -349,7 +356,9 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                                 const SizedBox(width: 8),
                                 Text(
                                   'کد دعوت دارید؟',
-                                  style: TextStyle(color: colorScheme.onPrimary),
+                                  style: TextStyle(
+                                    color: colorScheme.onPrimary,
+                                  ),
                                 ),
                               ],
                             ),
@@ -359,7 +368,10 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
                                 border: Border.all(color: Colors.white24),
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: Image.asset('assets/logo_dark.png', width: 60),
+                              child: Image.asset(
+                                'assets/logo_dark.png',
+                                width: 60,
+                              ),
                             ),
                           ],
                         ),
