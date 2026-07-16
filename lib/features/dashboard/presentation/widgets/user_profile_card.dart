@@ -57,13 +57,14 @@ class UserProfileCard extends ConsumerWidget {
               ),
               const SizedBox(width: 16),
               Material(
-                color: Theme.of(context).secondaryHeaderColor.withValues(alpha: 0.4),
+                color: Theme.of(
+                  context,
+                ).secondaryHeaderColor.withValues(alpha: 0.4),
                 borderRadius: BorderRadius.circular(12),
                 child: IconButton(
                   icon: Icon(Icons.edit_outlined, size: 20),
                   onPressed: () {},
-
-                 ),
+                ),
               ),
             ],
           ),
@@ -91,7 +92,6 @@ class _LoadingShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Shimmer.fromColors(
       baseColor: Colors.grey[300]!,
       highlightColor: Colors.grey[100]!,

@@ -1,4 +1,4 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/entities/digital_ad_entity.dart';
@@ -12,7 +12,6 @@ class DigitalAdPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(digitalAdsProvider);
-    final theme = Theme.of(context);
     return Column(
       children: [
         _buildSearchBar(context, ref),
@@ -59,7 +58,6 @@ class DigitalAdPage extends ConsumerWidget {
   );
 
   Widget _buildSearchBar(BuildContext context, WidgetRef ref) {
-
     return Row(
       children: [
         Expanded(
@@ -111,48 +109,48 @@ class DigitalAdPage extends ConsumerWidget {
 
   Padding _asd(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'فیلتر آگهی‌ها',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            // در اینجا می‌توانید تنظیمات فیلتر را قرار دهید
-            // مثلا Dropdown یا Checkbox که به پروایدرهای دیگری متصل هستند
-            const Text('دسته‌بندی (مثال)'),
-            const SizedBox(height: 10),
-            Wrap(
-              spacing: 8,
-              children: [
-                ChoiceChip(
-                  label: const Text('طراحی وب'),
-                  selected: true,
-                  onSelected: (v) {},
-                ),
-                ChoiceChip(
-                  label: const Text('برنامه‌نویسی'),
-                  selected: false,
-                  onSelected: (v) {},
-                ),
-              ],
-            ),
-            const SizedBox(height: 30),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  // اعمال فیلتر و بستن دیالوگ
-                  Navigator.pop(context);
-                },
-                child: const Text('اعمال فیلتر'),
+      padding: const EdgeInsets.all(24.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'فیلتر آگهی‌ها',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 20),
+          // در اینجا می‌توانید تنظیمات فیلتر را قرار دهید
+          // مثلا Dropdown یا Checkbox که به پروایدرهای دیگری متصل هستند
+          const Text('دسته‌بندی (مثال)'),
+          const SizedBox(height: 10),
+          Wrap(
+            spacing: 8,
+            children: [
+              ChoiceChip(
+                label: const Text('طراحی وب'),
+                selected: true,
+                onSelected: (v) {},
               ),
+              ChoiceChip(
+                label: const Text('برنامه‌نویسی'),
+                selected: false,
+                onSelected: (v) {},
+              ),
+            ],
+          ),
+          const SizedBox(height: 30),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                // اعمال فیلتر و بستن دیالوگ
+                Navigator.pop(context);
+              },
+              child: const Text('اعمال فیلتر'),
             ),
-          ],
-        ),
-      );
+          ),
+        ],
+      ),
+    );
   }
 }

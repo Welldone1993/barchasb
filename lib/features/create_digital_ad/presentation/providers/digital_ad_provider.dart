@@ -5,7 +5,7 @@ import '../../domain/entities/digital_ad_entity.dart';
 // --- State ---
 class DigitalAdState {
   final int currentStep;
-  final DigitalAdDataEntity adData;
+  final DigitalAdEntity adData;
   final bool isSubmitting;
   final String? errorMessage;
   final bool isSuccess;
@@ -20,7 +20,7 @@ class DigitalAdState {
 
   DigitalAdState copyWith({
     int? currentStep,
-    DigitalAdDataEntity? adData,
+    DigitalAdEntity? adData,
     bool? isSubmitting,
     String? errorMessage,
     bool? isSuccess,
@@ -40,9 +40,9 @@ class DigitalAdNotifier extends StateNotifier<DigitalAdState> {
   // TODO: Inject your Repository here for API calls
   // final AdRepository repository;
 
-  DigitalAdNotifier() : super(DigitalAdState(adData: DigitalAdDataEntity()));
+  DigitalAdNotifier() : super(DigitalAdState(adData: DigitalAdEntity()));
 
-  void updateData(DigitalAdDataEntity newData) {
+  void updateData(DigitalAdEntity newData) {
     state = state.copyWith(adData: newData);
   }
 
