@@ -1,4 +1,4 @@
-import 'package:barchasb/features/create_digital_ad/data/models/create_digital_ad_request_dto.dart';
+import 'package:barchasb/features/create_digital_ad/data/dtos/create_digital_ad_request_dto.dart';
 import 'package:fpdart/fpdart.dart';
 
 import '../../../../core/utils/failure.dart';
