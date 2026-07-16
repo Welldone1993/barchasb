@@ -32,7 +32,7 @@ class DigitalAdPage extends ConsumerWidget {
     );
   }
 
-  Widget _list(List<DigitalAdEntity> ads) => ListView.separated(
+  Widget _list(List<CreateDigitalAdEntity> ads) => ListView.separated(
     shrinkWrap: true,
     physics: const AlwaysScrollableScrollPhysics(),
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),

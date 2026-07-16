@@ -6,7 +6,7 @@ import '../../data/datasource/digital_ads_remote_data_source.dart';
 import '../../data/repositories/digital_ads_repository.dart';
 import '../../domain/entities/digital_ad_entity.dart';
  class DigitalAdsNotifier
-    extends StateNotifier<AsyncValue<List<DigitalAdEntity>>> {
+    extends StateNotifier<AsyncValue<List<CreateDigitalAdEntity>>> {
   final DigitalAdsRepositoryImpl _repository;
   String _currentQuery = '';
   DigitalAdsNotifier(this._repository) : super(const AsyncValue.loading()) {
@@ -43,7 +43,7 @@ import '../../domain/entities/digital_ad_entity.dart';
 final digitalAdsProvider =
     StateNotifierProvider<
       DigitalAdsNotifier,
-      AsyncValue<List<DigitalAdEntity>>
+      AsyncValue<List<CreateDigitalAdEntity>>
     >((ref) {
       final dio = ref.watch(dioProvider);
       final remote = DigitalAdsRemoteDataSourceImpl(dio);

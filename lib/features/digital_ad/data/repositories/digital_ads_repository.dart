@@ -11,11 +11,11 @@ class DigitalAdsRepositoryImpl extends DigitalAdsRepository {
   DigitalAdsRepositoryImpl(this._remoteDatasource);
 
   @override
-  Future<Either<Failure, List<DigitalAdEntity>>> fetchDigitalAds({
+  Future<Either<Failure, List<CreateDigitalAdEntity>>> fetchDigitalAds({
     required String search,
   }) async {
     try {
-      final List<DigitalAdEntity> ads = await _remoteDatasource.fetchDigitalAds(
+      final List<CreateDigitalAdEntity> ads = await _remoteDatasource.fetchDigitalAds(
         search: search,
       );
       return Right(ads);

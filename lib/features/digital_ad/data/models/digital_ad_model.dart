@@ -1,6 +1,6 @@
 import '../../domain/entities/digital_ad_entity.dart';
 
-class DigitalAdModel extends DigitalAdEntity {
+class DigitalAdModel extends CreateDigitalAdEntity {
   const DigitalAdModel({
     required super.id,
     required super.title,

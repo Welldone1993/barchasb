@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../domain/entities/digital_ad_entity.dart';
 
 class DigitalAdCard extends StatelessWidget {
-  final DigitalAdEntity
+  final CreateDigitalAdEntity
   digitalAd; // اگر مدل خاصی دارید (مثل AdEntity) آن را جایگزین dynamic کنید
 
   const DigitalAdCard({super.key, required this.digitalAd});

@@ -13,6 +13,10 @@ class ApiEndpoints {
   static const String sellerAds = '$adsController/seller';
   static const String digitalAds = '$adsController/digital';
 
+  static const String createDigitalAd = '$adsController/digital';
+
+
+
   // user-view
   static const userViewController = '/user-views';
   static const weeklyStats =

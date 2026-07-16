@@ -13,7 +13,7 @@ import 'digital_ads_provider.dart';
 final searchQueryProvider = StateProvider<String>((ref) => '');
 
 // پروایدر ترکیبی: لیست اصلی را می‌گیرد و اگر متنی سرچ شده باشد، آن را فیلتر می‌کند
-final filteredDigitalAdsProvider = Provider<AsyncValue<List<DigitalAdEntity>>>((
+final filteredDigitalAdsProvider = Provider<AsyncValue<List<CreateDigitalAdEntity>>>((
   ref,
 ) {
   final adsState = ref.watch(digitalAdsProvider);

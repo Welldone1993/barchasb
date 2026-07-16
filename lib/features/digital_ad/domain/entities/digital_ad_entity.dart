@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class DigitalAdEntity extends Equatable {
+class CreateDigitalAdEntity extends Equatable {
   final String id;
   final String title;
   final String? description;
@@ -8,7 +8,7 @@ class DigitalAdEntity extends Equatable {
   final DateTime createdAt;
   final bool isBookmarked;
 
-  const DigitalAdEntity({
+  const CreateDigitalAdEntity({
     required this.id,
     required this.title,
     this.description,
