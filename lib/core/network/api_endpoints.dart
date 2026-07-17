@@ -15,6 +15,7 @@ class ApiEndpoints {
 
   static const String createDigitalAd = '$adsController/digital';
   static const String createEmployerAd = '$adsController/employer';
+  static const String createJobseekerAd = '$adsController/jobseeker';
 
 
 
