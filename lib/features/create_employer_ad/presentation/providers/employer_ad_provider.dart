@@ -6,7 +6,7 @@ import '../../data/datasources/create_employer_ad_remote_data_source.dart';
 import '../../data/dtos/create_employer_ad_dto.dart';
 import '../../data/dtos/employer_ad_category_dto.dart';
 import '../../data/dtos/job_detail_dto.dart';
-import '../../data/repositories/create_employer_ad_repository.dart';
+import '../../data/repositories/create_employer_ad_repository_impl.dart';
 import '../../domain/entities/create_employer_ad_entity.dart';
 import '../../domain/repositories/create_employer_ad_repository.dart';
 import 'step_1_provider.dart';

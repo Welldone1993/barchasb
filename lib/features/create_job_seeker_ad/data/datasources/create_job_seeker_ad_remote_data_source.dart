@@ -4,7 +4,7 @@ import '../../../../core/network/api_endpoints.dart';
 import '../dtos/create_job_seeker_ad_dto.dart';
 
 abstract class CreateJobSeekerAdRemoteDataSource {
-  Future<dynamic> createJobSeekerAd(CreateJobSeekerAdRequestDto employerAd);
+  Future<dynamic> createJobSeekerAd(CreateJobSeekerAdRequestDto jobSeekerAd);
 }
 
 class CreateJobSeekerAdRemoteDataSourceImpl
@@ -15,11 +15,11 @@ class CreateJobSeekerAdRemoteDataSourceImpl
 
   @override
   Future<dynamic> createJobSeekerAd(
-    CreateJobSeekerAdRequestDto employerAd,
+    CreateJobSeekerAdRequestDto jobSeekerAd,
   ) async {
     final response = await _dio.post(
       ApiEndpoints.createJobseekerAd,
-      data: employerAd.toFormData(),
+      data: jobSeekerAd.toFormData(),
     );
     return response;
   }

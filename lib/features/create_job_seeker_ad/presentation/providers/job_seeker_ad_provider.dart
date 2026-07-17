@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/legacy.dart';
 import '../../../../core/network/dio_provider.dart';
 import '../../data/datasources/create_job_seeker_ad_remote_data_source.dart';
 import '../../data/dtos/create_job_seeker_ad_dto.dart';
-import '../../data/repositories/create_job_seeker_ad_repository.dart';
+import '../../data/repositories/create_job_seeker_ad_repository_impl.dart';
 import '../../domain/repositories/create_job_seeker_ad_repository.dart';
 import 'step_1_provider.dart';
 import 'step_2_provider.dart';

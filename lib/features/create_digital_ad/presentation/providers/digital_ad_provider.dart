@@ -6,7 +6,7 @@ import '../../../../core/network/dio_provider.dart';
 import '../../data/datasources/create_digital_ad_remote_data_source.dart';
 import '../../data/dtos/create_digital_ad_request_dto.dart';
 import '../../data/dtos/required_skill_dto.dart';
-import '../../data/repositories/create_digital_ad_repository.dart';
+import '../../data/repositories/create_digital_ad_repository_impl.dart';
 import '../../domain/repositories/create_digital_ad_repository.dart';
 import 'step_1_provider.dart';
 import 'step_2_provider.dart';
