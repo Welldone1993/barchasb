@@ -1,30 +1,34 @@
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url 'https://maven.myket.ir/' }
-    }
-}
-
-val newBuildDir: Directory =
-    rootProject.layout.buildDirectory
-        .dir("../../build")
-        .get()
+val newBuildDir: Directory = rootProject.layout.buildDirectory.dir("../../build").get()
 rootProject.layout.buildDirectory.value(newBuildDir)
 
 subprojects {
     val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
     project.layout.buildDirectory.value(newSubprojectBuildDir)
 }
+
 subprojects {
-    project.evaluationDependsOn(":app")
+    if (project.name != "app") {
+        project.evaluationDependsOn(":app")
+    }
+}
+
+subprojects {
+    val applyNdkConfig = {
+        val androidExtension = extensions.findByName("android")
+        if (androidExtension is com.android.build.gradle.BaseExtension) {
+            androidExtension.ndkVersion = "29.0.14033849"
+        }
+    }
+
+    if (state.executed) {
+        applyNdkConfig()
+    } else {
+        afterEvaluate {
+            applyNdkConfig()
+        }
+    }
 }
 
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
-}
-buildscript {
-    repositories {
-        maven { url 'https://maven.myket.ir/' }
-    }
 }
