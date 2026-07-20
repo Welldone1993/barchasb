@@ -66,8 +66,8 @@ class LoginPage extends ConsumerWidget {
                       child: AppElevatedButton(
                         isLoading: state.isLoading,
                         onPressed: () {
-                          context.pushReplacement('/dashboard');
-                          return;
+                          // context.pushReplacement('/dashboard');
+                          // return;
                           if (phoneController.text.trim().isEmpty ||
                               passwordController.text.trim().isEmpty) {
                             return;
