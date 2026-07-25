@@ -29,7 +29,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   Future<List<AdModel>> _getAds(String url) async {
     final response = await _dio.get(url);
     if (response.statusCode == 200) {
-      final List<dynamic> data = response.data;
+      final List<dynamic> data = response.data['data'];
       return data.map((json) => AdModel.fromJson(json)).toList();
     } else {
       throw DioException(

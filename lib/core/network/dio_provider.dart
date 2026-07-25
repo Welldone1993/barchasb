@@ -12,7 +12,7 @@ final dioProvider = Provider<Dio>((ref) {
 
   final dio = Dio(
     BaseOptions(
-      baseUrl: 'https://barchasb-main-server.ir/api',
+      baseUrl: 'https://barchasb.liara.run/api',
       connectTimeout: const Duration(seconds: 10),
       receiveTimeout: const Duration(seconds: 10),
       headers: {
@@ -27,7 +27,7 @@ final dioProvider = Provider<Dio>((ref) {
       onRequest: (options, handler) async {
         final token = await storage.read(key: 'auth_token');
         if (token != null) {
-          options.headers['Authorization'] = token;
+          options.headers['cookie'] = token.replaceFirst('Bearer ', 'accessToken=');
         }
         return handler.next(options);
       },

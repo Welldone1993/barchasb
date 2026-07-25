@@ -71,8 +71,6 @@ class AuthRepositoryImpl implements AuthRepository {
       province: registerData.province,
       city: registerData.city,
       password: registerData.password,
-      acceptTerms: registerData.acceptTerms,
-
     );
     try {
       final responseModel = await _remote.register(requestModel);

@@ -11,7 +11,6 @@ class RegisterRequestModel extends RegisterEntity {
     required super.province,
     required super.city,
     required super.password,
-    required super.acceptTerms,
   });
 
   Map<String, dynamic> toJson() => {
@@ -24,6 +23,5 @@ class RegisterRequestModel extends RegisterEntity {
     'province': province,
     'city': city,
     'password': password,
-    'acceptTerms': acceptTerms,
   };
 }

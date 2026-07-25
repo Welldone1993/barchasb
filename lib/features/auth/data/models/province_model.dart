@@ -9,9 +9,9 @@ class ProvinceModel extends ProvinceEntity {
 
   factory ProvinceModel.fromJson(Map<String, dynamic> json) {
     return ProvinceModel(
-      id: json['_id'],
-      name: json['name'],
-      cities: List<String>.from(json['cities']),
+      id: json['_id'] ?? '',
+      name: json['name'] ?? '',
+      cities: List<String>.from(json['cities'] ?? ''),
     );
   }
 }
