@@ -3,7 +3,7 @@ class UserEntity {
   final String name;
   final String lastName;
   final String phone;
-  final int role;
+  final String role;
 
   UserEntity({
     required this.id,

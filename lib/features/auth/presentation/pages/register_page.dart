@@ -87,10 +87,9 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
         nationalId: _nationalIdCtrl.text,
         birthDate: _birthDateCtrl.text,
         gender: _selectedGender?.label ?? '',
-        province: _selectedProvince.toString(),
+        province: _selectedProvince?.name ?? '',
         city: _selectedCity ?? '',
         password: _passwordCtrl.text,
-        acceptTerms: true,
       );
       ref.read(registerProvider.notifier).register(registerData);
     } else if (!_termsAccepted) {

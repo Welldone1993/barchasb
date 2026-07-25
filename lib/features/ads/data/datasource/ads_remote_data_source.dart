@@ -21,21 +21,21 @@ class AdsRemoteDataSourceImpl implements AdsRemoteDataSource {
   @override
   Future<List<JobSeekerAdModel>> fetchJobSeekerAds() async {
     final response = await _dio.get(ApiEndpoints.jobseekerAds);
-    final List<dynamic> data = response.data;
+    final List<dynamic> data = response.data['data'];
     return data.map((json) => JobSeekerAdModel.fromJson(json)).toList();
   }
 
   @override
   Future<List<EmployerAdModel>> fetchEmployerAds() async {
     final response = await _dio.get(ApiEndpoints.employerAds);
-    final List<dynamic> data = response.data;
+    final List<dynamic> data = response.data['data'];
     return data.map((json) => EmployerAdModel.fromJson(json)).toList();
   }
 
   @override
   Future<List<SellerAdModel>> fetchSellerAds() async {
     final response = await _dio.get(ApiEndpoints.sellerAds);
-    final List<dynamic> data = response.data;
+    final List<dynamic> data = response.data['data'];
     return data.map((json) => SellerAdModel.fromJson(json)).toList();
   }
 }

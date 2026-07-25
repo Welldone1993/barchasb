@@ -18,7 +18,7 @@ class WorkSpaceRemoteDataSourceImpl implements WorkSpaceRemoteDataSource {
   @override
   Future<List<AdModel>> fetchAds() async {
     final response = await _dio.get(ApiEndpoints.sellerAds);
-    final List<dynamic> data = response.data;
+    final List<dynamic> data = response.data['data'];
     return data.map((json) => AdModel.fromJson(json)).toList();
   }
 
