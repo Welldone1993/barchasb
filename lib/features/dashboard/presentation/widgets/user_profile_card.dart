@@ -18,7 +18,7 @@ class UserProfileCard extends ConsumerWidget {
         data: (user) => Container(
           padding: EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: theme.primaryColor,
+            color: Color(0xff436181),
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
               BoxShadow(

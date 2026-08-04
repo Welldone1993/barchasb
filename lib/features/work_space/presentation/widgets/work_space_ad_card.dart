@@ -63,8 +63,8 @@ class WorkSpaceAdCard extends StatelessWidget {
                     child: CircleAvatar(
                       radius: 40,
                       // بررسی وجود عکس و نمایش یک عکس پیش‌فرض در صورت نبود آن
-                      backgroundImage: (ad.mainImageUrl != null && ad.mainImageUrl!.isNotEmpty)
-                          ? NetworkImage(ad.mainImageUrl!)
+                      backgroundImage: (ad.imageUrl != null && ad.imageUrl!.isNotEmpty)
+                          ? NetworkImage(ad.imageUrl!)
                           : const NetworkImage('https://via.placeholder.com/150?text=No+Image') as ImageProvider,
                     ),
                   ),
@@ -84,7 +84,7 @@ class WorkSpaceAdCard extends StatelessWidget {
 
                   // دسته‌بندی یا نام فرد ثبت‌کننده
                   Text(
-                    ad.category ?? ad.person ?? 'بدون دسته‌بندی',
+                    ad.category ?? ad.subCategories ?? 'بدون دسته‌بندی',
                     style: const TextStyle(
                       fontSize: 14,
                       color: Colors.grey,
@@ -100,9 +100,9 @@ class WorkSpaceAdCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
-                      ad.priceIRT != null
-                          ? '${ad.priceIRT} تومان'
-                          : (ad.status ?? 'وضعیت نامشخص'),
+                      ad.price != null
+                          ? '${ad.price} تومان'
+                          :'وضعیت نامشخص',
                       style: const TextStyle(
                         color: Color(0xFF1E3A5F),
                         fontWeight: FontWeight.w600,
