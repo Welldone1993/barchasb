@@ -205,10 +205,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: "67f7e688aac01c965ca95f4ed59c51bff304049c7611bb15cf90ca21212027a8"
+      sha256: "57d9a1dd5063f85fa3107fb42d1faffda52fdc948cefd5fe5ea85267a5fc7343"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "10.3.11"
+    version: "10.3.10"
   file_selector_linux:
     dependency: transitive
     description:
