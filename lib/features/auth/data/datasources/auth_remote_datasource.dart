@@ -10,7 +10,7 @@ import '../models/user_model.dart';
 abstract class AuthRemoteDataSource {
   Future<LoginResponseModel> login(LoginRequestModel model);
 
-  Future<UserModel> register(RegisterRequestModel request);
+  Future<dynamic> register(RegisterRequestModel request);
 
   Future<List<ProvinceModel>> getProvinces();
 }
@@ -28,14 +28,14 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<UserModel> register(RegisterRequestModel request) async {
+  Future<dynamic> register(RegisterRequestModel request) async {
     final response = await _dio.post(
       ApiEndpoints.register,
 
       data: request.toJson(),
     );
 
-    return UserModel.fromJson(response.data);
+    return response.data;
   }
 
   @override
