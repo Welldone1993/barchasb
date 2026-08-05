@@ -1,8 +1,10 @@
 import 'package:barchasb/features/auth/domain/entities/province_entity.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../../../../core/network/dio_provider.dart';
+import '../../../../core/widgets/comming_soon_snack_bar.dart';
 import '../../data/datasources/auth_remote_datasource.dart';
 import '../../data/repositories/auth_repository_impl.dart';
 import '../../domain/entities/login_entity.dart';
@@ -48,13 +50,19 @@ class RegisterNotifier extends StateNotifier<RegisterState> {
     getProvinces();
   }
 
-  Future<void> register(RegisterEntity data) async {
+  Future<void> register(BuildContext context,RegisterEntity data) async {
     state = state.copyWith(isLoading: true, clearError: true);
     final result = await _repository.register(data);
 
     result.fold(
-      (failure) =>
-          state = state.copyWith(isLoading: false, error: failure.toString()),
+      (failure) {
+
+          state = state.copyWith(isLoading: false, error: failure.toString());
+          CustomSnackBar(
+            title: failure.message,
+          ).show(context);
+
+    },
       (user) {
         state = state.copyWith(isLoading: false, registeredUser: user);
       },

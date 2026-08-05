@@ -91,7 +91,7 @@ class _RegisterPageState extends ConsumerState<RegisterPage> {
         city: _selectedCity ?? '',
         password: _passwordCtrl.text,
       );
-      ref.read(registerProvider.notifier).register(registerData);
+      ref.read(registerProvider.notifier).register(context, registerData);
     } else if (!_termsAccepted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
