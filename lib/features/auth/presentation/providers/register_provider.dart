@@ -2,6 +2,7 @@ import 'package:barchasb/features/auth/domain/entities/province_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../../core/network/dio_provider.dart';
 import '../../../../core/widgets/comming_soon_snack_bar.dart';
@@ -56,15 +57,14 @@ class RegisterNotifier extends StateNotifier<RegisterState> {
 
     result.fold(
       (failure) {
-
           state = state.copyWith(isLoading: false, error: failure.toString());
           CustomSnackBar(
             title: failure.message,
           ).show(context);
-
     },
       (user) {
-        state = state.copyWith(isLoading: false, registeredUser: user);
+        state = state.copyWith(isLoading: false);
+        context.go('/login');
       },
     );
   }

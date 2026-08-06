@@ -1,13 +1,15 @@
+import 'package:barchasb/core/network/dio_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:math' as math;
-
 import 'package:go_router/go_router.dart';
 
-class PreciseRadialMenu extends StatelessWidget {
+class PreciseRadialMenu extends ConsumerWidget {
   const PreciseRadialMenu({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: const Color(0xFF132F51), // رنگ پس‌زمینه سرمه‌ای دقیق
       body: LayoutBuilder(
@@ -28,6 +30,7 @@ class PreciseRadialMenu extends StatelessWidget {
                 onTapUp: (details) {
                   _handleTap(
                     context,
+                    ref,
                     details.localPosition,
                     width,
                     height,
@@ -242,12 +245,13 @@ class PreciseRadialMenu extends StatelessWidget {
   // تشخیص دقیق محل کلیک بر اساس فرمول‌های ریاضی و زوایا
   void _handleTap(
     BuildContext context,
+    WidgetRef ref,
     Offset localPosition,
     double width,
     double height,
     double innerR,
     double outerR,
-  ) {
+  ) async {
     final x = localPosition.dx;
     final y = localPosition.dy;
 
@@ -261,12 +265,14 @@ class PreciseRadialMenu extends StatelessWidget {
         context.go('/');
       } else if (angle >= 30 && angle < 60) {
         print("خروج کلیک شد");
-        // TODO: پاک کردن توکن
-        // ref.read(tokenProvider.notifier).state = null;
-        context.pop();
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('با موفقیت خارج شدید')));
+        final storage = ref.read(secureStorageProvider);
+        await storage.delete(key: 'auth_token');
+        if (context.mounted) {
+          context.go('/');
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(const SnackBar(content: Text('با موفقیت خارج شدید')));
+        }
       } else if (angle >= 60 && angle <= 90) {
         print("پشتیبانی کلیک شد");
         ScaffoldMessenger.of(

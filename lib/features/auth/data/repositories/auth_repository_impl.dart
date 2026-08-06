@@ -58,7 +58,7 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<Failure, UserEntity>> register(
+  Future<Either<Failure, dynamic>> register(
     RegisterEntity registerData,
   ) async {
     final requestModel = RegisterRequestModel(
@@ -67,14 +67,14 @@ class AuthRepositoryImpl implements AuthRepository {
       phoneNumber: registerData.phoneNumber,
       nationalId: registerData.nationalId,
       birthDate: registerData.birthDate,
-      gender: registerData.gender,
+      gender: registerData.gender == 'مرد' ? 'male' : 'female',
       province: registerData.province,
       city: registerData.city,
       password: registerData.password,
     );
     try {
       final responseModel = await _remote.register(requestModel);
-      return Right(_toUserEntity(responseModel));
+      return Right(responseModel);
     } catch (e) {
       return Left(Failure(e.toString()));
     }

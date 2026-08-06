@@ -19,112 +19,115 @@ class LoginPage extends ConsumerWidget {
     final TextEditingController passwordController = TextEditingController();
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(32),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              AppBackButton(onPressed: () => context.go('/'),),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  color: lightGrey,
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: Column(
-                  children: [
-                    const Text(
-                      'ورود',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: darkBlue,
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-                    _buildTextField(
-                      controller: phoneController,
-                      hint: 'شماره تلفن',
-                      icon: Icons.phone_enabled_rounded,
-                    ),
-                    const SizedBox(height: 16),
-                    _buildTextField(
-                      controller: passwordController,
-                      hint: 'رمز ورود',
-                      icon: Icons.lock_outline_rounded,
-                      isPassword: true,
-                    ),
-                    const SizedBox(height: 24),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: AppElevatedButton(
-                        isLoading: state.isLoading,
-                        onPressed: () {
-                          // context.pushReplacement('/dashboard');
-                          // return;
-                          if (phoneController.text.trim().isEmpty ||
-                              passwordController.text.trim().isEmpty) {
-                            return;
-                          }
-                          ref
-                              .read(loginProvider.notifier)
-                              .login(
-                                context,
-                                phoneController.text.trim(),
-                                passwordController.text.trim(),
-                              );
-                        },
-                        text: 'ورود',
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButton(
-                          onPressed: () => context.push('/register'),
-                          child: const Text(
-                            'ثبت نام',
-                            style: TextStyle(color: darkBlue),
-                          ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(32),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AppBackButton(onPressed: () => context.go('/'),),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: const EdgeInsets.all(24),
+                  decoration: BoxDecoration(
+                    color: lightGrey,
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: Column(
+                    children: [
+                      const Text(
+                        'ورود',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: darkBlue,
                         ),
-                        TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            'فراموشی رمز عبور',
-                            style: TextStyle(color: Colors.grey),
-                          ),
+                      ),
+                      const SizedBox(height: 24),
+                      _buildTextField(
+                        controller: phoneController,
+                        hint: 'شماره تلفن',
+                        icon: Icons.phone_enabled_rounded,
+                      ),
+                      const SizedBox(height: 16),
+                      _buildTextField(
+                        controller: passwordController,
+                        hint: 'رمز ورود',
+                        icon: Icons.lock_outline_rounded,
+                        isPassword: true,
+                      ),
+                      const SizedBox(height: 24),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: AppElevatedButton(
+                          isLoading: state.isLoading,
+                          onPressed: () {
+                            // context.pushReplacement('/dashboard');
+                            // return;
+                            if (phoneController.text.trim().isEmpty ||
+                                passwordController.text.trim().isEmpty) {
+                              return;
+                            }
+                            ref
+                                .read(loginProvider.notifier)
+                                .login(
+                                  context,
+                                  phoneController.text.trim(),
+                                  passwordController.text.trim(),
+                                );
+                          },
+                          text: 'ورود',
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(
-                  vertical: 16,
-                  horizontal: 16,
-                ),
-                height: 250,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: darkBlue,
-                  borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(32),
-                    bottom: Radius.circular(32),
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton(
+                            onPressed: () => context.push('/register'),
+                            child: const Text(
+                              'ثبت نام',
+                              style: TextStyle(color: darkBlue),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            child: const Text(
+                              'فراموشی رمز عبور',
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                child: Center(
-                  child: Image.asset('assets/logo_dark.png', width: 120),
+                Container(
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 16,
+                    horizontal: 16,
+                  ),
+                  height: 250,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: darkBlue,
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(32),
+                      bottom: Radius.circular(32),
+                    ),
+                  ),
+                  child: Center(
+                    child: Image.asset('assets/logo_dark.png', width: 120),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -9,7 +9,7 @@ import '../entities/user_entity.dart';
 abstract class AuthRepository {
   Future<Either<Failure, LoginEntity>> login(String phone, String password);
 
-  Future<Either<Failure, UserEntity>> register(RegisterEntity registerData);
+  Future<Either<Failure, dynamic>> register(RegisterEntity registerData);
 
   Future<Either<Failure, List<ProvinceEntity>>> getProvinces();
 }
